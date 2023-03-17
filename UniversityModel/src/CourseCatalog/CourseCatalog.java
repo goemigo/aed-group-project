@@ -4,6 +4,7 @@
  */
 package CourseCatalog;
 
+import Professor.Professor;
 import java.util.ArrayList;
 
 /**
@@ -12,13 +13,31 @@ import java.util.ArrayList;
  */
 public class CourseCatalog {
     ArrayList<Course> courses;
-
+    private Professor professor;
+    
+    public CourseCatalog(Professor p){
+        this.courses = new ArrayList<Course>();
+        this.professor = p;
+    }
+    
     public ArrayList<Course> getCourses() {
         return courses;
     }
 
-    public void addToCourses(Course course) {
-        this.courses.add(course);
+    public Course createCourse(String name,String topic, String region, String language, int price){
+        Course c = new Course(name,topic,region,language,price);
+        this.courses.add(c);
+        return c;
     }
+    
+    public Course getCourseById(String id){
+        for (Course c : courses) {
+            if (c.getCourseId().equals(id))
+                return c;
+        }
+        return null;
+    }
+    
+    
     
 }
