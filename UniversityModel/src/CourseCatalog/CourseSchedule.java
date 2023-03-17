@@ -12,17 +12,17 @@ import java.util.ArrayList;
  */
 public class CourseSchedule {
     private String term;
-    private CourseCatalog coursecatalog;
+    private CourseCatalog courseCatalog;
     private ArrayList<CourseOffer> schedule;
     
-    public CourseSchedule(String t,CourseCatalog coursecatalog){
+    public CourseSchedule(String t,CourseCatalog cc){
         this.term = t;
-        this.coursecatalog = coursecatalog;
+        this.courseCatalog = cc;
         schedule = new ArrayList<CourseOffer>();
     }
     
-    public CourseOffer newCourseOffer(String id) {
-        Course c = coursecatalog.getCourseById(id);
+    public CourseOffer newCourseOffer(String courseId) {
+        Course c = courseCatalog.getCourseById(courseId);
         if (c == null)
             return null;
         
