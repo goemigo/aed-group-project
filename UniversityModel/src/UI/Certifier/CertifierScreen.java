@@ -6,7 +6,7 @@
 package UI.Certifier;
 
 import Platform.Platform;
-import UI.LoginView;
+import UI.MainJFrame;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
