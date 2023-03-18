@@ -5,7 +5,6 @@
 package UI.Professor;
 
 import Platform.Platform;
-import Professor.Professor;
 import UserAccount.UserAccount;
 
 /**
@@ -16,18 +15,14 @@ public class ProfessorScreen extends javax.swing.JFrame {
 
     private Platform platform;
     private UserAccount ua;
-    private Professor professor;
 
     /**
      * Creates new form LoginView
      */
     public ProfessorScreen(Platform platform, UserAccount useraccount) {
         initComponents();
-        this.setVisible(true);
         this.platform = platform;
         this.ua = useraccount;
-        
-        this.professor = this.platform.getProfessorDirectory().findProfessorById(ua.getAccountId());
     }
 
     private ProfessorScreen() {
@@ -43,116 +38,21 @@ public class ProfessorScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jPanel1 = new javax.swing.JPanel();
-        backBtn = new javax.swing.JButton();
-        payBtn = new javax.swing.JButton();
-        courseBtn = new javax.swing.JButton();
-        stuBtn = new javax.swing.JButton();
-        stuBtn1 = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-
-        backBtn.setText("LOGOUT");
-        backBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backBtnActionPerformed(evt);
-            }
-        });
-
-        payBtn.setText("Subscription management");
-        payBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                payBtnActionPerformed(evt);
-            }
-        });
-
-        courseBtn.setText("Course Management");
-        courseBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                courseBtnActionPerformed(evt);
-            }
-        });
-
-        stuBtn.setText("Student Management");
-        stuBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stuBtnActionPerformed(evt);
-            }
-        });
-
-        stuBtn1.setText("My Analytics");
-        stuBtn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stuBtn1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(payBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(courseBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(stuBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(stuBtn1)
-                .addContainerGap(66, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(payBtn)
-                    .addComponent(courseBtn)
-                    .addComponent(stuBtn)
-                    .addComponent(stuBtn1))
-                .addContainerGap(49, Short.MAX_VALUE))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
-
-        jSplitPane1.setTopComponent(jPanel1);
-
-        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        // TODO add your handling code here:
-
-        this.setVisible(false);
-        MainJFrame mj = new MainJFrame(this.platform);
-    }//GEN-LAST:event_backBtnActionPerformed
-
-    private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
-        // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new SubscriptionJPanel(this.platform,ua));
-    }//GEN-LAST:event_payBtnActionPerformed
-
-    private void courseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseBtnActionPerformed
-        // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new CourseMgtJPanel(this.platform,ua));
-    }//GEN-LAST:event_courseBtnActionPerformed
-
-    private void stuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stuBtnActionPerformed
-        // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new StudentMgtJPanel(this.platform,ua));
-    }//GEN-LAST:event_stuBtnActionPerformed
-
-    private void stuBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stuBtn1ActionPerformed
-        // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new ProfessorAnalyticsJPanel(this.platform,ua));
-    }//GEN-LAST:event_stuBtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,12 +93,5 @@ public class ProfessorScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton courseBtn;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JButton payBtn;
-    private javax.swing.JButton stuBtn;
-    private javax.swing.JButton stuBtn1;
     // End of variables declaration//GEN-END:variables
 }
