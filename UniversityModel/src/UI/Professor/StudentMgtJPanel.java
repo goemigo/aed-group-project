@@ -48,6 +48,8 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         populateCourseCombo();
         
         this.selectedCourse = (Course) comboCourse.getSelectedItem();
+        
+        fieldRep.setText(String.valueOf(this.professor.getReputation()));
     }
     
     public StudentMgtJPanel() {
@@ -76,6 +78,8 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         fieldCourseName = new javax.swing.JTextField();
         passBtn = new javax.swing.JButton();
         failBtn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        fieldRep = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -140,7 +144,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
                 passBtnActionPerformed(evt);
             }
         });
-        add(passBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, -1, -1));
+        add(passBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 500, -1, -1));
 
         failBtn.setText("Fail");
         failBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +152,13 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
                 failBtnActionPerformed(evt);
             }
         });
-        add(failBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, -1, -1));
+        add(failBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, -1, -1));
+
+        jLabel3.setText("My reputation index:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, -1, 20));
+
+        fieldRep.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        add(fieldRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 130, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboCourseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboCourseFocusLost
@@ -280,8 +290,10 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboCourse;
     private javax.swing.JButton failBtn;
     private javax.swing.JTextField fieldCourseName;
+    private javax.swing.JTextField fieldRep;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton passBtn;
     private javax.swing.JTable studentTable;

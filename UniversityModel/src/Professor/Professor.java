@@ -23,7 +23,7 @@ public class Professor extends Person {
     private CourseCatalog courseCatalog;
 //    private CourseSchedule courseSchedule;
     private HashMap<String, CourseSchedule> allSchedules;
-    private int reputation;
+    private int reputation = 0; //default
     private int tuitionCollected;
     private Boolean accountStatus; //only professor role has this attribute
     private ArrayList<Student> enrolledListForAllTerm;
