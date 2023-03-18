@@ -8,9 +8,10 @@ package CourseCatalog;
  *
  * @author emi
  */
-class SeatAssignment {
+public class SeatAssignment {
     Seat seat;
     CourseLoad courseload;
+    String grade = "ungraded";
     
     public SeatAssignment(CourseLoad cl, Seat s) {
         seat = s;
@@ -36,6 +37,15 @@ class SeatAssignment {
     public void setCourseload(CourseLoad courseload) {
         this.courseload = courseload;
     }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+    
     
     
 }

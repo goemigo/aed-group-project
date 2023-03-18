@@ -22,6 +22,7 @@ public class ProfessorAnalyticsJPanel extends javax.swing.JPanel {
     
     public ProfessorAnalyticsJPanel(Platform platform, UserAccount useraccount) {
         initComponents();
+        this.setVisible(true);
         this.platform = platform;
         this.ua = useraccount;
     }

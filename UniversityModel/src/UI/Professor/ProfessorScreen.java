@@ -5,6 +5,7 @@
 package UI.Professor;
 
 import Platform.Platform;
+import Professor.Professor;
 import UserAccount.UserAccount;
 
 /**
@@ -15,14 +16,18 @@ public class ProfessorScreen extends javax.swing.JFrame {
 
     private Platform platform;
     private UserAccount ua;
+    private Professor professor;
 
     /**
      * Creates new form LoginView
      */
     public ProfessorScreen(Platform platform, UserAccount useraccount) {
         initComponents();
+        this.setVisible(true);
         this.platform = platform;
         this.ua = useraccount;
+        
+        this.professor = this.platform.getProfessorDirectory().findProfessorById(ua.getAccountId());
     }
 
     private ProfessorScreen() {
