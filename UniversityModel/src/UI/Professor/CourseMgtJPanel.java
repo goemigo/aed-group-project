@@ -155,7 +155,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
                 createCourseBtnActionPerformed(evt);
             }
         });
-        add(createCourseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, -1, -1));
+        add(createCourseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, -1, -1));
 
         courseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
