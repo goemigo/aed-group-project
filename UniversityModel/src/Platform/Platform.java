@@ -4,11 +4,18 @@
  */
 package Platform;
 
+import CourseCatalog.CourseCatalog;
+import CourseCatalog.CourseLoad;
+import CourseCatalog.CourseOffer;
+import CourseCatalog.CourseSchedule;
 import Student.StudentDirectory;
 import CourseCatalog.MasterCourseCatalog;
 import Personnel.Certifier;
+import Professor.Professor;
 import Professor.ProfessorDirectory;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -23,9 +30,21 @@ public class Platform {
     Certifier certifier;
     StudentDirectory sd;
     ProfessorDirectory pd;
-    MasterCourseCatalog courseCatalog;
-    int revenue;
+    MasterCourseCatalog masterCourseCatalog;
+    ArrayList<String> terms;
     
+    int revenue;
+    public Platform(){
+        this.certifier = new Certifier();
+        this.sd = new StudentDirectory();
+        this.pd = new ProfessorDirectory();
+        this.masterCourseCatalog = new MasterCourseCatalog();
+        this.terms.add("Fall 2022"); 
+        this.terms.add("Spring 2023");
+        this.terms.add("Summer 2023");
+        this.terms.add("Fall 2023"); 
+        
+    }
     public Certifier getCertifier() {
         return certifier;
     }
@@ -48,13 +67,17 @@ public class Platform {
     }
 
     public MasterCourseCatalog getCourseCatalog() {
-        return courseCatalog;
-    }
-
-    public void setCourseCatalog(MasterCourseCatalog courseCatalog) {
-        this.courseCatalog = courseCatalog;
+        return masterCourseCatalog;
     }
         
+    public ArrayList<CourseSchedule> listCourseOffersByTerm(String term){
+        ArrayList<CourseSchedule> coList = new ArrayList<CourseSchedule>();
+        for(Professor p : this.pd.getProfessors()){     
+            coList.add(p.getCourseScheduleByTerm(term));
+        }
+        return coList;
+    }
+    
     public static void main(String[] args) {
         // TODO code application logic here
     }

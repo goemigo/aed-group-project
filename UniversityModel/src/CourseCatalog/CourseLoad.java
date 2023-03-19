@@ -21,8 +21,8 @@ public class CourseLoad {
         this.term = t;
         this.student = s;
     }
+    
     public SeatAssignment newSeatAssignment(CourseOffer co){
-        
         Seat seat = co.getEmptySeat();
         if (seat==null) return null;
         SeatAssignment sa = seat.newSeatAssignment(this);
@@ -34,11 +34,11 @@ public class CourseLoad {
         sa.assignSeatToStudent(this); 
         seatassignments.add(sa);
     }
-
+    
     public String getTerm() {
         return term;
     }
-
+    
     public ArrayList<SeatAssignment> getSeatassignments() {
         return seatassignments;
     }

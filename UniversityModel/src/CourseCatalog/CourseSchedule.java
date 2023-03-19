@@ -4,7 +4,7 @@
  */
 package CourseCatalog;
 
-import Personnel.Student;
+import Student.Student;
 import java.util.ArrayList;
 
 /**

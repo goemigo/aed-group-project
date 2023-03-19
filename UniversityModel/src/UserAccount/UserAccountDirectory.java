@@ -39,6 +39,7 @@ public class UserAccountDirectory {
             }
         }
         UserAccount ua = new UserAccount( username,  password,  role);
+        
         this.useraccountlist.add(ua);
         return ua;
     }

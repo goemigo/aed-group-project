@@ -5,8 +5,10 @@
 package Student;
 
 import CourseCatalog.CourseCatalog;
+import CourseCatalog.CourseOffer;
 import CourseCatalog.CourseSchedule;
 import Personnel.Person;
+import Platform.Platform;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,16 +19,16 @@ import java.util.HashMap;
 public class Student extends Person{
     private Transcript transcript;
     private Boolean tuitionPaid;
-
+    private Platform platform;
     public Boolean getTuitionPaid() {
         return tuitionPaid;
     }
-
+    
     public void setTuitionPaid(Boolean tuitionPaid) {
         this.tuitionPaid = tuitionPaid;
     }
     
-    public Student(){
+    public Student(Platform platform){
         super();
         this.transcript = new Transcript();
     }
@@ -34,5 +36,6 @@ public class Student extends Person{
     public Transcript getTranscript() {
         return transcript;
     }
-   
+    
+    
 }

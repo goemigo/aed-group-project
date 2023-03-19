@@ -5,6 +5,8 @@
 package Student;
 
 import CourseCatalog.CourseLoad;
+import CourseCatalog.CourseOffer;
+import CourseCatalog.SeatAssignment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,8 +50,10 @@ public class Transcript {
     public void registerCourse(String term, CourseOffer co) {
         if (this.courseCount < 12) {
             this.courseCount++;
+            CourseLoad  cl = new CourseLoad(term,student);
             this.courseLoads.put(term, cl);
-//            cl.newSeatAssignment()
+            SeatAssignment sa = cl.newSeatAssignment(co);
+            cl.registerStudent(sa);
         }
     }
 
