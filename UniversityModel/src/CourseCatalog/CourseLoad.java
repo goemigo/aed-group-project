@@ -4,7 +4,7 @@
  */
 package CourseCatalog;
 
-import Personnel.Student;
+import Student.Student;
 import java.util.ArrayList;
 
 /**
@@ -43,6 +43,14 @@ public class CourseLoad {
         return seatassignments;
     }
 
+    public ArrayList<String> getAllGrades() {
+        ArrayList<String> grades = new ArrayList<String>();
+        for(SeatAssignment sa : this.seatassignments){
+            grades.add(sa.getGrade());
+        }
+        return grades;
+    }
+    
     public Student getStudent() {
         return student;
     }

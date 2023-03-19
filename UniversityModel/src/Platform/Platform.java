@@ -4,8 +4,10 @@
  */
 package Platform;
 
+import Student.StudentDirectory;
 import CourseCatalog.MasterCourseCatalog;
 import Personnel.Certifier;
+import Professor.ProfessorDirectory;
 import java.util.ArrayList;
 
 /**
@@ -17,13 +19,44 @@ public class Platform {
     /**
      * @param args the command line arguments
      */
+    
+    Certifier certifier;
+    StudentDirectory sd;
+    ProfessorDirectory pd;
+    MasterCourseCatalog courseCatalog;
+    int revenue;
+    
+    public Certifier getCertifier() {
+        return certifier;
+    }
+    
+    public void collectSubscriptionFee(String profId) {
+        this.revenue += 500;
+        this.pd.findProfessorById(profId).setAccountStatus(true);
+    }
+
+    public void setCertifier(Certifier certifier) {
+        this.certifier = certifier;
+    }
+
+    public StudentDirectory getStudentDirectory() {
+        return sd;
+    }
+
+    public ProfessorDirectory getProfessorDirectory() {
+        return pd;
+    }
+
+    public MasterCourseCatalog getCourseCatalog() {
+        return courseCatalog;
+    }
+
+    public void setCourseCatalog(MasterCourseCatalog courseCatalog) {
+        this.courseCatalog = courseCatalog;
+    }
+        
     public static void main(String[] args) {
         // TODO code application logic here
-        Certifier certifier;
-        StudentDirectory sd;
-        ProffessorDirectory pd;
-        MasterCourseCatalog courseCatalog;
-        
     }
     
     public static Platform getInstance() {

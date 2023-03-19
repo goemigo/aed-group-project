@@ -40,7 +40,6 @@ public class Professor extends Person {
     }
     
     public CourseSchedule newCourseSchedule(String term) {
-
         CourseSchedule cs = new CourseSchedule(term, this.courseCatalog);
         this.allSchedules.put(term, cs);
         return cs;
@@ -50,14 +49,11 @@ public class Professor extends Person {
     public CourseOffer createCourseOffer(String term, String courseId){
         CourseSchedule cs = this.getCourseScheduleByTerm(term);
         CourseOffer co = cs.newCourseOffer(courseId);
-        
         return co;
     }
     
     public CourseSchedule getCourseScheduleByTerm(String term) {
-
         return allSchedules.get(term);
-
     }
     
     public ArrayList<Student> getEnrolledListForAllTerm(){
@@ -111,9 +107,5 @@ public class Professor extends Person {
 
     public void setAccountStatus(Boolean accountStatus) {
         this.accountStatus = accountStatus;
-    }
-    
-    
-    
-    
+    }  
 }

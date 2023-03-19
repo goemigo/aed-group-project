@@ -10,7 +10,7 @@ import CourseCatalog.CourseOffer;
 import CourseCatalog.CourseSchedule;
 import CourseCatalog.Seat;
 import CourseCatalog.SeatAssignment;
-import Personnel.Student;
+import Student.Student;
 import Platform.Platform;
 import Professor.Professor;
 import UserAccount.UserAccount;
@@ -187,7 +187,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         String courseName = fieldCourseName.getText();
         
         if (!courseName.isEmpty()){
-            for (Map.Entry<String,CourseLoad> courseLoads: student.getTranscript().getCourseLoadList().entrySet()){
+            for (Map.Entry<String,CourseLoad> courseLoads: student.getTranscript().getCourseLoads().entrySet()){
                 CourseLoad cl = courseLoads.getValue();
                 for (SeatAssignment sa: cl.getSeatassignments()){
                     if (sa.getSeat().getCourseoffer().getCourse().getName().equals(courseName)){
@@ -210,7 +210,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         String courseName = fieldCourseName.getText();
         
         if (!courseName.isEmpty()){
-            for (Map.Entry<String,CourseLoad> courseLoads: student.getTranscript().getCourseLoadList().entrySet()){
+            for (Map.Entry<String,CourseLoad> courseLoads: student.getTranscript().getCourseLoads().entrySet()){
                 CourseLoad cl = courseLoads.getValue();
                 for (SeatAssignment sa: cl.getSeatassignments()){
                     if (sa.getSeat().getCourseoffer().getCourse().getName().equals(courseName)){
@@ -239,7 +239,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
                             
                             Object[] row = new Object[3];
         
-                            row[0] = s.getSeatassignment().getCourseload().getStudent().getId();
+                            row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();
                             row[1] = s.getSeatassignment().getCourseload().getStudent().getName();
                             row[2] = s.getSeatassignment().getGrade();
                 
@@ -271,7 +271,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
                             
                                 Object[] row = new Object[3];
         
-                                row[0] = s.getSeatassignment().getCourseload().getStudent().getId();
+                                row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();
                                 row[1] = s.getSeatassignment().getCourseload().getStudent().getName();
                                 row[2] = s.getSeatassignment().getGrade();
                 

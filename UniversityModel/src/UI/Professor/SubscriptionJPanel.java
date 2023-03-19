@@ -148,7 +148,7 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
       
         professor.setAccountStatus(true); //set prof user account status to true
         fieldAccountStatus.setText("Active");
-        this.platform.collectSubscriptionFee(); //add revenue to platform
+        this.platform.collectSubscriptionFee(this.professor.getPersonid()); //add revenue to platform
         
         JOptionPane.showMessageDialog(null, "Successfully subscribed!");
     }//GEN-LAST:event_SubscribeBtnActionPerformed
