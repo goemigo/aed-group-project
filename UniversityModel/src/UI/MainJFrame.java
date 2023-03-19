@@ -26,7 +26,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
         initComponents();
         this.platform = Platform.getInstance();
-        
+        this.setVisible(true);
     
     }
     public MainJFrame(Platform platform, UserAccount useraccount) {
@@ -49,53 +49,12 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        jPanel1 = new javax.swing.JPanel();
-        fieldpassword = new javax.swing.JTextField();
-        fieldusername = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        loginBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         registerBtn = new javax.swing.JButton();
         loginBtn1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        fieldpassword.setBackground(new java.awt.Color(204, 204, 204));
-        fieldpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldpasswordActionPerformed(evt);
-            }
-        });
-        jPanel1.add(fieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 235, 168, 42));
-
-        fieldusername.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 162, 168, 42));
-
-        jLabel1.setFont(new java.awt.Font("Big Caslon", 1, 18)); // NOI18N
-        jLabel1.setText("WELCOME");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 130, 40));
-
-        jLabel2.setText("PASSWORD");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
-
-        jLabel3.setText("USERNAME");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, -1, -1));
-
-        loginBtn.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        loginBtn.setText("LOGIN");
-        loginBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 100, 40));
-
-        jSplitPane1.setRightComponent(jPanel1);
 
         registerBtn.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         registerBtn.setText("REGISTER");
@@ -129,14 +88,27 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(145, 145, 145)
+                .addGap(206, 206, 206)
                 .addComponent(loginBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 596, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 472, Short.MAX_VALUE)
+        );
+
+        jSplitPane1.setRightComponent(jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,30 +134,6 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         jSplitPane1.setRightComponent(new RegistrationJPanel(this.platform));
     }//GEN-LAST:event_registerBtnActionPerformed
-
-    private void fieldpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldpasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldpasswordActionPerformed
-
-    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        // TODO add your handling code here:
-        String username = fieldusername.getText();
-        String password = fieldpassword.getText();
-//        String role = (String) roleCombo.getSelectedItem();
-
-
-        if(this.platform.getUad().accountExists(username, password)){
-            UserAccount user = this.platform.getUad().getUserAccount(username, password);
-            this.setVisible(false);
-            
-            //get work area panel
-//            user.getWorkArea(role,app,user);
-            user.getRole().createWorkArea(platform, userAccount);
-        }else{
-            JOptionPane.showMessageDialog(null, "Invalid credentials");
-        }
-        
-    }//GEN-LAST:event_loginBtnActionPerformed
 
     private void loginBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtn1ActionPerformed
         // TODO add your handling code here:
@@ -229,15 +177,9 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField fieldpassword;
-    private javax.swing.JTextField fieldusername;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JButton loginBtn;
     private javax.swing.JButton loginBtn1;
     private javax.swing.JButton registerBtn;
     // End of variables declaration//GEN-END:variables

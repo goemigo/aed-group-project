@@ -20,4 +20,5 @@ public class ProfessorDirectory {
     public void addToProfessors(Professor professor) {
         this.professors.add(professor);
     }
+    
 }
