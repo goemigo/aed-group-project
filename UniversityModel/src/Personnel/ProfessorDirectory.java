@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Professor;
+package Personnel;
 
 import java.util.ArrayList;
 
@@ -20,16 +20,4 @@ public class ProfessorDirectory {
     public void addToProfessors(Professor professor) {
         this.professors.add(professor);
     }
-    
-
-    public Professor findProfessorById(String id){
-        for (Professor p: this.professors){
-            if (p.getPersonid().equals(id)){
-                return p;
-            }
-        }
-        
-        return null;
-    }
-
 }

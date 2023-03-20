@@ -10,6 +10,7 @@ package CourseCatalog;
  */
 public class Course {
 
+
     private static int count = 0;
     
     private String courseId;
@@ -85,9 +86,11 @@ public class Course {
         this.price = price;
     }
     
+
     @Override
     public String toString(){
         return this.courseId;
     }
     
 }
+

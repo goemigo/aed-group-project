@@ -10,9 +10,17 @@ import CourseCatalog.CourseOffer;
 import CourseCatalog.CourseSchedule;
 import Student.StudentDirectory;
 import CourseCatalog.MasterCourseCatalog;
-import Personnel.Certifier;
+
+
 import Professor.Professor;
+
+
+import Certifier.Certifier;
 import Professor.ProfessorDirectory;
+import Roles.AdminRole;
+import UserAccount.UserAccount;
+import UserAccount.UserAccountDirectory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,26 +31,25 @@ import java.util.Map;
  */
 public class Platform {
 
-    /**
-     * @param args the command line arguments
-     */
-    
-    Certifier certifier;
-    StudentDirectory sd;
-    ProfessorDirectory pd;
+
     MasterCourseCatalog masterCourseCatalog;
     ArrayList<String> terms;
     
     int revenue;
+
+        Certifier certifier;
+        StudentDirectory sd;
+        ProfessorDirectory pd;
+        UserAccountDirectory uad;
+
+    public static Platform getInstance() {
+        return new Platform();
+    }
+    
+    
+
     public Platform(){
-        this.certifier = new Certifier();
-        this.sd = new StudentDirectory();
-        this.pd = new ProfessorDirectory();
-        this.masterCourseCatalog = new MasterCourseCatalog();
-        this.terms.add("Fall 2022"); 
-        this.terms.add("Spring 2023");
-        this.terms.add("Summer 2023");
-        this.terms.add("Fall 2023"); 
+        
         
     }
     public Certifier getCertifier() {
@@ -80,10 +87,75 @@ public class Platform {
     
     public static void main(String[] args) {
         // TODO code application logic here
+        this.certifier = new Certifier();
+        this.sd = new StudentDirectory();
+        this.pd = new ProfessorDirectory();
+
+        this.masterCourseCatalog = new MasterCourseCatalog();
+        this.terms.add("Fall 2022"); 
+        this.terms.add("Spring 2023");
+        this.terms.add("Summer 2023");
+        this.terms.add("Fall 2023"); 
+        
+        this.uad = new UserAccountDirectory();
+        
+        UserAccount user = this.uad.createUserAccount("a", "a", new AdminRole());
+
     }
     
-    public static Platform getInstance() {
-        return new Platform();
-    }
     
+
+    public
+    Certifier getCertifier() {
+        return certifier;
+    }
+
+    public
+    void setCertifier(Certifier certifier) {
+        this.certifier = certifier;
+    }
+
+    public
+    StudentDirectory getSd() {
+        return sd;
+    }
+
+    public
+    void setSd(StudentDirectory sd) {
+        this.sd = sd;
+    }
+
+    public
+    ProfessorDirectory getPd() {
+        return pd;
+    }
+
+    public
+    void setPd(ProfessorDirectory pd) {
+        this.pd = pd;
+    }
+
+    public
+    MasterCourseCatalog getCourseCatalog() {
+        return courseCatalog;
+    }
+
+    public
+    void setCourseCatalog(MasterCourseCatalog courseCatalog) {
+        this.courseCatalog = courseCatalog;
+    }
+
+    
+    public UserAccountDirectory getUad() {
+        return uad;
+    }
+
+    public void setUad(UserAccountDirectory uad) {
+        this.uad = uad;
+    }
 }
+    
+    
+    
+
+
