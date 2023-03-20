@@ -6,7 +6,7 @@
 package UI.Certifier;
 
 import Platform.Platform;
-import UI.LoginView;
+import UI.MainJFrame;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -92,7 +92,7 @@ public class CertifierScreen extends javax.swing.JFrame {
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-//        new LoginView(platform, useraccount);
+//        new MainJFrame(platform, useraccount);
     }//GEN-LAST:event_backBtnActionPerformed
 
     /**

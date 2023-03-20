@@ -12,16 +12,15 @@ import Roles.Role;
  * @author 15512
  */
 public class UserAccount {
+    private static int counter = 0;
     private String accountId;
     private String username;
     private String password;
     private Role role;
 
     
-    private static int counter = 0;
-    
     UserAccount(String username, String password, Role role) {
-        this.accountId = "user" + this.counter++;
+        this.accountId = "role" + this.counter++;
         this.username = username;
         this.password = password;
         this.role = role;

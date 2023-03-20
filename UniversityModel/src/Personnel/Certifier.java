@@ -8,6 +8,6 @@ package Personnel;
  *
  * @author 15512
  */
-public class Professor {
+public class Certifier {
     String name;
 }

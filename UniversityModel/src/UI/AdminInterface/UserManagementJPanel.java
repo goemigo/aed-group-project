@@ -4,7 +4,6 @@
  */
 package UI.AdminInterface;
 
-import Personnel.Student;
 import Platform.Platform;
 import Professor.Professor;
 import UserAccount.UserAccount;
@@ -40,53 +39,38 @@ public
 //        populateBranch();
 //        branchCombo.setSelectedItem(null);
         
-        populateStudentTable();
-        populateProfTable();
-        
-        ceritfierName.setText(this.platform.getCertifier().getName());
-        UserAccount u = this.platform.getUad().findById(this.platform.getCertifier().getPersonid());
-        certifierUsername.setText(u.getUsername());
+        populateTable();
     }
     
-        
+        public void populateBranch(){
+        ArrayList<Branch> allbranches = this.app.getBranchDirectory().getBranches();
+        for (Branch b: allbranches){
+            branchCombo.addItem(b.getName());
+        }
+    }
     
-    public void populateProfTable(){
+    public void populateTable(){
         profTableModel.setRowCount(0);
-        if (this.platform.getPd().getProfessors().size()>0){
-            for (Professor p: this.platform.getPd().getProfessors()){
-           
+        
+        for (Professor p: this.app.getBranchDirectory().getBranches()){
+            if (b.getLibrary().getEmployeeDirectory().getEmployees().size()>0){
+                for (Employee e: b.getLibrary().getEmployeeDirectory().getEmployees()){
                 
-                Object[] row = new Object[3];
+                Object[] row = new Object[7];
             
-                row[0] = p.getPersonid();
-                row[1] = this.platform.getUad().findById(p.getPersonid()).getUsername();
-                row[2] = p.getName();
-               
+                row[0] = e;
+                row[1] = e.getName();
+                row[2] = this.app.getUad().findById(e.getEmployeeId()).getUsername();
+                row[3] = this.app.getUad().findById(e.getEmployeeId()).getPassword();
+                row[4] = e.getExperience();
+                row[5] = e.getDesignation();
+                row[6] = b;
+                
                 profTableModel.addRow(row);
                 }
             }
             
-    }
-            
-
-    public void populateStudentTable(){
-        studentTableModel.setRowCount(0);
-        
-        if (this.platform.getSd().getStudents().size()>0){
-            for (Student s: this.platform.getSd().getStudents()){
-           
-                
-                Object[] row = new Object[3];
-            
-                row[0] = s.getPersonid();
-                row[1] = this.platform.getUad().findById(s.getPersonid()).getUsername();
-                row[2] = s.getName();
-               
-                
-                studentTableModel.addRow(row);
-                }
-        }
-        }
+        }}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,17 +140,18 @@ public
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(393, 393, 393)
-                        .addComponent(jLabel3)
-                        .addGap(112, 112, 112))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addGap(52, 52, 52)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5))
@@ -181,34 +166,30 @@ public
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(91, 91, 91))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(315, 315, 315)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
+                                .addGap(42, 42, 42)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel4))
                                 .addGap(18, 18, 18))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3)
                                 .addGap(8, 8, 8)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
+                        .addGap(109, 109, 109)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ceritfierName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))

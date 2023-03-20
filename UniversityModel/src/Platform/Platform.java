@@ -5,9 +5,7 @@
 package Platform;
 
 import CourseCatalog.MasterCourseCatalog;
-
-import Certifier.Certifier;
-import Professor.ProfessorDirectory;
+import Personnel.Certifier;
 import Roles.AdminRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
@@ -15,25 +13,38 @@ import java.util.ArrayList;
 
 /**
  *
- * @author 15512
+ * @author forumkaria
  */
 public class Platform {
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
         Certifier certifier;
         StudentDirectory sd;
-        ProfessorDirectory pd;
+        ProffessorDirectory pd;
         MasterCourseCatalog courseCatalog;
-        UserAccountDirectory uad;
-
+        UserAccountDirectory topLevelUserAccountDirectory;
+        
+    }
+    
     public static Platform getInstance() {
         return new Platform();
     }
     
+    public class Platform {
+        Certifier certifier;
+        StudentDirectory sd;
+        ProffessorDirectory pd;
+        MasterCourseCatalog courseCatalog;
+        UserAccountDirectory uad;
     
     public Platform(){
         this.certifier = new Certifier();
         this.sd = new StudentDirectory();
-        this.pd = new ProfessorDirectory();
+        this.pd = new ProffessorDirectory();
         this.uad = new UserAccountDirectory();
         this.courseCatalog = new MasterCourseCatalog();
         
@@ -63,12 +74,12 @@ public class Platform {
     }
 
     public
-    ProfessorDirectory getPd() {
+    ProffessorDirectory getPd() {
         return pd;
     }
 
     public
-    void setPd(ProfessorDirectory pd) {
+    void setPd(ProffessorDirectory pd) {
         this.pd = pd;
     }
 
@@ -90,9 +101,9 @@ public class Platform {
     public void setUad(UserAccountDirectory uad) {
         this.uad = uad;
     }
-}
-    
-    
-    
 
+    }
+    
+    
+    
 

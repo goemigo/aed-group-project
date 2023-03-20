@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author 15512
+ * @author forumkaria
  */
 public class ProfessorRole extends Role {
     
@@ -22,6 +22,6 @@ public class ProfessorRole extends Role {
     }
     
     public String toStringRole(){
-        return "Branch Manager";
+        return "professor";
     }
 }
