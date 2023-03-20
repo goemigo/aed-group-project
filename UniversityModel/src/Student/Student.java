@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class Student extends Person{
     private Transcript transcript;
     private Boolean tuitionPaid;
+    private Boolean requested;
     private Platform platform;
     public Boolean getTuitionPaid() {
         return tuitionPaid;
@@ -26,6 +27,14 @@ public class Student extends Person{
     
     public void setTuitionPaid(Boolean tuitionPaid) {
         this.tuitionPaid = tuitionPaid;
+    }
+
+    public Boolean getRequested() {
+        return requestGraduation;
+    }
+
+    public void setRequested(Boolean requestGraduation) {
+        this.requestGraduation = requestGraduation;
     }
     
     public Student(Platform platform){
