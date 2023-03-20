@@ -4,6 +4,7 @@
  */
 package CourseCatalog;
 
+import Student.Student;
 import Professor.Professor;
 import java.util.ArrayList;
 
@@ -12,13 +13,15 @@ import java.util.ArrayList;
  * @author emi
  */
 public class CourseOffer {
-    Course course;
-    ArrayList<Seat> seatlist;
-    Professor professor;
+    private Course course;
+    private ArrayList<Seat> seatlist;
+    private Professor professor;
+    private ArrayList<Student> enrolledStudentList;
     
     public CourseOffer(Course c) {
         course = c;
         seatlist = new ArrayList<Seat>();
+        enrolledStudentList = new ArrayList<Student>();
     }
     
     public void generatSeats(int numOfSeats) {
@@ -60,6 +63,17 @@ public class CourseOffer {
 
         }
         return sum;
+    }
+    
+    public ArrayList<Student> getEnrolledStudentList(){
+        
+        for (Seat s : seatlist) {
+            if (s.isOccupied() == true) {
+                this.enrolledStudentList.add(s.getSeatassignment().getCourseload().getStudent());
+            }
+
+        }
+        return this.enrolledStudentList;
     }
 
     public Course getCourse() {

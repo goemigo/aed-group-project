@@ -21,4 +21,15 @@ public class ProfessorDirectory {
         this.professors.add(professor);
     }
     
+
+    public Professor findProfessorById(String id){
+        for (Professor p: this.professors){
+            if (p.getPersonid().equals(id)){
+                return p;
+            }
+        }
+        
+        return null;
+    }
+
 }

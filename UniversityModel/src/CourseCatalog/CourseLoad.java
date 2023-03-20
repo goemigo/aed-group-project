@@ -4,22 +4,25 @@
  */
 package CourseCatalog;
 
+import Student.Student;
 import java.util.ArrayList;
 
 /**
  *
  * @author emi
  */
-class CourseLoad {
+public class CourseLoad {
     String term;
     ArrayList<SeatAssignment> seatassignments;
+    Student student;
     
-    public CourseLoad(String t){
+    public CourseLoad(String t, Student s){
         seatassignments = new ArrayList<SeatAssignment>();
         this.term = t;
+        this.student = s;
     }
+    
     public SeatAssignment newSeatAssignment(CourseOffer co){
-        
         Seat seat = co.getEmptySeat();
         if (seat==null) return null;
         SeatAssignment sa = seat.newSeatAssignment(this);
@@ -31,4 +34,26 @@ class CourseLoad {
         sa.assignSeatToStudent(this); 
         seatassignments.add(sa);
     }
+    
+    public String getTerm() {
+        return term;
+    }
+    
+    public ArrayList<SeatAssignment> getSeatassignments() {
+        return seatassignments;
+    }
+
+    public ArrayList<String> getAllGrades() {
+        ArrayList<String> grades = new ArrayList<String>();
+        for(SeatAssignment sa : this.seatassignments){
+            grades.add(sa.getGrade());
+        }
+        return grades;
+    }
+    
+    public Student getStudent() {
+        return student;
+    }
+
+    
 }
