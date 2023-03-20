@@ -10,88 +10,46 @@ import java.util.ArrayList;
 
 /**
  *
- * @author forumkaria
+ * @author 15512
  */
-public
-        class UserAccountDirectory {
-
-    private
-            ArrayList<UserAccount> userAccounts;
-
-    public
-            UserAccountDirectory() {
-        this.userAccounts = new ArrayList<UserAccount>();
-    }
-
-    public
-            ArrayList<UserAccount> getUserAccounts() {
-        return userAccounts;
-    }
-
-    public
-            void setUserAccounts(ArrayList<UserAccount> userAccounts) {
-        this.userAccounts = userAccounts;
-    }
-
-    public UserAccount createUserAccount(String username, String password, Role role){
-        UserAccount user = new UserAccount(username, password, role);
-        userAccounts.add(user);
-        return user;
-        
-    }
-
-    public
-            UserAccount findById(String id) {
-        for (UserAccount u : this.userAccounts) {
-            if (u.getAccountId().equals(id)){
-            return u;
-        }
-        }
-        return null;
+public class UserAccountDirectory {
+    private ArrayList<UserAccount> useraccountlist;
     
+    public UserAccountDirectory() {
+        this.useraccountlist = new ArrayList<UserAccount>();
     }
-            
-    public UserAccount getUserAccount(String id, String password, Role role){
-        for(UserAccount u : this.userAccounts){
-            if(u.getAccountId().equals(id) && u.getPassword().equals(password) && u.getRole().equals(role)){
-                return u;
+
+    public ArrayList<UserAccount> getUseraccountList() {
+        return useraccountlist;
+    }
+
+    public void setUseraccountList(ArrayList<UserAccount> useraccountlist) {
+        this.useraccountlist = useraccountlist;
+    }
+    
+    public UserAccount addUserAccount(UserAccount ua) {
+        this.useraccountlist.add(ua);
+        return ua;
+    }
+    
+    public UserAccount createUserAccount(String username, String password, Role role) {
+        for(UserAccount ua: this.useraccountlist) {
+            if(ua.getUsername().equals(username)) {
+                return null;
             }
         }
-        return null;
+        UserAccount ua = new UserAccount( username,  password,  role);
+        
+        this.useraccountlist.add(ua);
+        return ua;
     }
     
     public UserAccount authenticateUser(String name, String password) {
-        for(UserAccount ua: this.userAccounts) {
+        for(UserAccount ua: this.useraccountlist) {
             if(ua.getUsername().equals(name) && ua.getPassword().equals(password)) {
                 return ua;
             }
         }
         return null;
     }
-    
-    public Boolean accountExists(String username, String password, String role) {
-        for(UserAccount u: this.userAccounts) {
-            if(u.getUsername().equals(username) && u.getPassword().equals(password) && u.getRole().equals(role)) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    public Boolean isUnique(String username){
-        for (UserAccount u:this.userAccounts){
-            if(u.getUsername().equals(username)){
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    
-    public String[] getAllRoles() {
-       return Role.getAllRoles();
-    }
-    
 }
-

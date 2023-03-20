@@ -8,7 +8,7 @@ package CourseCatalog;
  *
  * @author emi
  */
-class Seat {
+public class Seat {
     private static int count = 0;
     
     private String id; // unique id
@@ -16,7 +16,7 @@ class Seat {
     private CourseOffer courseoffer;
     private SeatAssignment seatassignment; //links back to studentprofile
     
-    public Seat (CourseOffer co){
+    public Seat(CourseOffer co){
         this.id = "Seat" + count++;
         occupied = false;
         courseoffer = co;

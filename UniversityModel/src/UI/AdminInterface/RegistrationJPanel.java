@@ -22,7 +22,7 @@ public
      * Creates new form RegistrationJPanel
      */
     public
-            RegistrationJPanel() {
+            RegistrationJPanel(Platform platform) {
         initComponents();
         
         this.platform = platform;

@@ -4,96 +4,133 @@
  */
 package Platform;
 
+import CourseCatalog.CourseSchedule;
+import Student.StudentDirectory;
 import CourseCatalog.MasterCourseCatalog;
-import Personnel.Certifier;
+
+import Professor.Professor;
+
+import Certifier.Certifier;
+import Professor.ProfessorDirectory;
 import Roles.AdminRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+
 import java.util.ArrayList;
 
 /**
  *
- * @author forumkaria
+ * @author 15512
  */
 public class Platform {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        Certifier certifier;
-        StudentDirectory sd;
-        ProffessorDirectory pd;
-        MasterCourseCatalog courseCatalog;
-        UserAccountDirectory topLevelUserAccountDirectory;
-        
-    }
-    
+    MasterCourseCatalog masterCourseCatalog;
+    ArrayList<String> terms;
+    int revenue;
+    Certifier certifier;
+    StudentDirectory sd;
+    ProfessorDirectory pd;
+    UserAccountDirectory uad;
+
     public static Platform getInstance() {
         return new Platform();
     }
-    
-    public class Platform {
-        Certifier certifier;
-        StudentDirectory sd;
-        ProffessorDirectory pd;
-        MasterCourseCatalog courseCatalog;
-        UserAccountDirectory uad;
-    
-    public Platform(){
+
+    public Platform() {
         this.certifier = new Certifier();
         this.sd = new StudentDirectory();
-        this.pd = new ProffessorDirectory();
-        this.uad = new UserAccountDirectory();
-        this.courseCatalog = new MasterCourseCatalog();
-        
-        UserAccount user = this.uad.createUserAccount("a", "a", new AdminRole());
-    }
-    
-    
+        this.pd = new ProfessorDirectory();
 
-    public
-    Certifier getCertifier() {
+        this.masterCourseCatalog = new MasterCourseCatalog();
+        this.terms.add("Fall 2022");
+        this.terms.add("Spring 2023");
+        this.terms.add("Summer 2023");
+        this.terms.add("Fall 2023");
+
+        this.uad = new UserAccountDirectory();
+
+        UserAccount user = this.uad.createUserAccount("a", "a", new AdminRole());
+
+    }
+
+    public MasterCourseCatalog getMasterCourseCatalog() {
+        return masterCourseCatalog;
+    }
+
+    public void setMasterCourseCatalog(MasterCourseCatalog masterCourseCatalog) {
+        this.masterCourseCatalog = masterCourseCatalog;
+    }
+
+    public ArrayList<String> getTerms() {
+        return terms;
+    }
+
+    public void setTerms(ArrayList<String> terms) {
+        this.terms = terms;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
+
+    public Certifier getCertifier() {
         return certifier;
     }
 
-    public
-    void setCertifier(Certifier certifier) {
+    public void collectSubscriptionFee(String profId) {
+        this.revenue += 500;
+        this.pd.findProfessorById(profId).setAccountStatus(true);
+    }
+
+    public void setCertifier(Certifier certifier) {
         this.certifier = certifier;
     }
 
-    public
-    StudentDirectory getSd() {
+    public StudentDirectory getStudentDirectory() {
         return sd;
     }
 
-    public
-    void setSd(StudentDirectory sd) {
-        this.sd = sd;
-    }
-
-    public
-    ProffessorDirectory getPd() {
+    public ProfessorDirectory getProfessorDirectory() {
         return pd;
     }
 
-    public
-    void setPd(ProffessorDirectory pd) {
+    public MasterCourseCatalog getCourseCatalog() {
+        return masterCourseCatalog;
+    }
+
+    public ArrayList<CourseSchedule> listCourseOffersByTerm(String term) {
+        ArrayList<CourseSchedule> coList = new ArrayList<CourseSchedule>();
+        for (Professor p : this.pd.getProfessors()) {
+            coList.add(p.getCourseScheduleByTerm(term));
+        }
+        return coList;
+    }
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+
+    }
+
+    public StudentDirectory getSd() {
+        return sd;
+    }
+
+    public void setSd(StudentDirectory sd) {
+        this.sd = sd;
+    }
+
+    public ProfessorDirectory getPd() {
+        return pd;
+    }
+
+    public void setPd(ProfessorDirectory pd) {
         this.pd = pd;
     }
 
-    public
-    MasterCourseCatalog getCourseCatalog() {
-        return courseCatalog;
-    }
-
-    public
-    void setCourseCatalog(MasterCourseCatalog courseCatalog) {
-        this.courseCatalog = courseCatalog;
-    }
-
-    
     public UserAccountDirectory getUad() {
         return uad;
     }
@@ -101,9 +138,4 @@ public class Platform {
     public void setUad(UserAccountDirectory uad) {
         this.uad = uad;
     }
-
-    }
-    
-    
-    
-
+}
