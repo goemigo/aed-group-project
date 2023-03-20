@@ -5,7 +5,8 @@
 package Certifier;
 
 import CourseCatalog.Course;
-import Personnel.Student;
+import CourseCatalog.SeatAssignment;
+import Student.Student;
 import java.util.ArrayList;
 
 /**

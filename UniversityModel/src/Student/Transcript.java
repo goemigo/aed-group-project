@@ -67,4 +67,15 @@ public class Transcript {
         return termGrades;
     }
     
+        public ArrayList<SeatAssignment> getCourseList() {
+        ArrayList<SeatAssignment> temp2;
+        temp2 = new ArrayList<SeatAssignment>();
+
+        for (CourseLoad cl : this.courseLoads.values()) { //extract cl list as objects --ignore label
+            temp2.addAll(cl.getSeatassignments()); //merge one array list to another
+        }
+
+        return temp2;
+
+    }
 }

@@ -9,7 +9,7 @@ import CourseCatalog.CourseCatalog;
 import CourseCatalog.CourseOffer;
 import CourseCatalog.CourseSchedule;
 import Personnel.Person;
-import Personnel.Student;
+import Student.Student;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

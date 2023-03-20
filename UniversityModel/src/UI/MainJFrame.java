@@ -5,10 +5,9 @@
 package UI;
 
 import Platform.Platform;
-import Roles.Role;
 import UI.AdminInterface.RegistrationJPanel;
+import UI.AdminInterface.loginJPanel;
 import UserAccount.UserAccount;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,12 +20,12 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     
     private Platform platform;
-    private  UserAccount userAccount;
+    private  UserAccount useraccount;
     
     public MainJFrame() {
         initComponents();
+        
         this.platform = Platform.getInstance();
-        this.setVisible(true);
     
     }
     public MainJFrame(Platform platform, UserAccount useraccount) {
@@ -34,7 +33,7 @@ public class MainJFrame extends javax.swing.JFrame {
         this.setVisible(true);
         
         this.platform = platform;
-        this.userAccount = userAccount;
+        this.useraccount = useraccount;
         
     }
 
@@ -53,10 +52,11 @@ public class MainJFrame extends javax.swing.JFrame {
         registerBtn = new javax.swing.JButton();
         loginBtn1 = new javax.swing.JButton();
 
-        jPanel3 = new javax.swing.JPanel();
-
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         registerBtn.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         registerBtn.setText("REGISTER");
@@ -65,6 +65,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 registerBtnActionPerformed(evt);
             }
         });
+        jPanel2.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 5, -1, -1));
 
         loginBtn1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         loginBtn1.setText("LOGIN");
@@ -73,65 +74,11 @@ public class MainJFrame extends javax.swing.JFrame {
                 loginBtn1ActionPerformed(evt);
             }
         });
+        jPanel2.add(loginBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 5, 90, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(loginBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(206, 206, 206)
-                .addComponent(loginBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jSplitPane1.setTopComponent(jPanel2);
 
-                .addContainerGap(145, Short.MAX_VALUE))
-        );
-
-        jSplitPane1.setLeftComponent(jPanel2);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 596, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
-        );
-
-        jSplitPane1.setRightComponent(jPanel3);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(268, Short.MAX_VALUE))
-        );
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -184,7 +131,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton loginBtn1;
     private javax.swing.JButton registerBtn;

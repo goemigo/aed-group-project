@@ -22,6 +22,6 @@ public class ProfessorRole extends Role {
     }
     
     public String toStringRole(){
-        return "Branch Manager";
+        return "professor";
     }
 }

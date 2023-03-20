@@ -52,4 +52,49 @@ public class UserAccountDirectory {
         }
         return null;
     }
+    
+    public Boolean checkUserNameUnique(String username){
+        for (UserAccount u:this.useraccountlist){
+            if(u.getUsername().equals(username)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public Boolean accountExists(String username, String password){
+        for (UserAccount u:this.useraccountlist){
+            if(u.getUsername().equals(username) && u.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+        public UserAccount getUserAccount(String username, String password){
+        for(UserAccount u:useraccountlist){
+            if(u.getUsername().equals(username) && u.getPassword().equals(password) ){
+                return u;
+            }
+        }
+        return null;
+    }
+    
+    public UserAccount findById(String id){
+        for(UserAccount u:useraccountlist){
+            if (u.getAccountId().equals(id)){
+                return u;
+            }
+        }
+        return null;
+    }
+    
+    public UserAccount findByUserName(String un){
+        for(UserAccount u:useraccountlist){
+            if (u.getUsername().equals(un)){
+                return u;
+            }
+        }
+        return null;
+    }
 }

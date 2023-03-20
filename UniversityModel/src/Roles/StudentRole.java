@@ -22,8 +22,9 @@ public class StudentRole extends Role {
         return new StudentScreen(platform, useraccount);
         
     }
+    
     public String toStringRole(){
-        return "Customer";
+        return "student";
     }
     
 }

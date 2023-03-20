@@ -4,6 +4,8 @@
  */
 package Certifier;
 
+import Personnel.Person;
+
 /**
  *
  * @author 15512

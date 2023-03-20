@@ -5,8 +5,12 @@
 package UI.AdminInterface;
 
 import Platform.Platform;
+import UI.MainJFrame;
 import UserAccount.UserAccount;
+import java.awt.Component;
+import java.awt.Window;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -20,10 +24,10 @@ public
      * Creates new form loginJPanel
      */
     public
-            loginJPanel() {
+            loginJPanel(Platform platform) {
         initComponents();
         this.setVisible(true);
-        this.platform = Platform.getInstance();
+        this.platform = platform;
     }
 
     /**
@@ -115,6 +119,10 @@ public
             //get work area panel
             //            user.getWorkArea(role,app,user);
             user.getRole().createWorkArea(platform, userAccount);
+            Window frame = SwingUtilities.windowForComponent((Component) evt.getSource());
+            frame.setVisible(false);
+            
+            
         }else{
             JOptionPane.showMessageDialog(null, "Invalid credentials");
         }
