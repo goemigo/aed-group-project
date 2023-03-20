@@ -20,7 +20,7 @@ public
      * Creates new form loginJPanel
      */
     public
-            loginJPanel() {
+            loginJPanel(Platform platform) {
         initComponents();
         this.setVisible(true);
         this.platform = Platform.getInstance();

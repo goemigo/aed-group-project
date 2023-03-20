@@ -95,7 +95,7 @@ public class StudentScreen extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new TranscriptCourse(this.platform));
+        jSplitPane1.setRightComponent(new TranscriptScreen(this.platform, this.student));
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -142,9 +142,4 @@ public class StudentScreen extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 
-    private static class TranscriptCourse extends Component {
-
-        public TranscriptCourse(Platform platform) {
-        }
-    }
 }

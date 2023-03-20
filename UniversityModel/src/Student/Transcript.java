@@ -22,17 +22,30 @@ public class Transcript {
     Student student;
     int courseCount;
     Boolean isGraduated;
-    
+
     public HashMap<String, CourseLoad> getCourseLoads() {
         return courseLoads;
+    }
+
+    public ArrayList<SeatAssignment> getSeatAssignmentsAllTerms() {
+        ArrayList<SeatAssignment> sas = new ArrayList<SeatAssignment>();
+        for (Map.Entry<String, CourseLoad> mapElement : this.courseLoads.entrySet()) {
+
+            ArrayList<SeatAssignment> sat = mapElement.getValue().getSeatassignments();
+            for (SeatAssignment sa : sat) {
+                sas.add(sa);
+            }
+
+        }
+        return sas;
     }
 
     public Student getStudent() {
         return student;
     }
-    
+
     public int getGraduationProgressBar() {
-        return courseCount *100/8;
+        return courseCount * 100 / 8;
     }
 
     public void setStudent(Student student) {
@@ -40,7 +53,7 @@ public class Transcript {
     }
 
     public String getGraduationStatus() {
-        return this.isGraduated?"Graduated":"Yet to Graduate";
+        return this.isGraduated ? "Graduated" : "Yet to Graduate";
     }
 
     public void setIsGraduated(Boolean isGratuated) {
@@ -50,7 +63,7 @@ public class Transcript {
     public void registerCourse(String term, CourseOffer co) {
         if (this.courseCount < 12) {
             this.courseCount++;
-            CourseLoad  cl = new CourseLoad(term,student);
+            CourseLoad cl = new CourseLoad(term, student);
             this.courseLoads.put(term, cl);
             SeatAssignment sa = cl.newSeatAssignment(co);
             cl.registerStudent(sa);
@@ -58,13 +71,13 @@ public class Transcript {
     }
 
     public HashMap<String, ArrayList<String>> getTermGrades() {
-        for (Map.Entry<String,CourseLoad> mapElement : this.courseLoads.entrySet()) {
+        for (Map.Entry<String, CourseLoad> mapElement : this.courseLoads.entrySet()) {
             String term = mapElement.getValue().getTerm();
-            ArrayList<String> grades = mapElement.getValue().getAllGrades();  
+            ArrayList<String> grades = mapElement.getValue().getAllGrades();
             this.termGrades.put(term, grades);
         }
-        
+
         return termGrades;
     }
-    
+
 }

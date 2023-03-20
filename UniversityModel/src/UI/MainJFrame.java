@@ -7,6 +7,7 @@ package UI;
 import Platform.Platform;
 import Roles.Role;
 import UI.AdminInterface.RegistrationJPanel;
+import UI.AdminInterface.loginJPanel;
 import UserAccount.UserAccount;
 import javax.swing.JOptionPane;
 

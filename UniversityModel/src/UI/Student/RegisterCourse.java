@@ -7,8 +7,10 @@ package UI.Student;
 import CourseCatalog.Course;
 import CourseCatalog.CourseOffer;
 import CourseCatalog.CourseSchedule;
+import CourseCatalog.SeatAssignment;
 import Platform.Platform;
 import Student.Student;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,7 +44,7 @@ public class RegisterCourse extends javax.swing.JPanel {
         for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
             for (CourseOffer co : cs.getSchedule()) {
                 Course c = co.getCourse();
-                Object[] row = new Object[6];
+                Object[] row = new Object[7];
 
                 row[0] = co;
                 row[1] = c.getName();
@@ -50,29 +52,30 @@ public class RegisterCourse extends javax.swing.JPanel {
                 row[3] = c.getRegion();
                 row[4] = c.getLanguage();
                 row[5] = c.getPrice();
-
+                row[6] = co.getProfessor().getName();
                 courseTableModel.addRow(row);
             }
         }
     }
 
     public void populateRegisteredCourse() {
-        
-//        for (CourseSchedule cs : this.student.getTranscript().getCourseLoads()) {
-//            for (CourseOffer co : cs.getSchedule()) {
-//                Course c = co.getCourse();
-//                Object[] row = new Object[6];
-//
-//                row[0] = co;
-//                row[1] = c.getName();
-//                row[2] = c.getTopic();
-//                row[3] = c.getRegion();
-//                row[4] = c.getLanguage();
-//                row[5] = c.getPrice();
-//
-//                courseTableModel.addRow(row);
-//            }
-//        }
+        registeredTableModel.setRowCount(0);
+        for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
+            
+                Course c = sa.getSeat().getCourseoffer().getCourse();
+                Object[] row = new Object[6];
+
+                row[0] = c;
+                
+                row[1] = c.getName();
+                row[2] = c.getTopic();
+                row[3] = c.getRegion();
+                row[4] = c.getLanguage();
+                row[5] = c.getPrice();
+                row[6] = sa.getCourseload().getTerm();
+                registeredTableModel.addRow(row);
+            
+        }
     }
     
     /**
@@ -125,13 +128,13 @@ public class RegisterCourse extends javax.swing.JPanel {
 
         registeredTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Term", "Grade", "Professor", "Finished"
+                "Name", "Term", "Region", "Professor", "Language", "Term"
             }
         ));
         jScrollPane2.setViewportView(registeredTable);

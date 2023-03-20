@@ -4,7 +4,10 @@
  */
 package UI.Student;
 
+import CourseCatalog.Course;
+import CourseCatalog.SeatAssignment;
 import Platform.Platform;
+import Student.Student;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,11 +20,30 @@ public class TranscriptScreen extends javax.swing.JPanel {
      * Creates new form TranscriptScreen
      */
     private Platform platform;
-    private DefaultTableModel courseTableModel;
+    private DefaultTableModel transcriptTableModel;
+    private Student student;
 
-    public TranscriptScreen(Platform platform) {
+    public TranscriptScreen(Platform platform, Student student) {
         initComponents();
         this.platform = platform;
+        this.student = student;
+        this.transcriptTableModel = (DefaultTableModel) transcriptTable.getModel();
+    }
+
+    public void populateTranscript() {
+        transcriptTableModel.setRowCount(0);
+        for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()){
+            Course c = sa.getSeat().getCourseoffer().getCourse();
+            Object[] row = new Object[6];
+            row[0] = c;
+            row[1] = sa.getGrade();
+            row[2] = c.getName();
+            row[3] = c.getRegion();
+            row[4] = sa.getSeat().getCourseoffer().getProfessor().getName();
+            row[5] = c.getPrice();
+            row[6] = sa.getCourseload().getTerm();
+            transcriptTableModel.addRow(row);
+        }
     }
 
     /**
@@ -34,13 +56,13 @@ public class TranscriptScreen extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        transcriptTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 102));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        transcriptTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -51,7 +73,7 @@ public class TranscriptScreen extends javax.swing.JPanel {
                 "Term", "Course", "Professor", "Grade"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(transcriptTable);
 
         jLabel1.setText("Transcript");
 
@@ -101,6 +123,6 @@ public class TranscriptScreen extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable transcriptTable;
     // End of variables declaration//GEN-END:variables
 }

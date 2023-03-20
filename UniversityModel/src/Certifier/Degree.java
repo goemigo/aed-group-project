@@ -5,7 +5,9 @@
 package Certifier;
 
 import CourseCatalog.Course;
-import Personnel.Student;
+import CourseCatalog.SeatAssignment;
+import Student.Student;
+import Student.Student;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +25,7 @@ public
     }
     
     public boolean isStudentReadyToGraduate(Student student) {
-        ArrayList<SeatAssignment> sas = student.getCourseList(); //seatAssignments extracted from course loads
+        ArrayList<SeatAssignment> sas = student.getTranscript().getSeatAssignmentsAllTerms();//seatAssignments extracted from course loads
         
         for (SeatAssignment sa: sas){
             if (sa.getGrade().equals("Fail")){
