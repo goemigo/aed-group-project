@@ -61,23 +61,70 @@ public class RegisterCourse extends javax.swing.JPanel {
     public void populateRegisteredCourse() {
         registeredTableModel.setRowCount(0);
         for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
-            
-                Course c = sa.getSeat().getCourseoffer().getCourse();
-                Object[] row = new Object[6];
 
-                row[0] = c;
-                
-                row[1] = c.getName();
-                row[2] = c.getTopic();
-                row[3] = c.getRegion();
-                row[4] = c.getLanguage();
-                row[5] = c.getPrice();
-                row[6] = sa.getCourseload().getTerm();
-                registeredTableModel.addRow(row);
-            
+            Course c = sa.getSeat().getCourseoffer().getCourse();
+            Object[] row = new Object[6];
+
+            row[0] = c;
+
+            row[1] = c.getName();
+            row[2] = c.getTopic();
+            row[3] = c.getRegion();
+            row[4] = c.getLanguage();
+            row[5] = c.getPrice();
+            row[6] = sa.getCourseload().getTerm();
+            registeredTableModel.addRow(row);
+
         }
     }
-    
+
+    public void populateSearch(String text, String filter) {
+        courseTableModel.setRowCount(0);
+        String termSel = termSelected.getSelectedItem().toString();
+        ArrayList<CourseOffer> filteredCourses = new ArrayList<CourseOffer>();
+        for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
+            for (CourseOffer co : cs.getSchedule()) {
+                Course c = co.getCourse();
+                switch (filter) {
+                    case "language":
+                        if (c.getLanguage().equals(text)) {
+                            filteredCourses.add(co);
+                        }
+                    case "professor":
+                        if (c.getRegion().equals(text)) {
+                            filteredCourses.add(co);
+                        }
+                    case "region":
+                        if (c.getRegion().equals(text)) {
+                            filteredCourses.add(co);
+                        }
+                    case "course":
+                        if (c.getName().equals(text)) {
+                            filteredCourses.add(co);
+                        }
+                    default:
+                        filteredCourses.add(co);
+                }
+
+            }
+        }
+
+        for (CourseOffer co : filteredCourses) {
+
+            Course c = co.getCourse();
+            Object[] row = new Object[7];
+
+            row[0] = co;
+            row[1] = c.getName();
+            row[2] = c.getTopic();
+            row[3] = c.getRegion();
+            row[4] = c.getLanguage();
+            row[5] = c.getPrice();
+            row[6] = co.getProfessor().getName();
+            courseTableModel.addRow(row);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,7 +134,7 @@ public class RegisterCourse extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        searchText = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         courseTable = new javax.swing.JTable();
@@ -99,13 +146,14 @@ public class RegisterCourse extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         termSelected = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        searchFilter = new javax.swing.JComboBox<>();
+        searchBUtton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 51));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        searchText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                searchTextActionPerformed(evt);
             }
         });
 
@@ -157,14 +205,21 @@ public class RegisterCourse extends javax.swing.JPanel {
 
         termSelected.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fall 2022", "Spring 2023", "Summer 2023", "Fall 2023" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "language", "professor", "region", "course" }));
+        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "language", "professor", "region", "course" }));
+
+        searchBUtton.setText("Search");
+        searchBUtton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBUttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -180,9 +235,12 @@ public class RegisterCourse extends javax.swing.JPanel {
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(searchFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchBUtton)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,10 +266,11 @@ public class RegisterCourse extends javax.swing.JPanel {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
+                            .addComponent(searchFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchBUtton))
+                        .addGap(24, 24, 24)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
@@ -225,9 +284,9 @@ public class RegisterCourse extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_searchTextActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -240,20 +299,30 @@ public class RegisterCourse extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void searchBUttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBUttonActionPerformed
+        // TODO add your handling code here:
+        String searchedText = searchText.getText();
+        String filter = (String) searchFilter.getSelectedItem();
+        populateSearch(searchedText, filter);
+
+
+    }//GEN-LAST:event_searchBUttonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable courseTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable registeredTable;
+    private javax.swing.JButton searchBUtton;
+    private javax.swing.JComboBox<String> searchFilter;
+    private javax.swing.JTextField searchText;
     private javax.swing.JComboBox<String> termSelected;
     // End of variables declaration//GEN-END:variables
 }
