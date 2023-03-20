@@ -4,6 +4,7 @@
  */
 package CourseCatalog;
 
+
 import Professor.Professor;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
  */
 public class CourseCatalog {
     ArrayList<Course> courses;
+
     private Professor professor;
     
     public CourseCatalog(Professor p){
@@ -38,6 +40,8 @@ public class CourseCatalog {
         return null;
     }
     
-    
+    public void addToCourses(Course course) {
+        this.courses.add(course);
+    }
     
 }

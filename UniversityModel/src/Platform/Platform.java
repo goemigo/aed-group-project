@@ -5,6 +5,7 @@
 package Platform;
 
 import CourseCatalog.MasterCourseCatalog;
+
 import Certifier.Certifier;
 import Professor.ProfessorDirectory;
 import Roles.AdminRole;
@@ -17,15 +18,13 @@ import java.util.ArrayList;
  * @author 15512
  */
 public class Platform {
+
         Certifier certifier;
         StudentDirectory sd;
         ProfessorDirectory pd;
         MasterCourseCatalog courseCatalog;
         UserAccountDirectory uad;
-    /**
-     * @param args the command line arguments
-     */
-    
+
     public static Platform getInstance() {
         return new Platform();
     }
@@ -91,9 +90,9 @@ public class Platform {
     public void setUad(UserAccountDirectory uad) {
         this.uad = uad;
     }
+}
+    
+    
+    
 
-    }
-    
-    
-    
 
