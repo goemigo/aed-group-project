@@ -112,7 +112,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
     private void analyticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analyticsActionPerformed
         // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new AnalyticsJPanel());
+        jSplitPane1.setRightComponent(new AnalyticsJPanel(platform, ua));
     }//GEN-LAST:event_analyticsActionPerformed
 
     private void manageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserActionPerformed
