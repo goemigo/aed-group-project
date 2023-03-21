@@ -30,11 +30,11 @@ public class Student extends Person{
     }
 
     public Boolean getRequested() {
-        return requestGraduation;
+        return requested;
     }
 
-    public void setRequested(Boolean requestGraduation) {
-        this.requestGraduation = requestGraduation;
+    public void setRequested(Boolean requested) {
+        this.requested = requested;
     }
     
     public Student(Platform platform){
