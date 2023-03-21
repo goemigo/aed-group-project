@@ -53,6 +53,8 @@ public
         comboRole = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 204, 153));
+
         jPanel1.setBackground(new java.awt.Color(255, 204, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(fieldusername1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 120, 30));
@@ -76,7 +78,7 @@ public
         jLabel6.setText("username");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, 20));
 
-        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "student", "professor" }));
+        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "librarian", "branch manager" }));
         comboRole.setSelectedIndex(-1);
         comboRole.setToolTipText("");
         jPanel1.add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 120, 30));

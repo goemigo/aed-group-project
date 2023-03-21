@@ -55,6 +55,8 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
         fieldSubFee = new javax.swing.JTextField();
         fieldAccountStatus = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(204, 204, 255));
+
         jLabel1.setText("ID");
 
         jLabel2.setText("Name");

@@ -45,7 +45,15 @@ public class CourseCatalog {
         }
         return null;
     }
-        
+    
+    public Boolean checkCourseNameUnique(String name){
+        for (Course c: this.courses){
+            if(c.getName().equals(name)){
+                return false;
+            }
+        }
+        return true;
+    }
     
     
     

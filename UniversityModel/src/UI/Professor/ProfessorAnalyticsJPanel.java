@@ -66,9 +66,15 @@ public class ProfessorAnalyticsJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        setBackground(new java.awt.Color(204, 204, 255));
+
         jLabel1.setText("Total Revenue");
 
+        fieldRevenue.setEditable(false);
+
         jLabel3.setText("Number of students");
+
+        fieldStudents.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

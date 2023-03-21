@@ -133,6 +133,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         fieldUpdatePrice = new javax.swing.JTextField();
         updatePriceBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 204, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Price");
@@ -204,7 +205,6 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         jLabel9.setText("Number of seats");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
 
-        comboTerm.setSelectedIndex(-1);
         add(comboTerm, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 200, -1));
 
         createCOBtn.setText("Create Course Offer");
@@ -260,6 +260,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
 
     private void createCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCourseBtnActionPerformed
         // TODO add your handling code here:
+        //only if the account status is active can the professor create courses
     if(this.professor.getAccountStatus()){
         String name = fieldCourseName.getText();
         String topic = fieldTopic.getText();
@@ -267,12 +268,15 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         String lang = fieldLang.getText();
         String price = fieldPrice.getText();
         
-        this.professor.createCourse(name, topic, region, lang, Integer.valueOf(price));
+        //for one professor, the course name should be unique
+        if(this.professor.getCourseCatalog().checkCourseNameUnique(name)){
+            this.professor.createCourse(name, topic, region, lang, Integer.valueOf(price));
+            populateCourse();
+            populateCourseIdCombo();
+        }else{
+            JOptionPane.showMessageDialog(null, "Course already exists");
+        }  
         
-//        JOptionPane.showMessageDialog(null,"Created");
-        
-        populateCourse();
-        populateCourseIdCombo();
     }else{
         JOptionPane.showMessageDialog(null, "Please subscribe first!");
     }

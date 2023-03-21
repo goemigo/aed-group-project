@@ -49,7 +49,7 @@ public class AdminJFrame extends javax.swing.JFrame {
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         logoutBtn.setText("LOGOUT");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
