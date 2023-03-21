@@ -11,6 +11,7 @@ import Roles.ProfessorRole;
 import Student.Student;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+import VerifyNull.VerifyNull;
 import javax.swing.JOptionPane;
 
 /**
@@ -117,8 +118,11 @@ public
         String name = fieldname1.getText();
         String role = (String) comboRole.getSelectedItem();
        
-
-        //check user account unique
+        //check null fields
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(userName,pass,name,role);
+        if(nonull){
+            //check user account unique
         if(!uad.checkUserNameUnique(userName)) {
             JOptionPane.showMessageDialog(null, "Sorry username is taken.");
         }
@@ -136,6 +140,8 @@ public
             }
             
         }
+        }
+        
     }//GEN-LAST:event_registerBtnActionPerformed
         public void populateroleCombo(){
             comboRole.removeAllItems();

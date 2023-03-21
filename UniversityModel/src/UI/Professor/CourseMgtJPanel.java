@@ -10,6 +10,7 @@ import CourseCatalog.CourseSchedule;
 import Platform.Platform;
 import Professor.Professor;
 import UserAccount.UserAccount;
+import VerifyNull.VerifyNull;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -79,7 +80,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
             
             for (CourseOffer co: offers){
                 Course c = co.getCourse();
-                System.out.println(cs.getTerm() + " " + c.getName());
+            
                 Object[] row = new Object[5];
             
                 row[0] = cs.getTerm(); //term
@@ -268,15 +269,19 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         String lang = fieldLang.getText();
         String price = fieldPrice.getText();
         
-        //for one professor, the course name should be unique
-        if(this.professor.getCourseCatalog().checkCourseNameUnique(name)){
-            this.professor.createCourse(name, topic, region, lang, Integer.valueOf(price));
-            populateCourse();
-            populateCourseIdCombo();
-        }else{
-            JOptionPane.showMessageDialog(null, "Course already exists");
-        }  
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(name,topic,region,lang,price);
         
+        if(nonull){
+            //for one professor, the course name should be unique
+            if(this.professor.getCourseCatalog().checkCourseNameUnique(name)){
+                this.professor.createCourse(name, topic, region, lang, Integer.valueOf(price));
+                populateCourse();
+                populateCourseIdCombo();
+            }else{
+                JOptionPane.showMessageDialog(null, "Course already exists");
+            } 
+        }
     }else{
         JOptionPane.showMessageDialog(null, "Please subscribe first!");
     }
@@ -288,11 +293,17 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         
             String seats = fieldSeats.getText();
             String term = (String) comboTerm.getSelectedItem();
+            
+            VerifyNull checkNull = new VerifyNull();
+            boolean nonull = checkNull.checkNullObject(courseId,seats,term);
         
-            CourseOffer co = this.professor.createCourseOffer(term, courseId);
-            co.generatSeats(Integer.valueOf(seats));
+            if(nonull){
+                CourseOffer co = this.professor.createCourseOffer(term, courseId);
+                co.generatSeats(Integer.valueOf(seats));
         
-            populateSchedule();
+                populateSchedule();
+            }
+            
    
     }//GEN-LAST:event_createCOBtnActionPerformed
 
@@ -302,9 +313,16 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         Course c = (Course) courseTable.getValueAt(selectedRow, 0);
         
         String price = fieldUpdatePrice.getText();
-        c.setPrice(Integer.valueOf(price));
         
-        populateCourse();
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(price);
+        
+        if(nonull){
+            c.setPrice(Integer.valueOf(price));
+            populateCourse();
+        }
+        
+        
     }//GEN-LAST:event_updatePriceBtnActionPerformed
 
     private void courseTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_courseTableMouseClicked

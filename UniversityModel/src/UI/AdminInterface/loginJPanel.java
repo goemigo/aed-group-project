@@ -7,6 +7,7 @@ package UI.AdminInterface;
 import Platform.Platform;
 import UI.MainJFrame;
 import UserAccount.UserAccount;
+import VerifyNull.VerifyNull;
 import java.awt.Component;
 import java.awt.Window;
 import javax.swing.JOptionPane;
@@ -112,8 +113,10 @@ public
         String username = fieldusername.getText();
         String password = fieldpassword.getText();
         //        String role = (String) roleCombo.getSelectedItem();
-
-        if(this.platform.getUad().accountExists(username, password)){
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(username,password);
+        if(nonull){
+            if(this.platform.getUad().accountExists(username, password)){
             UserAccount user = this.platform.getUad().getUserAccount(username, password);
 
             //get work area panel
@@ -126,6 +129,7 @@ public
             
         }else{
             JOptionPane.showMessageDialog(null, "Invalid credentials");
+        }
         }
 
     }//GEN-LAST:event_loginBtnActionPerformed
