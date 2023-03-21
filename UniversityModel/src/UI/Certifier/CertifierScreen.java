@@ -4,15 +4,10 @@
  */
 package UI.Certifier;
 
-import CourseCatalog.CourseLoad;
-import CourseCatalog.SeatAssignment;
-import Certifier.Certifier;
 import Platform.Platform;
-import Professor.Professor;
 import Student.Student;
 import UI.MainJFrame;
 import UserAccount.UserAccount;
-import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,33 +15,31 @@ import javax.swing.table.DefaultTableModel;
  * @author forumkaria
  */
 public
-        class CertifierScreen extends javax.swing.JPanel {
+        class CertifierScreen extends javax.swing.JFrame {
         private Platform platform;
         private UserAccount ua;
-        private Certifier certifier;
+//        private Certifier certifier;
         private DefaultTableModel studentTableModel;
 
     /**
      * Creates new form CertifierScreen
+     * @param platform
+     * @param useraccount
      */
-    public
-            CertifierScreen() {
-        initComponents();
             
-        }
-            
-        public CertifierScreen(Platform platform, UserAccount useraccount) {
+    public CertifierScreen(Platform platform, UserAccount useraccount) {
         initComponents();
         this.setVisible(true);
+        
         this.platform = platform;
         this.ua = useraccount;
-        this.certifier = this.platform.getCertifier();
+//        this.certifier = this.platform.getCertifier();
         this.studentTableModel = (DefaultTableModel) studentTable.getModel();
         
         populateTable();
-}
+    }
         
-        public void populateTable(){
+    public void populateTable(){
         studentTableModel.setRowCount(0);
         
         for (Student s: this.platform.getSd().getStudent()){
@@ -60,7 +53,7 @@ public
                 studentTableModel.addRow(row);
             } 
             }
-        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -78,7 +71,7 @@ public
         jScrollPane1 = new javax.swing.JScrollPane();
         studentTable = new javax.swing.JTable();
 
-        setLayout(new java.awt.BorderLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         authenticateDegreeBtn.setText("Authenticate Degree");
         authenticateDegreeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -156,12 +149,12 @@ public
                     .addContainerGap(395, Short.MAX_VALUE)))
         );
 
-        add(jPanel1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 473));
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-        this.setVisible(true);
+        this.setVisible(false);
         MainJFrame mj = new MainJFrame(platform, ua);
     }//GEN-LAST:event_logoutBtnActionPerformed
 
@@ -172,7 +165,7 @@ public
         Student s = (Student) studentTable.getValueAt(selectedRow, 0);
         
                         //get the certifier object from the user account
-            if (certifier.getDegree().isStudentReadyToGraduate(s)){
+            if (this.platform.getCertifier().getDegree().isStudentReadyToGraduate(s)){
                 s.getTranscript().setIsGraduated(true);
             }else{
                 s.getTranscript().setIsGraduated(false) ;

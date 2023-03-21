@@ -24,10 +24,11 @@ public
      * Creates new form loginJPanel
      */
     public
-            loginJPanel(Platform platform) {
+            loginJPanel(Platform platform, UserAccount userAccount) {
         initComponents();
         this.setVisible(true);
         this.platform = platform;
+        this.userAccount = userAccount;
     }
 
     /**
@@ -114,14 +115,14 @@ public
 
         if(this.platform.getUad().accountExists(username, password)){
             UserAccount user = this.platform.getUad().getUserAccount(username, password);
-            this.setVisible(false);
 
             //get work area panel
-            //            user.getWorkArea(role,app,user);
-            user.getRole().createWorkArea(platform, userAccount);
-            Window frame = SwingUtilities.windowForComponent((Component) evt.getSource());
-            frame.setVisible(false);
+            user.getRole().createWorkArea(this.platform, user);
             
+            Window frame = SwingUtilities.windowForComponent((Component) evt.getSource());
+            frame.setVisible(false); 
+            this.setVisible(false);
+
             
         }else{
             JOptionPane.showMessageDialog(null, "Invalid credentials");

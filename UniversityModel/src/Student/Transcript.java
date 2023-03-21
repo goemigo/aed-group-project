@@ -21,8 +21,13 @@ public class Transcript {
     HashMap<String, ArrayList<String>> termGrades;
     Student student;
     int courseCount;
-    Boolean isGraduated;
-
+    Boolean isGraduated = false;
+    
+    public Transcript(){
+        this.courseLoads = new HashMap<String, CourseLoad>();
+        
+    }
+    
     public HashMap<String, CourseLoad> getCourseLoads() {
         return courseLoads;
     }
@@ -61,7 +66,7 @@ public class Transcript {
     }
 
     public void registerCourse(String term, CourseOffer co) {
-        if (this.courseCount < 12) {
+        if (this.courseCount < 8) {
             this.courseCount++;
             CourseLoad cl = new CourseLoad(term, student);
             this.courseLoads.put(term, cl);

@@ -47,7 +47,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         populateStudentTable();
         populateCourseCombo();
         
-        this.selectedCourse = (Course) comboCourse.getSelectedItem();
+        this.selectedCourse = this.professor.getCourseCatalog().getCourseByName((String) comboCourse.getSelectedItem());
         
         fieldRep.setText(String.valueOf(this.professor.getReputation()));
     }
@@ -163,14 +163,15 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
 
     private void comboCourseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboCourseFocusLost
         // TODO add your handling code here:
-        fieldCourseName.setText(this.selectedCourse.getName());
-        
-        populateStudentTable();
+//        fieldCourseName.setText(this.selectedCourse.getName());
+//        
+//        populateStudentTable();
     }//GEN-LAST:event_comboCourseFocusLost
 
     private void comboCourseItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCourseItemStateChanged
         // TODO add your handling code here:
         fieldCourseName.setText((String) comboCourse.getSelectedItem());
+        populateStudentTable();
         
     }//GEN-LAST:event_comboCourseItemStateChanged
 
@@ -238,8 +239,8 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
                         if (s.isOccupied() == true) {
                             
                             Object[] row = new Object[3];
-        
-                            row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();
+                            row[0] = s.getSeatassignment().getCourseload().getStudent();
+//                            row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();
                             row[1] = s.getSeatassignment().getCourseload().getStudent().getName();
                             row[2] = s.getSeatassignment().getGrade();
                 
@@ -270,8 +271,9 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
                             if (s.isOccupied() == true) {
                             
                                 Object[] row = new Object[3];
-        
-                                row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();
+                                
+                                row[0] = s.getSeatassignment().getCourseload().getStudent();
+//                                row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();
                                 row[1] = s.getSeatassignment().getCourseload().getStudent().getName();
                                 row[2] = s.getSeatassignment().getGrade();
                 

@@ -19,9 +19,10 @@ import java.util.HashMap;
  */
 public class Student extends Person{
     private Transcript transcript;
-    private Boolean tuitionPaid;
-    private Boolean requested;
+    private Boolean tuitionPaid = false;
+    private Boolean requested = false;
     private Platform platform;
+    
     public Boolean getTuitionPaid() {
         return tuitionPaid;
     }

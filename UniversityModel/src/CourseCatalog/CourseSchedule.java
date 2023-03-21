@@ -4,6 +4,7 @@
  */
 package CourseCatalog;
 
+import Professor.Professor;
 import Student.Student;
 import java.util.ArrayList;
 
@@ -24,12 +25,12 @@ public class CourseSchedule {
         enrolledListForTerm = new ArrayList<Student>();
     }
     
-    public CourseOffer newCourseOffer(String courseId) {
+    public CourseOffer newCourseOffer(String courseId,Professor p) {
         Course c = courseCatalog.getCourseById(courseId);
         if (c == null)
             return null;
         
-        CourseOffer co = new CourseOffer(c);
+        CourseOffer co = new CourseOffer(c,p);
         schedule.add(co);
         return co;
     }

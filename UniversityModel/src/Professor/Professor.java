@@ -25,13 +25,14 @@ public class Professor extends Person {
     private HashMap<String, CourseSchedule> allSchedules;
     private int reputation = 0; //default
     private int tuitionCollected;
-    private Boolean accountStatus; //only professor role has this attribute
+    private Boolean accountStatus = false; //only professor role has this attribute
     private ArrayList<Student> enrolledListForAllTerm;
     
     public Professor(){
         super();
         this.courseCatalog = new CourseCatalog(this);
         this.allSchedules = new HashMap<String, CourseSchedule>();  
+        this.enrolledListForAllTerm = new ArrayList<Student>();
     }
     
     public Course createCourse(String name,String topic, String region, String language, int price){
@@ -48,7 +49,7 @@ public class Professor extends Person {
     //create schedule before create offer
     public CourseOffer createCourseOffer(String term, String courseId){
         CourseSchedule cs = this.getCourseScheduleByTerm(term);
-        CourseOffer co = cs.newCourseOffer(courseId);
+        CourseOffer co = cs.newCourseOffer(courseId,this);
         return co;
     }
     
@@ -108,4 +109,8 @@ public class Professor extends Person {
     public void setAccountStatus(Boolean accountStatus) {
         this.accountStatus = accountStatus;
     }  
+    
+    public String getAccountStatusString(){
+        return  (this.accountStatus==true) ? "Active": "Inactive";
+    }
 }

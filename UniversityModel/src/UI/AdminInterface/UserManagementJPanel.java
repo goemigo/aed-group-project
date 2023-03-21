@@ -39,37 +39,31 @@ public
 //        populateBranch();
 //        branchCombo.setSelectedItem(null);
         
-        populateTable();
-    }
-    
-        public void populateBranch(){
-        ArrayList<Branch> allbranches = this.app.getBranchDirectory().getBranches();
-        for (Branch b: allbranches){
-            branchCombo.addItem(b.getName());
-        }
-    }
-    
-    public void populateTable(){
-        profTableModel.setRowCount(0);
+        populateStudentTable();
+        populateProfTable();
         
-        for (Professor p: this.app.getBranchDirectory().getBranches()){
-            if (b.getLibrary().getEmployeeDirectory().getEmployees().size()>0){
-                for (Employee e: b.getLibrary().getEmployeeDirectory().getEmployees()){
+        ceritfierName.setText(this.platform.getCertifier().getName());
+        UserAccount u = this.platform.getUad().findById(this.platform.getCertifier().getPersonid());
+        certifierUsername.setText(u.getUsername());
+    }
+    
+    
+    
+    public void populateProfTable(){
+        profTableModel.setRowCount(0);
+        if (this.platform.getPd().getProfessors().size()>0){
+            for (Professor p: this.platform.getPd().getProfessors()){
+           
                 
-                Object[] row = new Object[7];
+                Object[] row = new Object[3];
             
-                row[0] = e;
-                row[1] = e.getName();
-                row[2] = this.app.getUad().findById(e.getEmployeeId()).getUsername();
-                row[3] = this.app.getUad().findById(e.getEmployeeId()).getPassword();
-                row[4] = e.getExperience();
-                row[5] = e.getDesignation();
-                row[6] = b;
-                
+                row[0] = p.getPersonid();
+                row[1] = this.platform.getUad().findById(p.getPersonid()).getUsername();
+                row[2] = p.getName();
+               
                 profTableModel.addRow(row);
                 }
             }
-        }
             
     }
             

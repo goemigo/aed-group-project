@@ -5,6 +5,7 @@
 package UI.Student;
 import Student.Student;
 import Platform.Platform;
+import UI.MainJFrame;
 import UserAccount.UserAccount;
 import java.awt.Component;
 /**
@@ -14,15 +15,18 @@ import java.awt.Component;
 public class StudentScreen extends javax.swing.JFrame {
     private Platform platform;
     private Student student;
-    
+    private UserAccount useraccount;
     /**
      * Creates new form StudentView
      */
-    public StudentScreen(Platform platform, UserAccount useraccount) {
+    public StudentScreen(Platform platform, UserAccount ua) {
         initComponents();
+        this.setVisible(true);
         this.platform = platform;
-        this.student = this.platform.getStudentDirectory().findStudentById(useraccount.getAccountId());
+        this.useraccount = ua;
         
+        this.student = this.platform.getStudentDirectory().findStudentById(this.useraccount.getAccountId());
+        //this.useraccount is null
     }
     
     public StudentScreen() {
@@ -42,6 +46,7 @@ public class StudentScreen extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
@@ -60,21 +65,34 @@ public class StudentScreen extends javax.swing.JFrame {
             }
         });
 
+        logoutBtn.setText("LOGOUT");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(137, 137, 137)
+                .addContainerGap()
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101)
                 .addComponent(jButton1)
                 .addGap(72, 72, 72)
                 .addComponent(jButton2)
@@ -98,6 +116,13 @@ public class StudentScreen extends javax.swing.JFrame {
         jSplitPane1.setRightComponent(new TranscriptScreen(this.platform, this.student));
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        // TODO add your handling code here:
+
+        this.setVisible(false);
+        MainJFrame mj = new MainJFrame(platform, useraccount);
+    }//GEN-LAST:event_logoutBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,7 +155,7 @@ public class StudentScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StudentScreen().setVisible(true);
+//                new StudentScreen().setVisible(true);
             }
         });
     }
@@ -140,6 +165,7 @@ public class StudentScreen extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton logoutBtn;
     // End of variables declaration//GEN-END:variables
 
 }

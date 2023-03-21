@@ -21,7 +21,7 @@ public class ProfessorRole extends Role {
        return new ProfessorScreen(platform, useraccount);
     }
     
-    public String toStringRole(){
-        return "professor";
-    }
+//    public String toStringRole(){
+//        return "professor";
+//    }
 }

@@ -18,8 +18,9 @@ public class CourseOffer {
     private Professor professor;
     private ArrayList<Student> enrolledStudentList;
     
-    public CourseOffer(Course c) {
+    public CourseOffer(Course c,Professor professor) {
         course = c;
+        this.professor = professor;
         seatlist = new ArrayList<Seat>();
         enrolledStudentList = new ArrayList<Student>();
     }

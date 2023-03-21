@@ -29,6 +29,11 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
         this.ua = useraccount;
         
         this.professor = this.platform.getProfessorDirectory().findProfessorById(ua.getAccountId());
+        
+        fieldProfID.setText(this.ua.getAccountId());
+        fieldProfName.setText(this.professor.getName());
+        fieldAccountStatus.setText(this.professor.getAccountStatusString());
+        fieldSubFee.setText(String.valueOf(1000));
     }
 
     /**
@@ -65,24 +70,28 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Subscription fee");
 
+        fieldProfID.setEditable(false);
         fieldProfID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldProfIDActionPerformed(evt);
             }
         });
 
+        fieldProfName.setEditable(false);
         fieldProfName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldProfNameActionPerformed(evt);
             }
         });
 
+        fieldSubFee.setEditable(false);
         fieldSubFee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldSubFeeActionPerformed(evt);
             }
         });
 
+        fieldAccountStatus.setEditable(false);
         fieldAccountStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldAccountStatusActionPerformed(evt);
@@ -147,7 +156,7 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
       
         professor.setAccountStatus(true); //set prof user account status to true
-        fieldAccountStatus.setText("Active");
+        fieldAccountStatus.setText(this.professor.getAccountStatusString());
         this.platform.collectSubscriptionFee(this.professor.getPersonid()); //add revenue to platform
         
         JOptionPane.showMessageDialog(null, "Successfully subscribed!");

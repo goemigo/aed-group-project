@@ -30,6 +30,8 @@ public class RegisterCourse extends javax.swing.JPanel {
 
     public RegisterCourse(Platform platform, Student s) {
         initComponents();
+        this.setVisible(true);
+        
         this.platform = platform;
         this.student = s;
         this.courseTableModel = (DefaultTableModel) courseTable.getModel();
@@ -292,7 +294,9 @@ public class RegisterCourse extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = courseTable.getSelectedRow();
         CourseOffer co = (CourseOffer) courseTable.getValueAt(selectedRow, 0);
-        this.student.getTranscript().registerCourse(this.term, co);
+        this.student.getTranscript().registerCourse(this.term, co); //Which term is this.term?
+        
+        populateRegisteredCourse();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -304,7 +308,6 @@ public class RegisterCourse extends javax.swing.JPanel {
         String searchedText = searchText.getText();
         String filter = (String) searchFilter.getSelectedItem();
         populateSearch(searchedText, filter);
-
 
     }//GEN-LAST:event_searchBUttonActionPerformed
 

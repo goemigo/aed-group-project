@@ -38,6 +38,15 @@ public class CourseCatalog {
         return null;
     }
     
+    public Course getCourseByName(String n){
+        for (Course c : courses) {
+            if (c.getCourseId().equals(n))
+                return c;
+        }
+        return null;
+    }
+        
+    
     
     
 }

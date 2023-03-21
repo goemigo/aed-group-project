@@ -4,6 +4,11 @@
  */
 package UI.Professor;
 
+import Platform.Platform;
+import Professor.Professor;
+import UI.MainJFrame;
+import UserAccount.UserAccount;
+
 /**
  *
  * @author emi
@@ -13,7 +18,20 @@ public class ProfessorScreen extends javax.swing.JFrame {
     /**
      * Creates new form ProfessorScreen
      */
-    public ProfessorScreen() {
+    private Platform platform;
+    private UserAccount ua;
+    private Professor professor;
+    
+    public ProfessorScreen(Platform platform, UserAccount useraccount) {
+        initComponents();
+        this.setVisible(true);
+        this.platform = platform;
+        this.ua = useraccount;
+        
+        this.professor = this.platform.getProfessorDirectory().findProfessorById(ua.getAccountId());
+    }
+    
+    private ProfessorScreen() {
         initComponents();
     }
 
@@ -26,21 +44,121 @@ public class ProfessorScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jPanel1 = new javax.swing.JPanel();
+        subBtn = new javax.swing.JButton();
+        courseBtn = new javax.swing.JButton();
+        stuBtn = new javax.swing.JButton();
+        anaBtn = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        subBtn.setText("Subscription Mgt");
+        subBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subBtnActionPerformed(evt);
+            }
+        });
+
+        courseBtn.setText("Course Mgt");
+        courseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                courseBtnActionPerformed(evt);
+            }
+        });
+
+        stuBtn.setText("Enrolled Students Mgt");
+        stuBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stuBtnActionPerformed(evt);
+            }
+        });
+
+        anaBtn.setText("My Analytics");
+        anaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anaBtnActionPerformed(evt);
+            }
+        });
+
+        logoutBtn.setText("LOGOUT");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(stuBtn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(subBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(anaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(courseBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(subBtn)
+                    .addComponent(courseBtn)
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(anaBtn)
+                    .addComponent(stuBtn))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
+
+        jSplitPane1.setTopComponent(jPanel1);
+
+        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void subBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subBtnActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new SubscriptionJPanel(this.platform,ua));
+    }//GEN-LAST:event_subBtnActionPerformed
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        // TODO add your handling code here:
+
+        this.setVisible(false);
+        MainJFrame mj = new MainJFrame(platform, ua);
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void courseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_courseBtnActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new CourseMgtJPanel(this.platform,ua));
+    }//GEN-LAST:event_courseBtnActionPerformed
+
+    private void stuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stuBtnActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new StudentMgtJPanel(this.platform,ua));
+    }//GEN-LAST:event_stuBtnActionPerformed
+
+    private void anaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anaBtnActionPerformed
+        // TODO add your handling code here:
+        jSplitPane1.setRightComponent(new ProfessorAnalyticsJPanel(this.platform,ua));
+    }//GEN-LAST:event_anaBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -72,11 +190,18 @@ public class ProfessorScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProfessorScreen().setVisible(true);
+//                new ProfessorScreen().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton anaBtn;
+    private javax.swing.JButton courseBtn;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton stuBtn;
+    private javax.swing.JButton subBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,7 +22,7 @@ public class CertifierRole extends Role {
         return new CertifierScreen(platform, useraccount);
         
     }
-    public String toStringRole(){
-        return "certifier";
-    }
+//    public String toStringRole(){
+//        return "certifier";
+//    }
 }

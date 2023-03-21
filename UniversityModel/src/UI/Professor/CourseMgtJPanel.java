@@ -41,7 +41,8 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         this.courseTableModel = (DefaultTableModel) courseTable.getModel();
         this.scheduleTableModel = (DefaultTableModel) scheduleTable.getModel();
         
-        
+        populateTermCombo();
+        populateCourseIdCombo();
         populateCourse();
         populateSchedule();
     }
@@ -52,8 +53,8 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
     
     public void populateCourse(){
         courseTableModel.setRowCount(0);
-        
-        for (Course c: this.professor.getCourseCatalog().getCourses()){
+        if (this.professor.getCourseCatalog().getCourses().size()>0){
+            for (Course c: this.professor.getCourseCatalog().getCourses()){
             Object[] row = new Object[6];
             
             row[0] = c;
@@ -65,12 +66,14 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
             
             courseTableModel.addRow(row);
         }
+        }
+        
     }
     
     public void populateSchedule(){
         scheduleTableModel.setRowCount(0);
-        
-        for (Map.Entry<String,CourseSchedule> termSchedule: this.professor.getAllSchedules().entrySet()){
+        if (!this.professor.getAllSchedules().entrySet().isEmpty()){
+            for (Map.Entry<String,CourseSchedule> termSchedule: this.professor.getAllSchedules().entrySet()){
             CourseSchedule cs = termSchedule.getValue();
             ArrayList<CourseOffer> offers = cs.getSchedule();
             
@@ -89,6 +92,8 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
             
             
         }
+        }
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -198,7 +203,6 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         jLabel9.setText("Number of seats");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
 
-        comboTerm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "term1", "term2", "term3", "term4" }));
         comboTerm.setSelectedIndex(-1);
         add(comboTerm, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 200, -1));
 
@@ -255,6 +259,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
 
     private void createCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCourseBtnActionPerformed
         // TODO add your handling code here:
+    if(this.professor.getAccountStatus()){
         String name = fieldCourseName.getText();
         String topic = fieldTopic.getText();
         String region = fieldRegion.getText();
@@ -267,19 +272,24 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         
         populateCourse();
         populateCourseIdCombo();
+    }else{
+        JOptionPane.showMessageDialog(null, "Please subscribe first!");
+    }
     }//GEN-LAST:event_createCourseBtnActionPerformed
 
     private void createCOBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCOBtnActionPerformed
-        // TODO add your handling code here:
-        String courseId = (String) comboCourseId.getSelectedItem();
-        String seats = fieldSeats.getText();
-        String term = (String) comboTerm.getSelectedItem();
+
+            String courseId = (String) comboCourseId.getSelectedItem();
         
-        CourseSchedule cs = this.professor.newCourseSchedule(term);
-        CourseOffer co = this.professor.createCourseOffer(term, courseId);
-        co.generatSeats(Integer.valueOf(seats));
+            String seats = fieldSeats.getText();
+            String term = (String) comboTerm.getSelectedItem();
         
-        populateSchedule();
+            CourseSchedule cs = this.professor.newCourseSchedule(term);
+            CourseOffer co = this.professor.createCourseOffer(term, courseId);
+            co.generatSeats(Integer.valueOf(seats));
+        
+            populateSchedule();
+   
     }//GEN-LAST:event_createCOBtnActionPerformed
 
     private void updatePriceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePriceBtnActionPerformed
@@ -306,6 +316,12 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         
         for (Course c: this.professor.getCourseCatalog().getCourses()){
             comboCourseId.addItem(c.getCourseId());
+        }
+    }
+    
+    public void populateTermCombo(){
+        for (String term: this.platform.getTerms()){
+            comboTerm.addItem(term);
         }
     }
     

@@ -90,7 +90,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void loginBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtn1ActionPerformed
         // TODO add your handling code here:
-        jSplitPane1.setRightComponent(new loginJPanel(this.platform));
+        jSplitPane1.setRightComponent(new loginJPanel(this.platform,this.useraccount));
     }//GEN-LAST:event_loginBtn1ActionPerformed
 
     /**

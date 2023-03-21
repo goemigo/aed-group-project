@@ -59,7 +59,9 @@ public class Platform {
         //create the certifier useraccount and certifier object
         UserAccount certifierAccount = this.uad.createUserAccount("c", "c", new CertifierRole());
         certifier.setPersonid(certifierAccount.getAccountId());
-        certifier.setName("C1");
+        certifier.setName("c");
+        
+        certifier.createDegree("MSIS");
         
     }
 
