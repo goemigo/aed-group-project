@@ -30,7 +30,9 @@ public
         initComponents();
         
         this.platform = platform;
-//        this.ua = ua;
+        
+        populateroleCombo();
+        comboRole.setSelectedIndex(-1);
     }
 
     /**
@@ -78,7 +80,6 @@ public
         jLabel6.setText("username");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, 20));
 
-        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "librarian", "branch manager" }));
         comboRole.setSelectedIndex(-1);
         comboRole.setToolTipText("");
         jPanel1.add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 120, 30));
@@ -136,11 +137,11 @@ public
             
         }
     }//GEN-LAST:event_registerBtnActionPerformed
-//        public void populateroleCombo(){
-//            for (String role: Role.getAllRoles()){
-//                comboRole.addItem(role);
-//            }
-//        }
+        public void populateroleCombo(){
+            comboRole.removeAllItems();
+            comboRole.addItem("student");
+            comboRole.addItem("professor");   
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboRole;

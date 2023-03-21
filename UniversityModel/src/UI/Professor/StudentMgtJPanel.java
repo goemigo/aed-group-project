@@ -49,7 +49,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         
         this.selectedCourse = this.professor.getCourseCatalog().getCourseByName((String) comboCourse.getSelectedItem());
         
-        fieldRep.setText(String.valueOf(this.professor.getReputation()));
+        fieldRep.setText(String.valueOf(this.professor.calReputation()));
     }
     
     public StudentMgtJPanel() {

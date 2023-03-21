@@ -12,6 +12,7 @@ public class SeatAssignment {
     Seat seat;
     CourseLoad courseload;
     String grade = "ungraded";
+    int professorRepGrading = 0;  //student can rate 1-5 
     
     public SeatAssignment(CourseLoad cl, Seat s) {
         seat = s;
@@ -44,6 +45,14 @@ public class SeatAssignment {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public int getProfessorRepGrading() {
+        return professorRepGrading;
+    }
+
+    public void setProfessorRepGrading(int professorRepGrading) {
+        this.professorRepGrading = professorRepGrading;
     }
     
     

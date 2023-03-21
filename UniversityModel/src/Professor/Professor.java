@@ -8,6 +8,7 @@ import CourseCatalog.Course;
 import CourseCatalog.CourseCatalog;
 import CourseCatalog.CourseOffer;
 import CourseCatalog.CourseSchedule;
+import CourseCatalog.SeatAssignment;
 import Personnel.Person;
 import Student.Student;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Professor extends Person {
     private CourseCatalog courseCatalog;
 //    private CourseSchedule courseSchedule;
     private HashMap<String, CourseSchedule> allSchedules;
-    private int reputation = 0; //default
+    private float reputation; // average number
     private int tuitionCollected;
     private Boolean accountStatus = false; //only professor role has this attribute
     private ArrayList<Student> enrolledListForAllTerm;
@@ -86,8 +87,25 @@ public class Professor extends Person {
     }
 
 
-    public int getReputation() {
-        return reputation;
+//    public int getReputation() {
+//        return reputation;
+//    }
+    public float calReputation(){
+        this.reputation = 0;
+        int gradingCount = 0;
+        for (Student s: this.getEnrolledListForAllTerm()){
+            for (SeatAssignment sa: s.getTranscript().getSeatAssignmentsAllTerms()){
+                if(sa.getProfessorRepGrading()!=0){
+                    this.reputation += sa.getProfessorRepGrading();
+                    gradingCount += 1;
+                }
+            }
+        }
+        if (gradingCount==0){
+            return 0;
+        }else{
+            return this.reputation/gradingCount;
+        }
     }
 
     public void setReputation(int reputation) {
