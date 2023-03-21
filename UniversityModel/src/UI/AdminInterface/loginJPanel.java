@@ -23,7 +23,7 @@ public
             loginJPanel(Platform platform) {
         initComponents();
         this.setVisible(true);
-        this.platform = Platform.getInstance();
+        this.platform = platform.getInstance();
     }
 
     /**

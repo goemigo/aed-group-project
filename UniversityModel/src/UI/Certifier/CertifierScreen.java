@@ -1,38 +1,67 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package UI.Certifier;
 
+import CourseCatalog.CourseLoad;
+import CourseCatalog.SeatAssignment;
+import Certifier.Certifier;
 import Platform.Platform;
+import Professor.Professor;
+import Student.Student;
 import UI.MainJFrame;
 import UserAccount.UserAccount;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author 15512
+ * @author forumkaria
  */
-public class CertifierScreen extends javax.swing.JFrame {
+public
+        class CertifierScreen extends javax.swing.JPanel {
+        private Platform platform;
+        private UserAccount ua;
+        private Certifier certifier;
+        private DefaultTableModel studentTableModel;
 
-    private Platform platform;
-    private UserAccount ua;
     /**
-     * Creates new form CustomerJFrame
+     * Creates new form CertifierScreen
      */
-    public CertifierScreen(Platform platform, UserAccount useraccount) {
+    public
+            CertifierScreen() {
+        initComponents();
+            
+        }
+            
+        public CertifierScreen(Platform platform, UserAccount useraccount) {
         initComponents();
         this.setVisible(true);
         this.platform = platform;
         this.ua = useraccount;
-    }
+        this.certifier = this.platform.getCertifier();
+        this.studentTableModel = (DefaultTableModel) studentTable.getModel();
+        
+        populateTable();
+}
+        
+        public void populateTable(){
+        studentTableModel.setRowCount(0);
+        
+        for (Student s: this.platform.getSd().getStudent()){
+            if (s.getRequested()){
+                Object[] row = new Object[3];
+            
+                row[0] = s.getPersonid();
+                row[1] = s.getName();
+                row[2] = s.getTranscript().getGraduationStatus();
+                
+                studentTableModel.addRow(row);
+            } 
+            }
+        }
 
-    private CertifierScreen() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,123 +72,121 @@ public class CertifierScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        backBtn = new javax.swing.JButton();
+        authenticateDegreeBtn = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        studentTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 0, 51));
-        jLabel4.setText("Certifier");
-
-        backBtn.setBackground(new java.awt.Color(255, 51, 51));
-        backBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        backBtn.setText("Log Out");
-        backBtn.addActionListener(new java.awt.event.ActionListener() {
+        authenticateDegreeBtn.setText("Authenticate Degree");
+        authenticateDegreeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backBtnActionPerformed(evt);
+                authenticateDegreeBtnActionPerformed(evt);
             }
         });
+
+        logoutBtn.setText("Logout");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("CERTIFIER");
+
+        studentTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Student ID", "Student Name", "Graduation Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(studentTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(222, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(backBtn)
-                .addGap(37, 37, 37))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(275, 275, 275))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(authenticateDegreeBtn)
+                .addGap(214, 214, 214))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(40, 40, 40)
+                    .addComponent(logoutBtn)
+                    .addContainerGap(531, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backBtn))
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(authenticateDegreeBtn)
+                .addContainerGap(43, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(49, 49, 49)
+                    .addComponent(logoutBtn)
+                    .addContainerGap(395, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
-
-        pack();
+        add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-//        new MainJFrame(platform, useraccount);
-    }//GEN-LAST:event_backBtnActionPerformed
+        this.setVisible(true);
+        MainJFrame mj = new MainJFrame(platform, ua);
+    }//GEN-LAST:event_logoutBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-}
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CertifierScreen.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CertifierScreen.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CertifierScreen.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CertifierScreen.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CertifierScreen().setVisible(true);
-            }
-        });
-    }
+    private void authenticateDegreeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authenticateDegreeBtnActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRow = studentTable.getSelectedRow();
+        Student s = (Student) studentTable.getValueAt(selectedRow, 0);
+        
+                        //get the certifier object from the user account
+            if (certifier.getDegree().isStudentReadyToGraduate(s)){
+                s.getTranscript().setIsGraduated(true);
+            }else{
+                s.getTranscript().setIsGraduated(false) ;
+                        }
+                populateTable();     
+    }//GEN-LAST:event_authenticateDegreeBtnActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton authenticateDegreeBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton logoutBtn;
+    private javax.swing.JTable studentTable;
     // End of variables declaration//GEN-END:variables
 }
