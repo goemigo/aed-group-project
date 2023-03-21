@@ -79,6 +79,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
             
             for (CourseOffer co: offers){
                 Course c = co.getCourse();
+                System.out.println(cs.getTerm() + " " + c.getName());
                 Object[] row = new Object[5];
             
                 row[0] = cs.getTerm(); //term
@@ -284,7 +285,6 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
             String seats = fieldSeats.getText();
             String term = (String) comboTerm.getSelectedItem();
         
-            CourseSchedule cs = this.professor.newCourseSchedule(term);
             CourseOffer co = this.professor.createCourseOffer(term, courseId);
             co.generatSeats(Integer.valueOf(seats));
         

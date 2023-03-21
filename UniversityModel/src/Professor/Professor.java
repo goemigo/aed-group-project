@@ -33,6 +33,8 @@ public class Professor extends Person {
         this.courseCatalog = new CourseCatalog(this);
         this.allSchedules = new HashMap<String, CourseSchedule>();  
         this.enrolledListForAllTerm = new ArrayList<Student>();
+        
+//        insertTermsInAllSchedules();
     }
     
     public Course createCourse(String name,String topic, String region, String language, int price){
@@ -67,7 +69,13 @@ public class Professor extends Person {
         }
         return this.enrolledListForAllTerm;
     }
-   
+    
+    public void initiateAllSchedules(ArrayList<String> terms){
+        for (String term: terms){
+            this.newCourseSchedule(term);
+        }
+        
+    }
 
     public CourseCatalog getCourseCatalog() {
         return courseCatalog;
