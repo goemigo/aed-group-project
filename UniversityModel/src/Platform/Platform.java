@@ -13,6 +13,7 @@ import Professor.Professor;
 import Certifier.Certifier;
 import Professor.ProfessorDirectory;
 import Roles.AdminRole;
+import Roles.CertifierRole;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 
@@ -36,21 +37,30 @@ public class Platform {
         return new Platform();
     }
 
-    public Platform() {
+    public Platform(){
         this.certifier = new Certifier();
         this.sd = new StudentDirectory();
         this.pd = new ProfessorDirectory();
 
         this.masterCourseCatalog = new MasterCourseCatalog();
-        this.terms.add("Fall 2022");
+        
+        //set up the terms
+        this.terms = new ArrayList<String>();
+        this.terms.add("Fall 2022"); 
         this.terms.add("Spring 2023");
         this.terms.add("Summer 2023");
-        this.terms.add("Fall 2023");
-
+        this.terms.add("Fall 2023"); 
+        
         this.uad = new UserAccountDirectory();
-
-        UserAccount user = this.uad.createUserAccount("a", "a", new AdminRole());
-
+        
+        //create the admin user
+        UserAccount admin = this.uad.createUserAccount("a", "a", new AdminRole());
+        
+        //create the certifier useraccount and certifier object
+        UserAccount certifierAccount = this.uad.createUserAccount("c", "c", new CertifierRole());
+        certifier.setPersonid(certifierAccount.getAccountId());
+        certifier.setName("C1");
+        
     }
 
     public MasterCourseCatalog getMasterCourseCatalog() {
@@ -61,20 +71,8 @@ public class Platform {
         this.masterCourseCatalog = masterCourseCatalog;
     }
 
-    public ArrayList<String> getTerms() {
-        return terms;
-    }
-
     public void setTerms(ArrayList<String> terms) {
         this.terms = terms;
-    }
-
-    public int getRevenue() {
-        return revenue;
-    }
-
-    public void setRevenue(int revenue) {
-        this.revenue = revenue;
     }
 
     public Certifier getCertifier() {
@@ -98,10 +96,6 @@ public class Platform {
         return pd;
     }
 
-    public MasterCourseCatalog getCourseCatalog() {
-        return masterCourseCatalog;
-    }
-
     public ArrayList<CourseSchedule> listCourseOffersByTerm(String term) {
         ArrayList<CourseSchedule> coList = new ArrayList<CourseSchedule>();
         for (Professor p : this.pd.getProfessors()) {
@@ -109,13 +103,9 @@ public class Platform {
         }
         return coList;
     }
-
-    public static void main(String[] args) {
-        // TODO code application logic here
-
-    }
-
-    public StudentDirectory getSd() {
+   
+    public
+    StudentDirectory getSd() {
         return sd;
     }
 
@@ -130,7 +120,7 @@ public class Platform {
     public void setPd(ProfessorDirectory pd) {
         this.pd = pd;
     }
-
+    
     public UserAccountDirectory getUad() {
         return uad;
     }
@@ -138,4 +128,18 @@ public class Platform {
     public void setUad(UserAccountDirectory uad) {
         this.uad = uad;
     }
+
+    public ArrayList<String> getTerms() {
+        return terms;
+    }
+
+    public int getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
+    }
+    
+    
 }

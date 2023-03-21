@@ -4,6 +4,7 @@
  */
 package Professor;
 
+import Student.Student;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,11 @@ import java.util.ArrayList;
  */
 public class ProfessorDirectory {
     ArrayList<Professor> professors;
-
+    
+    public ProfessorDirectory(){
+        this.professors = new ArrayList<Professor>();
+        
+    }
     public ArrayList<Professor> getProfessors() {
         return professors;
     }
@@ -30,6 +35,15 @@ public class ProfessorDirectory {
         }
         
         return null;
+    }
+    
+    public Professor createProfessor(String id, String name){
+        Professor p = new Professor();
+        p.setPersonid(id);
+        p.setName(name);
+        
+        this.professors.add(p);
+        return p;
     }
 
 }

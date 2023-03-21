@@ -5,6 +5,10 @@
 package UI.AdminInterface;
 
 import Platform.Platform;
+import Professor.Professor;
+import Roles.StudentRole;
+import Roles.ProfessorRole;
+import Student.Student;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 import javax.swing.JOptionPane;
@@ -16,7 +20,7 @@ import javax.swing.JOptionPane;
 public
         class RegistrationJPanel extends javax.swing.JPanel {
     private Platform platform;
-    private UserAccount ua;
+//    private UserAccount ua;
     
     /**
      * Creates new form RegistrationJPanel
@@ -26,7 +30,7 @@ public
         initComponents();
         
         this.platform = platform;
-        this.ua = ua;
+//        this.ua = ua;
     }
 
     /**
@@ -72,7 +76,7 @@ public
         jLabel6.setText("username");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, 20));
 
-        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "librarian", "branch manager" }));
+        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "student", "professor" }));
         comboRole.setSelectedIndex(-1);
         comboRole.setToolTipText("");
         jPanel1.add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 120, 30));
@@ -112,26 +116,29 @@ public
        
 
         //check user account unique
-        if(!uad.isUnique(userName)) {
-            JOptionPane.showMessageDialog(null, "Sorry credentials are taken.");
+        if(!uad.checkUserNameUnique(userName)) {
+            JOptionPane.showMessageDialog(null, "Sorry username is taken.");
         }
         //create user account and employee profile
         else {
-            if (role.equals("librarian")){
-                UserAccount user = uad.createUserAccount(userName, pass, new LibrarianRole());
-                Library lib = this.app.getBranchDirectory().findBranch(branch).getLibrary();
-                lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid(), lib);
+            if (role.equals("student")){
+                UserAccount user = uad.createUserAccount(userName, pass, new StudentRole());
+                Student s = this.platform.getSd().createStudent(user.getAccountId(), name);
+                JOptionPane.showMessageDialog(null, "User created");
 
-            } else if(role.equals("branch manager")){
-                UserAccount user = uad.createUserAccount(userName, pass, new BranchManagerRole());
-                Library lib = this.app.getBranchDirectory().findBranch(branch).getLibrary();
-                lib.getEmployeeDirectory().createEmployee(exp, role, name,user.getAccountid(), lib);
-
+            } else if(role.equals("professor")){
+                UserAccount user = uad.createUserAccount(userName, pass, new ProfessorRole());
+                Professor p = this.platform.getPd().createProfessor(user.getAccountId(), name);
+                JOptionPane.showMessageDialog(null, "User created");
             }
             
         }
     }//GEN-LAST:event_registerBtnActionPerformed
-
+//        public void populateroleCombo(){
+//            for (String role: Role.getAllRoles()){
+//                comboRole.addItem(role);
+//            }
+//        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboRole;

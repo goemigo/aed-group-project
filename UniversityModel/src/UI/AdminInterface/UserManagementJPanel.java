@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package UI.AdminInterface;
-
 import Platform.Platform;
 import Professor.Professor;
+import Student.Student;
 import UserAccount.UserAccount;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -69,8 +69,29 @@ public
                 profTableModel.addRow(row);
                 }
             }
+        }
             
-        }}
+    }
+            
+
+    public void populateStudentTable(){
+        studentTableModel.setRowCount(0);
+        
+        if (this.platform.getSd().getStudent().size()>0){
+            for (Student s: this.platform.getSd().getStudent()){
+           
+                
+                Object[] row = new Object[3];
+            
+                row[0] = s.getPersonid();
+                row[1] = this.platform.getUad().findById(s.getPersonid()).getUsername();
+                row[2] = s.getName();
+               
+                
+                studentTableModel.addRow(row);
+                }
+        }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.

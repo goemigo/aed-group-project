@@ -7,6 +7,7 @@ package Student;
 import CourseCatalog.CourseCatalog;
 import CourseCatalog.CourseOffer;
 import CourseCatalog.CourseSchedule;
+import CourseCatalog.SeatAssignment;
 import Personnel.Person;
 import Platform.Platform;
 import java.util.ArrayList;
@@ -37,13 +38,19 @@ public class Student extends Person{
         this.requested = requested;
     }
     
-    public Student(Platform platform){
+    public Student(){
         super();
         this.transcript = new Transcript();
     }
     
     public Transcript getTranscript() {
         return transcript;
+    }
+    
+    public ArrayList<SeatAssignment> getCourseList() {
+
+        return transcript.getCourseList();
+
     }
     
     

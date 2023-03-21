@@ -4,28 +4,16 @@
  */
 package UI.Professor;
 
-import Platform.Platform;
-import UserAccount.UserAccount;
-
 /**
  *
- * @author 15512
+ * @author emi
  */
 public class ProfessorScreen extends javax.swing.JFrame {
 
-    private Platform platform;
-    private UserAccount ua;
-
     /**
-     * Creates new form LoginView
+     * Creates new form ProfessorScreen
      */
-    public ProfessorScreen(Platform platform, UserAccount useraccount) {
-        initComponents();
-        this.platform = platform;
-        this.ua = useraccount;
-    }
-
-    private ProfessorScreen() {
+    public ProfessorScreen() {
         initComponents();
     }
 
@@ -79,9 +67,6 @@ public class ProfessorScreen extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ProfessorScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

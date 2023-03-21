@@ -12,6 +12,10 @@ import java.util.ArrayList;
 public class StudentDirectory {
     ArrayList<Student> studentDirectory;
     
+    public StudentDirectory(){
+        this.studentDirectory = new ArrayList<Student>();
+    }
+    
     public ArrayList<Student> getStudent() {
         return studentDirectory;
     }
@@ -29,4 +33,13 @@ public class StudentDirectory {
         return null;
     }
     
+    public Student createStudent(String id, String name){
+        Student s = new Student();
+        s.setPersonid(id);
+        s.setName(name);
+        
+        this.studentDirectory.add(s);
+        return s;
+    }
+
 }
