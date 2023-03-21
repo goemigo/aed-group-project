@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author 15512
+ * @author forumkaria
  */
 public class StudentRole extends Role {
 
@@ -23,7 +23,6 @@ public class StudentRole extends Role {
         
     }
     public String toStringRole(){
-        return "Customer";
-    }
-    
+        return "student";
+    }    
 }

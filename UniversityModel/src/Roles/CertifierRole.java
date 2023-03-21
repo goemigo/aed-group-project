@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author 15512
+ * @author forumkaria
  */
 public class CertifierRole extends Role {
 
@@ -23,6 +23,6 @@ public class CertifierRole extends Role {
         
     }
     public String toStringRole(){
-        return "Librarian";
+        return "certifier";
     }
 }

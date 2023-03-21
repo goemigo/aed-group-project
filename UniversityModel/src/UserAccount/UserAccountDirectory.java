@@ -44,6 +44,16 @@ public class UserAccountDirectory {
         return ua;
     }
     
+    
+    public UserAccount findUserAccount(String username) {
+        for(UserAccount ua: this.useraccountlist) {
+            if(ua.getUsername().equals(username)) {
+                return ua;
+            }
+        }
+        return null;
+    }
+    
     public UserAccount authenticateUser(String name, String password) {
         for(UserAccount ua: this.useraccountlist) {
             if(ua.getUsername().equals(name) && ua.getPassword().equals(password)) {

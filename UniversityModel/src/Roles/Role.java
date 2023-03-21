@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author 15512
+ * @author forumkaria
  */
 public abstract class Role {
     

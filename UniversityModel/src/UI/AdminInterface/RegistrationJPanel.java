@@ -24,7 +24,7 @@ public
     public
             RegistrationJPanel(Platform platform) {
         initComponents();
-        this.setVisible(true);
+        
         this.platform = platform;
         this.ua = ua;
     }
@@ -61,7 +61,7 @@ public
                 registerBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 390, -1, -1));
+        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 420, -1, -1));
 
         jLabel5.setText("role");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, 20));
@@ -72,7 +72,8 @@ public
         jLabel6.setText("username");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, 20));
 
-        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "student", "professor" }));
+        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "librarian", "branch manager" }));
+        comboRole.setSelectedIndex(-1);
         comboRole.setToolTipText("");
         jPanel1.add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 120, 30));
 
