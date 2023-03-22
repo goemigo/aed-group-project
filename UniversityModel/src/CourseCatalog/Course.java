@@ -18,6 +18,9 @@ public class Course {
     private String region;
     private String language;
     private int price;
+    private int registedCountForCourse = 0;
+    private int passCountForCourse = 0;
+    private int revenueForCourse = 0;
     
     public Course(String name,String topic, String region, String language, int price) {
         this.courseId = "Course" + count++;
@@ -84,6 +87,31 @@ public class Course {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public int getRegistedCountForCourse() {
+        return registedCountForCourse;
+    }
+
+    public void setRegistedCountForCourse(int registedCountForCourse) {
+        this.registedCountForCourse = registedCountForCourse;
+    }
+
+    public int getPassCountForCourse() {
+        return passCountForCourse;
+    }
+
+    public void setPassCountForCourse(int passCountForCourse) {
+        this.passCountForCourse = passCountForCourse;
+    }
+
+    public int getRevenueForCourse() {
+        return revenueForCourse;
+    }
+
+    public void setRevenueForCourse(int revenueForCourse) {
+        this.revenueForCourse = revenueForCourse;
+    }
+    
     
 
     @Override

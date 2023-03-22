@@ -56,6 +56,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
+        jPanel2.setBackground(new java.awt.Color(255, 204, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         registerBtn.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N

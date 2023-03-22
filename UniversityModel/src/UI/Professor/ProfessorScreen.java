@@ -54,7 +54,10 @@ public class ProfessorScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jSplitPane1.setBackground(new java.awt.Color(204, 204, 255));
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         subBtn.setText("Subscription Mgt");
         subBtn.addActionListener(new java.awt.event.ActionListener() {

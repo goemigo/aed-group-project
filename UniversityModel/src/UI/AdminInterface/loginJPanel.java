@@ -7,6 +7,7 @@ package UI.AdminInterface;
 import Platform.Platform;
 import UI.MainJFrame;
 import UserAccount.UserAccount;
+import VerifyNull.VerifyNull;
 import java.awt.Component;
 import java.awt.Window;
 import javax.swing.JOptionPane;
@@ -85,11 +86,11 @@ public
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 663, Short.MAX_VALUE)
+            .addGap(0, 785, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
@@ -112,8 +113,10 @@ public
         String username = fieldusername.getText();
         String password = fieldpassword.getText();
         //        String role = (String) roleCombo.getSelectedItem();
-
-        if(this.platform.getUad().accountExists(username, password)){
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(username,password);
+        if(nonull){
+            if(this.platform.getUad().accountExists(username, password)){
             UserAccount user = this.platform.getUad().getUserAccount(username, password);
 
             //get work area panel
@@ -126,6 +129,7 @@ public
             
         }else{
             JOptionPane.showMessageDialog(null, "Invalid credentials");
+        }
         }
 
     }//GEN-LAST:event_loginBtnActionPerformed

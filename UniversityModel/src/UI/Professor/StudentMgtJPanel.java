@@ -49,7 +49,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         
         this.selectedCourse = this.professor.getCourseCatalog().getCourseByName((String) comboCourse.getSelectedItem());
         
-        fieldRep.setText(String.valueOf(this.professor.getReputation()));
+        fieldRep.setText(String.valueOf(this.professor.calReputation()));
     }
     
     public StudentMgtJPanel() {
@@ -81,6 +81,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         fieldRep = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(204, 204, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         comboCourse.setToolTipText("");
@@ -129,6 +130,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         jLabel2.setText("Enroll List for my course");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
 
+        fieldCourseName.setEditable(false);
         fieldCourseName.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -157,6 +159,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         jLabel3.setText("My reputation index:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, -1, 20));
 
+        fieldRep.setEditable(false);
         fieldRep.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         add(fieldRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 130, 60));
     }// </editor-fold>//GEN-END:initComponents

@@ -25,7 +25,9 @@ public
     
     public boolean isStudentReadyToGraduate(Student student) {
         ArrayList<SeatAssignment> sas = student.getTranscript().getSeatAssignmentsAllTerms();//seatAssignments extracted from course loads
-        
+        if (sas.size()<8){
+            return false;
+        }
         for (SeatAssignment sa: sas){
             if (sa.getGrade().equals("Fail")){
                 return false;

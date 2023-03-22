@@ -10,6 +10,7 @@ import CourseCatalog.CourseSchedule;
 import Platform.Platform;
 import Professor.Professor;
 import UserAccount.UserAccount;
+import VerifyNull.VerifyNull;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -79,6 +80,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
             
             for (CourseOffer co: offers){
                 Course c = co.getCourse();
+            
                 Object[] row = new Object[5];
             
                 row[0] = cs.getTerm(); //term
@@ -132,6 +134,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         fieldUpdatePrice = new javax.swing.JTextField();
         updatePriceBtn = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 204, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Price");
@@ -203,7 +206,6 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         jLabel9.setText("Number of seats");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
 
-        comboTerm.setSelectedIndex(-1);
         add(comboTerm, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 200, -1));
 
         createCOBtn.setText("Create Course Offer");
@@ -259,6 +261,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
 
     private void createCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCourseBtnActionPerformed
         // TODO add your handling code here:
+        //only if the account status is active can the professor create courses
     if(this.professor.getAccountStatus()){
         String name = fieldCourseName.getText();
         String topic = fieldTopic.getText();
@@ -266,12 +269,19 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         String lang = fieldLang.getText();
         String price = fieldPrice.getText();
         
-        this.professor.createCourse(name, topic, region, lang, Integer.valueOf(price));
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(name,topic,region,lang,price);
         
-//        JOptionPane.showMessageDialog(null,"Created");
-        
-        populateCourse();
-        populateCourseIdCombo();
+        if(nonull){
+            //for one professor, the course name should be unique
+            if(this.professor.getCourseCatalog().checkCourseNameUnique(name)){
+                this.professor.createCourse(name, topic, region, lang, Integer.valueOf(price));
+                populateCourse();
+                populateCourseIdCombo();
+            }else{
+                JOptionPane.showMessageDialog(null, "Course already exists");
+            } 
+        }
     }else{
         JOptionPane.showMessageDialog(null, "Please subscribe first!");
     }
@@ -283,12 +293,17 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         
             String seats = fieldSeats.getText();
             String term = (String) comboTerm.getSelectedItem();
+            
+            VerifyNull checkNull = new VerifyNull();
+            boolean nonull = checkNull.checkNullObject(courseId,seats,term);
         
-            CourseSchedule cs = this.professor.newCourseSchedule(term);
-            CourseOffer co = this.professor.createCourseOffer(term, courseId);
-            co.generatSeats(Integer.valueOf(seats));
+            if(nonull){
+                CourseOffer co = this.professor.createCourseOffer(term, courseId);
+                co.generatSeats(Integer.valueOf(seats));
         
-            populateSchedule();
+                populateSchedule();
+            }
+            
    
     }//GEN-LAST:event_createCOBtnActionPerformed
 
@@ -298,9 +313,16 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         Course c = (Course) courseTable.getValueAt(selectedRow, 0);
         
         String price = fieldUpdatePrice.getText();
-        c.setPrice(Integer.valueOf(price));
         
-        populateCourse();
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(price);
+        
+        if(nonull){
+            c.setPrice(Integer.valueOf(price));
+            populateCourse();
+        }
+        
+        
     }//GEN-LAST:event_updatePriceBtnActionPerformed
 
     private void courseTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_courseTableMouseClicked

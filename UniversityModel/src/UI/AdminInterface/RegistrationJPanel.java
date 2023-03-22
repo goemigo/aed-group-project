@@ -11,6 +11,7 @@ import Roles.ProfessorRole;
 import Student.Student;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
+import VerifyNull.VerifyNull;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,7 +31,9 @@ public
         initComponents();
         
         this.platform = platform;
-//        this.ua = ua;
+        
+        populateroleCombo();
+        comboRole.setSelectedIndex(-1);
     }
 
     /**
@@ -52,6 +55,8 @@ public
         jLabel6 = new javax.swing.JLabel();
         comboRole = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 204, 153));
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 153));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -76,7 +81,6 @@ public
         jLabel6.setText("username");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, 20));
 
-        comboRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "student", "professor" }));
         comboRole.setSelectedIndex(-1);
         comboRole.setToolTipText("");
         jPanel1.add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 120, 30));
@@ -114,8 +118,11 @@ public
         String name = fieldname1.getText();
         String role = (String) comboRole.getSelectedItem();
        
-
-        //check user account unique
+        //check null fields
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(userName,pass,name,role);
+        if(nonull){
+            //check user account unique
         if(!uad.checkUserNameUnique(userName)) {
             JOptionPane.showMessageDialog(null, "Sorry username is taken.");
         }
@@ -133,12 +140,14 @@ public
             }
             
         }
+        }
+        
     }//GEN-LAST:event_registerBtnActionPerformed
-//        public void populateroleCombo(){
-//            for (String role: Role.getAllRoles()){
-//                comboRole.addItem(role);
-//            }
-//        }
+        public void populateroleCombo(){
+            comboRole.removeAllItems();
+            comboRole.addItem("student");
+            comboRole.addItem("professor");   
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboRole;

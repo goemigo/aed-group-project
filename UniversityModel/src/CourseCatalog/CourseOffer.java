@@ -76,6 +76,17 @@ public class CourseOffer {
         }
         return this.enrolledStudentList;
     }
+    
+    public int getPassCount(){
+        int passCount = 0;
+        
+        for (Seat s: this.seatlist){
+            if (s.getSeatassignment().getGrade().equals("Pass")){
+                passCount += 1;
+            }
+        }
+        return passCount;
+    }
 
     public Course getCourse() {
         return course;

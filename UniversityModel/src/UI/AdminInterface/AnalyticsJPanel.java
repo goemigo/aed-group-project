@@ -4,6 +4,9 @@
  */
 package UI.AdminInterface;
 
+import Platform.Platform;
+import UserAccount.UserAccount;
+
 /**
  *
  * @author forumkaria
@@ -14,10 +17,15 @@ public
     /**
      * Creates new form AnalyticsJPanel
      */
+    private Platform platform;
+    private UserAccount ua;
+    
     public
-            AnalyticsJPanel() {
+            AnalyticsJPanel(Platform platform, UserAccount ua) {
         initComponents();
         this.setVisible(true);
+        this.platform = platform;
+        this.ua = ua;
     }
 
     /**

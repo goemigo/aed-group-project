@@ -55,6 +55,8 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
         fieldSubFee = new javax.swing.JTextField();
         fieldAccountStatus = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(204, 204, 255));
+
         jLabel1.setText("ID");
 
         jLabel2.setText("Name");
@@ -159,6 +161,8 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
         fieldAccountStatus.setText(this.professor.getAccountStatusString());
         this.platform.collectSubscriptionFee(this.professor.getPersonid()); //add revenue to platform
         
+        //initiate all schedules for the professor once subscribed
+        this.professor.initiateAllSchedules(this.platform.getTerms());
         JOptionPane.showMessageDialog(null, "Successfully subscribed!");
     }//GEN-LAST:event_SubscribeBtnActionPerformed
 
