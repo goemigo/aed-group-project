@@ -11,6 +11,8 @@ import CourseCatalog.SeatAssignment;
 import Platform.Platform;
 import Student.Student;
 import java.util.ArrayList;
+import javax.lang.model.type.ErrorType;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,22 +33,78 @@ public class RegisterCourse extends javax.swing.JPanel {
     public RegisterCourse(Platform platform, Student s) {
         initComponents();
         this.setVisible(true);
-        
+
         this.platform = platform;
         this.student = s;
         this.courseTableModel = (DefaultTableModel) courseTable.getModel();
-        this.registeredTableModel = (DefaultTableModel) registeredTable.getModel();
+        populateTerms();
         populateCourse();
-        populateRegisteredCourse();
     }
 
     public void populateCourse() {
         courseTableModel.setRowCount(0);
-        String termSel = termSelected.getSelectedItem().toString();
-        for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
-            for (CourseOffer co : cs.getSchedule()) {
+        String termSel = (String) termSelected.getSelectedItem();
+        try {
+            for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
+                for (CourseOffer co : cs.getSchedule()) {
+                    Course c = co.getCourse();
+                    Object[] row = new Object[9];
+                    row[0] = co;
+                    row[1] = c.getName();
+                    row[2] = c.getTopic();
+                    row[3] = c.getRegion();
+                    row[4] = c.getLanguage();
+                    row[5] = c.getPrice();
+                    row[6] = co.getProfessor().getName();
+                    row[7] = co.getProfessor().calReputation();
+                    row[8] = co.getSeatsAvailable();
+                    courseTableModel.addRow(row);
+                }
+            }
+        } catch (Throwable e) {
+
+        }
+    }
+
+    public void populateSearch(String text, String filter) {
+        courseTableModel.setRowCount(0);
+        String termSel = (String) termSelected.getSelectedItem();
+        ArrayList<CourseOffer> filteredCourses = new ArrayList<CourseOffer>();
+        try {
+            for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
+                for (CourseOffer co : cs.getSchedule()) {
+                    Course c = co.getCourse();
+                    switch (filter) {
+                        case "language":
+                            if (c.getLanguage().equals(text)) {
+                                filteredCourses.add(co);
+                            }
+                        case "professor":
+                            if (c.getRegion().equals(text)) {
+                                filteredCourses.add(co);
+                            }
+                        case "region":
+                            if (c.getRegion().equals(text)) {
+                                filteredCourses.add(co);
+                            }
+                        case "topic":
+                            if (c.getTopic().equals(text)) {
+                                filteredCourses.add(co);
+                            }
+                        case "course":
+                            if (c.getName().equals(text)) {
+                                filteredCourses.add(co);
+                            }
+                        default:
+                            filteredCourses.add(co);
+                    }
+                }
+            }
+
+            for (CourseOffer co : filteredCourses) {
+
                 Course c = co.getCourse();
-                Object[] row = new Object[7];
+                Object[] row = new Object[9];
 
                 row[0] = co;
                 row[1] = c.getName();
@@ -55,75 +113,12 @@ public class RegisterCourse extends javax.swing.JPanel {
                 row[4] = c.getLanguage();
                 row[5] = c.getPrice();
                 row[6] = co.getProfessor().getName();
+                row[7] = co.getProfessor().calReputation();
+                row[8] = co.getSeatsAvailable();
                 courseTableModel.addRow(row);
             }
-        }
-    }
+        } catch (Throwable e) {
 
-    public void populateRegisteredCourse() {
-        registeredTableModel.setRowCount(0);
-        for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
-
-            Course c = sa.getSeat().getCourseoffer().getCourse();
-            Object[] row = new Object[6];
-
-            row[0] = c;
-
-            row[1] = c.getName();
-            row[2] = c.getTopic();
-            row[3] = c.getRegion();
-            row[4] = c.getLanguage();
-            row[5] = c.getPrice();
-            row[6] = sa.getCourseload().getTerm();
-            registeredTableModel.addRow(row);
-
-        }
-    }
-
-    public void populateSearch(String text, String filter) {
-        courseTableModel.setRowCount(0);
-        String termSel = termSelected.getSelectedItem().toString();
-        ArrayList<CourseOffer> filteredCourses = new ArrayList<CourseOffer>();
-        for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
-            for (CourseOffer co : cs.getSchedule()) {
-                Course c = co.getCourse();
-                switch (filter) {
-                    case "language":
-                        if (c.getLanguage().equals(text)) {
-                            filteredCourses.add(co);
-                        }
-                    case "professor":
-                        if (c.getRegion().equals(text)) {
-                            filteredCourses.add(co);
-                        }
-                    case "region":
-                        if (c.getRegion().equals(text)) {
-                            filteredCourses.add(co);
-                        }
-                    case "course":
-                        if (c.getName().equals(text)) {
-                            filteredCourses.add(co);
-                        }
-                    default:
-                        filteredCourses.add(co);
-                }
-
-            }
-        }
-
-        for (CourseOffer co : filteredCourses) {
-
-            Course c = co.getCourse();
-            Object[] row = new Object[7];
-
-            row[0] = co;
-            row[1] = c.getName();
-            row[2] = c.getTopic();
-            row[3] = c.getRegion();
-            row[4] = c.getLanguage();
-            row[5] = c.getPrice();
-            row[6] = co.getProfessor().getName();
-            courseTableModel.addRow(row);
         }
     }
 
@@ -142,14 +137,11 @@ public class RegisterCourse extends javax.swing.JPanel {
         courseTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        registeredTable = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        registerCourse = new javax.swing.JButton();
         termSelected = new javax.swing.JComboBox<>();
         searchFilter = new javax.swing.JComboBox<>();
-        searchBUtton = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 204, 51));
 
@@ -163,126 +155,97 @@ public class RegisterCourse extends javax.swing.JPanel {
 
         courseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Term", "Seats", "Professor", "Reputation ", "Description", "Region"
+                "ID", "Course", "Topic", "Region", "Language", "Price", "Professor", "Reputation", "Seats"
             }
         ));
         jScrollPane1.setViewportView(courseTable);
 
         jLabel3.setText("Courses table");
 
-        registeredTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Name", "Term", "Region", "Professor", "Language", "Term"
-            }
-        ));
-        jScrollPane2.setViewportView(registeredTable);
-
-        jLabel4.setText("RegisteredCourses table");
-
-        jButton1.setText("Register");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        registerCourse.setText("Register");
+        registerCourse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                registerCourseActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Pay for courses");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        termSelected.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                termSelectedActionPerformed(evt);
             }
         });
-
-        termSelected.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fall 2022", "Spring 2023", "Summer 2023", "Fall 2023" }));
 
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "language", "professor", "region", "course" }));
 
-        searchBUtton.setText("Search");
-        searchBUtton.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBUttonActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
+
+        jLabel5.setText("Term");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(termSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(searchFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(searchButton))
+                                    .addComponent(termSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(searchFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchBUtton)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(44, 44, 44))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(187, 187, 187))
+                                .addGap(272, 272, 272)
+                                .addComponent(registerCourse))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(termSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(searchFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(searchBUtton))
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(termSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(searchFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton)
+                    .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(registerCourse)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -290,40 +253,44 @@ public class RegisterCourse extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchTextActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void registerCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerCourseActionPerformed
         // TODO add your handling code here:
         int selectedRow = courseTable.getSelectedRow();
         CourseOffer co = (CourseOffer) courseTable.getValueAt(selectedRow, 0);
-        this.student.getTranscript().registerCourse(this.term, co); //Which term is this.term?
-        
-        populateRegisteredCourse();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.student.getTranscript().registerCourse(this.term, co);
+        JOptionPane.showMessageDialog(null, "Course Registered!");
+        populateCourse();
+    }//GEN-LAST:event_registerCourseActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void searchBUttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBUttonActionPerformed
-        // TODO add your handling code here:
+        courseTableModel.setRowCount(0);
         String searchedText = searchText.getText();
         String filter = (String) searchFilter.getSelectedItem();
         populateSearch(searchedText, filter);
 
-    }//GEN-LAST:event_searchBUttonActionPerformed
+    }//GEN-LAST:event_searchButtonActionPerformed
+    private void populateTerms(){
+    termSelected.removeAllItems();
+       for (String term : this.platform.getTerms()) {
+            termSelected.addItem(term);
+        }
+    
+    }
+    private void termSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_termSelectedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_termSelectedActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable courseTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable registeredTable;
-    private javax.swing.JButton searchBUtton;
+    private javax.swing.JButton registerCourse;
+    private javax.swing.JButton searchButton;
     private javax.swing.JComboBox<String> searchFilter;
     private javax.swing.JTextField searchText;
     private javax.swing.JComboBox<String> termSelected;

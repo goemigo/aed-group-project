@@ -25,78 +25,75 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CourseMgtJPanel
      */
-    
     private Platform platform;
     private UserAccount ua;
     private Professor professor;
     DefaultTableModel courseTableModel;
     DefaultTableModel scheduleTableModel;
-    
+
     public CourseMgtJPanel(Platform platform, UserAccount useraccount) {
         initComponents();
         this.setVisible(true);
         this.platform = platform;
         this.ua = useraccount;
         this.professor = this.platform.getProfessorDirectory().findProfessorById(ua.getAccountId());
-        
+
         this.courseTableModel = (DefaultTableModel) courseTable.getModel();
         this.scheduleTableModel = (DefaultTableModel) scheduleTable.getModel();
-        
+
         populateTermCombo();
         populateCourseIdCombo();
         populateCourse();
         populateSchedule();
     }
-    
+
     public CourseMgtJPanel() {
         initComponents();
     }
-    
-    public void populateCourse(){
+
+    public void populateCourse() {
         courseTableModel.setRowCount(0);
-        if (this.professor.getCourseCatalog().getCourses().size()>0){
-            for (Course c: this.professor.getCourseCatalog().getCourses()){
-            Object[] row = new Object[6];
-            
-            row[0] = c;
-            row[1] = c.getName();
-            row[2] = c.getTopic();
-            row[3] = c.getRegion();
-            row[4] = c.getLanguage();
-            row[5] = c.getPrice();
-            
-            courseTableModel.addRow(row);
-        }
-        }
-        
-    }
-    
-    public void populateSchedule(){
-        scheduleTableModel.setRowCount(0);
-        if (!this.professor.getAllSchedules().entrySet().isEmpty()){
-            for (Map.Entry<String,CourseSchedule> termSchedule: this.professor.getAllSchedules().entrySet()){
-            CourseSchedule cs = termSchedule.getValue();
-            ArrayList<CourseOffer> offers = cs.getSchedule();
-            
-            for (CourseOffer co: offers){
-                Course c = co.getCourse();
-            
-                Object[] row = new Object[5];
-            
-                row[0] = cs.getTerm(); //term
-                row[1] = c.getCourseId();
-                row[2] = c.getName();
-                row[3] = co.getProfessor().getName();
-                row[4] = co.getSeatlist().size();
-                
-                scheduleTableModel.addRow(row);
+        if (this.professor.getCourseCatalog().getCourses().size() > 0) {
+            for (Course c : this.professor.getCourseCatalog().getCourses()) {
+                Object[] row = new Object[6];
+
+                row[0] = c;
+                row[1] = c.getName();
+                row[2] = c.getTopic();
+                row[3] = c.getRegion();
+                row[4] = c.getLanguage();
+                row[5] = c.getPrice();
+
+                courseTableModel.addRow(row);
             }
-            
-            
         }
-        }
-        
+
     }
+
+    public void populateSchedule() {
+        scheduleTableModel.setRowCount(0);
+        if (!this.professor.getAllSchedules().entrySet().isEmpty()) {
+            for (Map.Entry<String, CourseSchedule> termSchedule : this.professor.getAllSchedules().entrySet()) {
+                CourseSchedule cs = termSchedule.getValue();
+                ArrayList<CourseOffer> offers = cs.getSchedule();
+
+                for (CourseOffer co : offers) {
+                    Course c = co.getCourse();
+                    Object[] row = new Object[5];
+                    row[0] = cs.getTerm(); //term
+                    row[1] = c.getCourseId();
+                    row[2] = c.getName();
+                    row[3] = co.getProfessor().getName();
+                    row[4] = co.getSeatlist().size();
+
+                    scheduleTableModel.addRow(row);
+                }
+
+            }
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -246,6 +243,11 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
         jLabel10.setText("My Course Schedule");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, -1, -1));
 
+        comboCourseId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCourseIdActionPerformed(evt);
+            }
+        });
         add(comboCourseId, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 200, -1));
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 70, 20));
         add(fieldUpdatePrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 100, -1));
@@ -262,91 +264,98 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
     private void createCourseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCourseBtnActionPerformed
         // TODO add your handling code here:
         //only if the account status is active can the professor create courses
-    if(this.professor.getAccountStatus()){
-        String name = fieldCourseName.getText();
-        String topic = fieldTopic.getText();
-        String region = fieldRegion.getText();
-        String lang = fieldLang.getText();
-        String price = fieldPrice.getText();
-        
-        VerifyNull checkNull = new VerifyNull();
-        boolean nonull = checkNull.checkNullObject(name,topic,region,lang,price);
-        
-        if(nonull){
-            //for one professor, the course name should be unique
-            if(this.professor.getCourseCatalog().checkCourseNameUnique(name)){
-                this.professor.createCourse(name, topic, region, lang, Integer.valueOf(price));
-                populateCourse();
-                populateCourseIdCombo();
-            }else{
-                JOptionPane.showMessageDialog(null, "Course already exists");
-            } 
+        if (this.professor.getAccountStatus()) {
+            String name = fieldCourseName.getText();
+            String topic = fieldTopic.getText();
+            String region = fieldRegion.getText();
+            String lang = fieldLang.getText();
+            String price = fieldPrice.getText();
+
+            VerifyNull checkNull = new VerifyNull();
+            boolean nonull = checkNull.checkNullObject(name, topic, region, lang, price);
+
+            if (nonull) {
+                //for one professor, the course name should be unique
+                if (this.professor.getCourseCatalog().checkCourseNameUnique(name)) {
+                    this.professor.createCourse(name, topic, region, lang, Integer.valueOf(price));
+                    populateCourse();
+                    populateCourseIdCombo();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Course already exists");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please subscribe first!");
         }
-    }else{
-        JOptionPane.showMessageDialog(null, "Please subscribe first!");
-    }
     }//GEN-LAST:event_createCourseBtnActionPerformed
 
     private void createCOBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createCOBtnActionPerformed
 
-            String courseId = (String) comboCourseId.getSelectedItem();
-        
-            String seats = fieldSeats.getText();
-            String term = (String) comboTerm.getSelectedItem();
-            
-            VerifyNull checkNull = new VerifyNull();
-            boolean nonull = checkNull.checkNullObject(courseId,seats,term);
-        
-            if(nonull){
+        String courseId = (String) comboCourseId.getSelectedItem();
+
+        String seats = fieldSeats.getText();
+        String term = (String) comboTerm.getSelectedItem();
+
+        VerifyNull checkNull = new VerifyNull();
+        boolean nonull = checkNull.checkNullObject(courseId, seats, term);
+
+        if (nonull) {
+            if (this.professor.getCourseScheduleByTerm(term).getCourseOfferByCourseId(courseId) == null) {
                 CourseOffer co = this.professor.createCourseOffer(term, courseId);
                 co.generatSeats(Integer.valueOf(seats));
-        
                 populateSchedule();
+            } else {
+                JOptionPane.showMessageDialog(null, "Course already added to term");
             }
-            
-   
+        }
+
+
     }//GEN-LAST:event_createCOBtnActionPerformed
 
     private void updatePriceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePriceBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = courseTable.getSelectedRow();
         Course c = (Course) courseTable.getValueAt(selectedRow, 0);
-        
+
         String price = fieldUpdatePrice.getText();
-        
+
         VerifyNull checkNull = new VerifyNull();
         boolean nonull = checkNull.checkNullObject(price);
-        
-        if(nonull){
+
+        if (nonull) {
             c.setPrice(Integer.valueOf(price));
             populateCourse();
         }
-        
-        
+
+
     }//GEN-LAST:event_updatePriceBtnActionPerformed
 
     private void courseTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_courseTableMouseClicked
         // TODO add your handling code here:
         int selectedRow = courseTable.getSelectedRow();
         Course c = (Course) courseTable.getValueAt(selectedRow, 0);
-        
+
         jLabel11.setText(c.getCourseId());
     }//GEN-LAST:event_courseTableMouseClicked
 
-    public void populateCourseIdCombo(){
+    private void comboCourseIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCourseIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCourseIdActionPerformed
+
+    public void populateCourseIdCombo() {
         comboCourseId.removeAllItems();
-        
-        for (Course c: this.professor.getCourseCatalog().getCourses()){
+
+        for (Course c : this.professor.getCourseCatalog().getCourses()) {
             comboCourseId.addItem(c.getCourseId());
         }
     }
-    
-    public void populateTermCombo(){
-        for (String term: this.platform.getTerms()){
+
+    public void populateTermCombo() {
+        for (String term : this.platform.getTerms()) {
             comboTerm.addItem(term);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboCourseId;
     private javax.swing.JComboBox<String> comboTerm;

@@ -29,14 +29,15 @@ public class TranscriptScreen extends javax.swing.JPanel {
         this.platform = platform;
         this.student = student;
         this.transcriptTableModel = (DefaultTableModel) transcriptTable.getModel();
-        gradStatus.setText(this.student.getRequested()?"Graduated":"Not Graduated");
+        gradStatus.setText(this.student.getTranscript().getGraduationStatus());
+        populateTranscript();
     }
 
     public void populateTranscript() {
         transcriptTableModel.setRowCount(0);
-        for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()){
+        for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
             Course c = sa.getSeat().getCourseoffer().getCourse();
-            Object[] row = new Object[6];
+            Object[] row = new Object[7];
             row[0] = c;
             row[1] = sa.getGrade();
             row[2] = c.getName();
@@ -60,7 +61,7 @@ public class TranscriptScreen extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         transcriptTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        registerRequest = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         gradStatus = new javax.swing.JLabel();
 
@@ -81,10 +82,10 @@ public class TranscriptScreen extends javax.swing.JPanel {
 
         jLabel1.setText("Transcript");
 
-        jButton1.setText("Request for graduation");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        registerRequest.setText("Request for graduation");
+        registerRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                registerRequestActionPerformed(evt);
             }
         });
 
@@ -105,7 +106,7 @@ public class TranscriptScreen extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(205, 205, 205)
-                                .addComponent(jButton1)
+                                .addComponent(registerRequest)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -124,31 +125,35 @@ public class TranscriptScreen extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(registerRequest)
                     .addComponent(jLabel2)
                     .addComponent(gradStatus))
                 .addGap(27, 27, 27))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void registerRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerRequestActionPerformed
         // TODO add your handling code here:
-        if(this.student.getRequested()){
-            JOptionPane.showMessageDialog(null, "Already requested for graduation");
-        }else{
-            this.student.setRequested(true);
-            JOptionPane.showMessageDialog(null, "Requested for graduation");
+        if (this.student.getTuitionPaid()) {
+            if (this.student.getRequested()) {
+                JOptionPane.showMessageDialog(null, "Already requested for graduation");
+            } else {
+                this.student.setRequested(true);
+                JOptionPane.showMessageDialog(null, "Requested for graduation");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Pay Tuition fee first!");
         }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_registerRequestActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel gradStatus;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton registerRequest;
     private javax.swing.JTable transcriptTable;
     // End of variables declaration//GEN-END:variables
 }
