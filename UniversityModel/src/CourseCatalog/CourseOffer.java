@@ -17,6 +17,7 @@ public class CourseOffer {
     private ArrayList<Seat> seatlist;
     private Professor professor;
     private ArrayList<Student> enrolledStudentList;
+    private int seatsAvailable;
     
     public CourseOffer(Course c,Professor professor) {
         course = c;
@@ -26,6 +27,7 @@ public class CourseOffer {
     }
     
     public void generatSeats(int numOfSeats) {
+        this.seatsAvailable = numOfSeats;
         for (int i = 0; i < numOfSeats; i++) {
             seatlist.add(new Seat(this));
         }
@@ -42,12 +44,16 @@ public class CourseOffer {
         return null;
     }
 
-    public SeatAssignment assignEmptySeat(CourseLoad cl) {
+    public int getSeatsAvailable() {
+        return seatsAvailable;
+    }
 
+    public SeatAssignment assignEmptySeat(CourseLoad cl) {
         Seat seat = getEmptySeat();
         if (seat == null) {
             return null;
         }
+        this.seatsAvailable--;
         SeatAssignment sa = seat.newSeatAssignment(cl); // link seat to courseload (belongs to a certain student)
         cl.registerStudent(sa); // add the sa to student's course load's ArrayList<SeatAssignment>
         return sa;

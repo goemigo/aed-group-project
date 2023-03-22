@@ -71,7 +71,6 @@ public class Transcript {
             CourseLoad cl = new CourseLoad(term, student);
             this.courseLoads.put(term, cl);
             SeatAssignment sa = cl.newSeatAssignment(co);
-            cl.registerStudent(sa);
         }
     }
 
