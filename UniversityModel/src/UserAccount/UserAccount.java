@@ -20,7 +20,7 @@ public class UserAccount {
 
     
     UserAccount(String username, String password, Role role) {
-        this.accountId = "role" + this.counter++;
+        this.accountId = "user" + this.counter++;
         this.username = username;
         this.password = password;
         this.role = role;
