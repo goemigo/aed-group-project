@@ -37,11 +37,12 @@ public class TranscriptScreen extends javax.swing.JPanel {
         transcriptTableModel.setRowCount(0);
         for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
             Course c = sa.getSeat().getCourseoffer().getCourse();
-            Object[] row = new Object[4];
+            Object[] row = new Object[5];
             row[0] = sa.getCourseload().getTerm();
             row[1] = c;
             row[2] = sa.getSeat().getCourseoffer().getProfessor().getName();
-            row[3] = sa.getGrade();
+            row[3] = sa;
+            row[4] = sa.getGrade();
             
             transcriptTableModel.addRow(row);
         }
@@ -62,18 +63,21 @@ public class TranscriptScreen extends javax.swing.JPanel {
         registerRequest = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         gradStatus = new javax.swing.JLabel();
+        rateBtn = new javax.swing.JButton();
+        fieldRate = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 102));
 
         transcriptTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Term", "Course", "Professor", "Grade"
+                "Term", "Course", "Professor", "Seat", "Grade"
             }
         ));
         jScrollPane1.setViewportView(transcriptTable);
@@ -91,6 +95,15 @@ public class TranscriptScreen extends javax.swing.JPanel {
 
         gradStatus.setText("ss");
 
+        rateBtn.setText("Rate Professor");
+        rateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Rating: (1-5)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,35 +111,44 @@ public class TranscriptScreen extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(253, 253, 253)
-                        .addComponent(jLabel1))
+                        .addGap(142, 142, 142)
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(gradStatus))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(205, 205, 205)
-                                .addComponent(registerRequest)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(104, 104, 104)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(gradStatus)))
-                .addContainerGap(101, Short.MAX_VALUE))
+                        .addGap(104, 104, 104)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fieldRate, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(registerRequest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rateBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(registerRequest)
+                    .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(gradStatus))
-                .addGap(27, 27, 27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(registerRequest)
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel3)
+                        .addGap(2, 2, 2)
+                        .addComponent(fieldRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rateBtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -145,12 +167,30 @@ public class TranscriptScreen extends javax.swing.JPanel {
 
     }//GEN-LAST:event_registerRequestActionPerformed
 
+    private void rateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateBtnActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = transcriptTable.getSelectedRow();
+        SeatAssignment sa = (SeatAssignment) transcriptTable.getValueAt(selectedRow, 3);
+        
+        //students can rate after they finish the course
+        if (sa.getGrade().equals("Pass") || sa.getGrade().equals("Fail") ){
+            sa.setProfessorRepGrading(Integer.valueOf(fieldRate.getText()));
+            JOptionPane.showMessageDialog(null, "Rated professor");
+        }else{
+            JOptionPane.showMessageDialog(null, "Finish the course before rating");
+        }
+        
+    }//GEN-LAST:event_rateBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField fieldRate;
     private javax.swing.JLabel gradStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton rateBtn;
     private javax.swing.JButton registerRequest;
     private javax.swing.JTable transcriptTable;
     // End of variables declaration//GEN-END:variables

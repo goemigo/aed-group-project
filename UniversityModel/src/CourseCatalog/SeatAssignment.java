@@ -9,6 +9,8 @@ package CourseCatalog;
  * @author emi
  */
 public class SeatAssignment {
+    private static int counter = 0;
+    private String seatId;
     Seat seat;
     CourseLoad courseload;
     String grade = "ungraded";
@@ -16,6 +18,7 @@ public class SeatAssignment {
     Boolean paid = false;
     
     public SeatAssignment(CourseLoad cl, Seat s) {
+        this.seatId = "seat" + this.counter++;
         seat = s;
         courseload = cl;
     }
@@ -64,6 +67,9 @@ public class SeatAssignment {
         this.paid = paid;
     }
     
-    
+        @Override
+    public String toString(){
+        return this.seatId;
+    }
     
 }

@@ -104,17 +104,17 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
 
         studentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Student ID", "Student Name", "Grade Status"
+                "Student ID", "Student Name", "Seat Assignment", "Grade Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -158,12 +158,12 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         });
         add(failBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, -1, -1));
 
-        jLabel3.setText("My reputation index:");
+        jLabel3.setText("My reputation index: (1-5)");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, -1, 20));
 
         fieldRep.setEditable(false);
         fieldRep.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        add(fieldRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 130, 60));
+        add(fieldRep, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 140, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboCourseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboCourseFocusLost
@@ -189,45 +189,21 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
     private void passBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = studentTable.getSelectedRow();
-        Student student = (Student) studentTable.getValueAt(selectedRow, 0);
+        SeatAssignment sa = (SeatAssignment) studentTable.getValueAt(selectedRow, 2);
         
-        String courseName = fieldCourseName.getText();
-        
-        if (!courseName.isEmpty()){
-            for (Map.Entry<String,CourseLoad> courseLoads: student.getTranscript().getCourseLoads().entrySet()){
-                CourseLoad cl = courseLoads.getValue();
-                for (SeatAssignment sa: cl.getSeatassignments()){
-                    if (sa.getSeat().getCourseoffer().getCourse().getName().equals(courseName)){
-                        sa.setGrade("Pass");
-                        break;
-                    }
-                }
-            }           
-        }
-        
+        sa.setGrade("Pass");
+
         populateStudentsForCourse();
  
     }//GEN-LAST:event_passBtnActionPerformed
 
     private void failBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_failBtnActionPerformed
         // TODO add your handling code here:
-                int selectedRow = studentTable.getSelectedRow();
-        Student student = (Student) studentTable.getValueAt(selectedRow, 0);
-        
-        String courseName = fieldCourseName.getText();
-        
-        if (!courseName.isEmpty()){
-            for (Map.Entry<String,CourseLoad> courseLoads: student.getTranscript().getCourseLoads().entrySet()){
-                CourseLoad cl = courseLoads.getValue();
-                for (SeatAssignment sa: cl.getSeatassignments()){
-                    if (sa.getSeat().getCourseoffer().getCourse().getName().equals(courseName)){
-                        sa.setGrade("Fail");
-                        break;
-                    }
-                }
-            }           
-        }
-        
+        int selectedRow = studentTable.getSelectedRow();
+        SeatAssignment sa = (SeatAssignment) studentTable.getValueAt(selectedRow, 2);
+
+        sa.setGrade("Fail");
+
         populateStudentsForCourse();
     }//GEN-LAST:event_failBtnActionPerformed
 
@@ -246,12 +222,13 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
                         for (Seat s: co.getSeatlist()){
                             if (s.isOccupied() == true) {
                             
-                                Object[] row = new Object[3];
+                                Object[] row = new Object[4];
                                 
                                 row[0] = s.getSeatassignment().getCourseload().getStudent();
 //                                row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();
                                 row[1] = s.getSeatassignment().getCourseload().getStudent().getName();
-                                row[2] = s.getSeatassignment().getGrade();
+                                row[2] = s.getSeatassignment();
+                                row[3] = s.getSeatassignment().getGrade();
                 
                                 studentTableModel.addRow(row);
                             }

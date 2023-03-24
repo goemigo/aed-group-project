@@ -68,9 +68,10 @@
         <Component class="javax.swing.JTable" name="studentTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="4">
+              <Table columnCount="4" rowCount="4">
                 <Column editable="true" title="Student ID" type="java.lang.Object"/>
                 <Column editable="true" title="Student Name" type="java.lang.String"/>
+                <Column editable="true" title="Seat Assignment" type="java.lang.Object"/>
                 <Column editable="true" title="Grade Status" type="java.lang.String"/>
               </Table>
             </Property>
@@ -82,6 +83,11 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -151,7 +157,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="My reputation index:"/>
+        <Property name="text" type="java.lang.String" value="My reputation index: (1-5)"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -168,7 +174,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="590" y="80" width="130" height="60"/>
+          <AbsoluteConstraints x="590" y="80" width="140" height="60"/>
         </Constraint>
       </Constraints>
     </Component>
