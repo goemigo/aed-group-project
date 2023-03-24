@@ -4,6 +4,7 @@
  */
 package Student;
 
+import Student.Student;
 import CourseCatalog.CourseLoad;
 import CourseCatalog.CourseOffer;
 import CourseCatalog.SeatAssignment;
@@ -22,12 +23,12 @@ public class Transcript {
     Student student;
     int courseCount;
     Boolean isGraduated = false;
-    
-    public Transcript(){
+
+    public Transcript() {
         this.courseLoads = new HashMap<String, CourseLoad>();
-        
+
     }
-    
+
     public HashMap<String, CourseLoad> getCourseLoads() {
         return courseLoads;
     }
@@ -35,7 +36,7 @@ public class Transcript {
     public ArrayList<SeatAssignment> getSeatAssignmentsAllTerms() {
         ArrayList<SeatAssignment> sas = new ArrayList<SeatAssignment>();
         for (Map.Entry<String, CourseLoad> mapElement : this.courseLoads.entrySet()) {
-
+                
             ArrayList<SeatAssignment> sat = mapElement.getValue().getSeatassignments();
             for (SeatAssignment sa : sat) {
                 sas.add(sa);
@@ -68,9 +69,18 @@ public class Transcript {
     public void registerCourse(String term, CourseOffer co) {
         if (this.courseCount < 8) {
             this.courseCount++;
-            CourseLoad cl = new CourseLoad(term, student);
-            this.courseLoads.put(term, cl);
-            SeatAssignment sa = cl.newSeatAssignment(co);
+            if (this.courseLoads.get(term) != null) {
+                System.out.println("\n adding term" + co.toString());
+                CourseLoad termCl = this.courseLoads.get(term);
+                SeatAssignment sa = co.assignEmptySeat(termCl);
+//                termCl.newSeatAssignment(co);
+            } else {
+                System.out.println("\n creating term" + co.toString());
+                CourseLoad cl = new CourseLoad(term, this.student);
+//                cl.newSeatAssignment(co);
+                SeatAssignment sa = co.assignEmptySeat(cl);
+                this.courseLoads.put(term, cl);  
+            }
         }
     }
 
@@ -83,8 +93,8 @@ public class Transcript {
 
         return termGrades;
     }
-    
-        public ArrayList<SeatAssignment> getCourseList() {
+
+    public ArrayList<SeatAssignment> getCourseList() {
         ArrayList<SeatAssignment> temp2;
         temp2 = new ArrayList<SeatAssignment>();
 

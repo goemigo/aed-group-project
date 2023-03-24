@@ -24,8 +24,7 @@ public class StudentScreen extends javax.swing.JFrame {
         this.setVisible(true);
         this.platform = platform;
         this.useraccount = ua;
-        
-        this.student = this.platform.getStudentDirectory().findStudentById(this.useraccount.getAccountId());
+        this.student = this.platform.getStudentDirectory().findStudentById(ua.getAccountId());
         //this.useraccount is null
     }
     

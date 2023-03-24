@@ -28,7 +28,7 @@ public class Seat {
 
     }
     public SeatAssignment newSeatAssignment(CourseLoad cl){
-        
+        System.out.println("\n added in course load " + cl.toString());
         seatassignment = new SeatAssignment(cl, this); //links seatassignment to seat
         occupied = true;   
         return seatassignment;

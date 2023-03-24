@@ -62,8 +62,8 @@ public class Professor extends Person {
     
     public ArrayList<Student> getEnrolledListForAllTerm(){
         for (Map.Entry<String,CourseSchedule> termSchedule: this.allSchedules.entrySet()){
-            CourseSchedule cs = termSchedule.getValue();
-            
+            CourseSchedule cs = (CourseSchedule) termSchedule.getValue();
+            System.out.println("here"+cs.toString()+ cs.getTerm()+ cs.getEnrolledListForTerm());
             for (Student s: cs.getEnrolledListForTerm()){
                 this.enrolledListForAllTerm.add(s);
             };
