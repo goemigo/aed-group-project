@@ -85,14 +85,20 @@ public class CourseOffer {
     
     public int getPassCount(){
         int passCount = 0;
-        
-        for (Seat s: this.seatlist){
-            if (s.getSeatassignment().getGrade().equals("Pass")){
-                passCount += 1;
+        if(this.seatlist.size()>0){
+            for (Seat s: this.seatlist){
+                //only check the grade for people who take a seat
+                if (s.getOccupied()){
+                    if (s.getSeatassignment().getGrade().equals("Pass")){
+                    passCount += 1;
+                    }
+                } 
             }
         }
+        
         return passCount;
     }
+
 
     public Course getCourse() {
         return course;

@@ -14,6 +14,9 @@ import Certifier.Certifier;
 import Professor.ProfessorDirectory;
 import Roles.AdminRole;
 import Roles.CertifierRole;
+import Roles.ProfessorRole;
+import Roles.StudentRole;
+import Student.Student;
 import UserAccount.UserAccount;
 import UserAccount.UserAccountDirectory;
 
@@ -62,7 +65,13 @@ public class Platform {
         certifier.setName("c");
         
         certifier.createDegree("MSIS");
-        
+        //below accounts are created for testing purpose
+        UserAccount stuAccount = this.uad.createUserAccount("s", "s", new StudentRole());
+        UserAccount p1ccount = this.uad.createUserAccount("p1", "p1", new ProfessorRole());
+        UserAccount p2ccount = this.uad.createUserAccount("p2", "p2", new ProfessorRole());
+        Student s = this.getSd().createStudent(stuAccount.getAccountId(), "s");
+        Professor p1 = this.getPd().createProfessor(p1ccount.getAccountId(), "p1");
+        Professor p2 = this.getPd().createProfessor(p2ccount.getAccountId(), "p2");
     }
 
     public MasterCourseCatalog getMasterCourseCatalog() {

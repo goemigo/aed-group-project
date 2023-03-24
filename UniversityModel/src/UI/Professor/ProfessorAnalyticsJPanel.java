@@ -79,7 +79,7 @@ public class ProfessorAnalyticsJPanel extends javax.swing.JPanel {
             
             row[0] = c.getName();
             row[1] = c.getRegistedCountForCourse();
-            row[2] = c.getPassCountForCourse()/c.getRegistedCountForCourse()*100 + "%";
+            row[2] = (c.getRegistedCountForCourse() ==0) ? 0:c.getPassCountForCourse()/c.getRegistedCountForCourse()*100 + "%";
             row[3] = c.getRevenueForCourse();
             
             dataTableModel.addRow(row);
