@@ -44,11 +44,13 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         
         this.studentTableModel = (DefaultTableModel) studentTable.getModel();
         
-        populateStudentTable();
+        
         populateCourseCombo();
         
         this.selectedCourse = this.professor.getCourseCatalog().getCourseByName((String) comboCourse.getSelectedItem());
+        populateStudentsForCourse();
         
+        //show professor rating
         fieldRep.setText(String.valueOf(this.professor.calReputation()));
     }
     
@@ -168,18 +170,19 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
 //        fieldCourseName.setText(this.selectedCourse.getName());
 //        
-//        populateStudentTable();
+//        populateStudentsForCourse();
     }//GEN-LAST:event_comboCourseFocusLost
 
     private void comboCourseItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCourseItemStateChanged
         // TODO add your handling code here:
         fieldCourseName.setText((String) comboCourse.getSelectedItem());
-        populateStudentTable();
+        populateStudentsForCourse();
         
     }//GEN-LAST:event_comboCourseItemStateChanged
 
     private void fieldCourseNameInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_fieldCourseNameInputMethodTextChanged
         // TODO add your handling code here:
+        fieldCourseName.setText((String) comboCourse.getSelectedItem());
         populateStudentsForCourse();
     }//GEN-LAST:event_fieldCourseNameInputMethodTextChanged
 
@@ -227,41 +230,12 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
         
         populateStudentsForCourse();
     }//GEN-LAST:event_failBtnActionPerformed
-    
-    public void populateStudentTable(){
-        if (this.professor.getEnrolledListForAllTerm().size()>0){
-            studentTableModel.setRowCount(0);
-        
-            for (Map.Entry<String,CourseSchedule> termSchedule: this.professor.getAllSchedules().entrySet()){
-                CourseSchedule cs = termSchedule.getValue();
-                ArrayList<CourseOffer> offers = cs.getSchedule();
-                for (CourseOffer co: offers){
-//                    ArrayList<Student> enrolledStudentList = co.getEnrolledStudentList();
-                    for (Seat s: co.getSeatlist()){
-                        if (s.isOccupied()) {
-                            System.out.print(s);
-                            Object[] row = new Object[3];
-                            row[0] = s.getSeatassignment().getCourseload().getStudent();
-//                            row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();
-                            row[1] = s.getSeatassignment().getCourseload().getStudent().getName();
-                            row[2] = s.getSeatassignment().getGrade();
-                
-                            studentTableModel.addRow(row);
-                        }
-                    }
-                }
-            }
-            
-        }
-//        else{
-//            JOptionPane.showMessageDialog(null, "No students enrolled");
-//        }  
-    }
+
     
     public void populateStudentsForCourse(){
+        studentTableModel.setRowCount(0);
         if (this.professor.getEnrolledListForAllTerm().size()>0){
-            studentTableModel.setRowCount(0);
-        
+
             for (Map.Entry<String,CourseSchedule> termSchedule: this.professor.getAllSchedules().entrySet()){
                 CourseSchedule cs = termSchedule.getValue();
                 ArrayList<CourseOffer> offers = cs.getSchedule();

@@ -13,6 +13,7 @@ public class SeatAssignment {
     CourseLoad courseload;
     String grade = "ungraded";
     int professorRepGrading = 0;  //student can rate 1-5 
+    Boolean paid = false;
     
     public SeatAssignment(CourseLoad cl, Seat s) {
         seat = s;
@@ -53,6 +54,14 @@ public class SeatAssignment {
 
     public void setProfessorRepGrading(int professorRepGrading) {
         this.professorRepGrading = professorRepGrading;
+    }
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
     
     

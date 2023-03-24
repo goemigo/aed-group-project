@@ -12,7 +12,7 @@ public class Seat {
     private static int count = 0;
     
     private String id; // unique id
-    private Boolean occupied; 
+    private Boolean occupied = false; 
     private CourseOffer courseoffer;
     private SeatAssignment seatassignment; //links back to studentprofile
     
@@ -28,8 +28,7 @@ public class Seat {
 
     }
     public SeatAssignment newSeatAssignment(CourseLoad cl){
-        System.out.println("\n added in course load " + cl.toString());
-        seatassignment = new SeatAssignment(cl, this); //links seatassignment to seat
+        seatassignment = new SeatAssignment(cl, this); //links cl to seat
         occupied = true;   
         return seatassignment;
     }

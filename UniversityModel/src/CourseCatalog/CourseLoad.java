@@ -33,7 +33,7 @@ public class CourseLoad {
     }
     
     public void registerStudent(SeatAssignment sa){
-        sa.assignSeatToStudent(this); 
+//        sa.assignSeatToStudent(this); 
         seatassignments.add(sa);
     }
     
@@ -57,5 +57,18 @@ public class CourseLoad {
         return student;
     }
 
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public void setSeatassignments(ArrayList<SeatAssignment> seatassignments) {
+        this.seatassignments = seatassignments;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+    
+    
     
 }

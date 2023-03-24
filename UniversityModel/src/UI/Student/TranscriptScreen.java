@@ -37,14 +37,12 @@ public class TranscriptScreen extends javax.swing.JPanel {
         transcriptTableModel.setRowCount(0);
         for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
             Course c = sa.getSeat().getCourseoffer().getCourse();
-            Object[] row = new Object[7];
-            row[0] = c;
-            row[1] = sa.getGrade();
-            row[2] = c.getName();
-            row[3] = c.getRegion();
-            row[4] = sa.getSeat().getCourseoffer().getProfessor().getName();
-            row[5] = c.getPrice();
-            row[6] = sa.getCourseload().getTerm();
+            Object[] row = new Object[4];
+            row[0] = sa.getCourseload().getTerm();
+            row[1] = c;
+            row[2] = sa.getSeat().getCourseoffer().getProfessor().getName();
+            row[3] = sa.getGrade();
+            
             transcriptTableModel.addRow(row);
         }
     }
@@ -134,7 +132,7 @@ public class TranscriptScreen extends javax.swing.JPanel {
 
     private void registerRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerRequestActionPerformed
         // TODO add your handling code here:
-        if (this.student.getTuitionPaid()) {
+        if (this.student.getTuitionPaidForAllCO()) {
             if (this.student.getRequested()) {
                 JOptionPane.showMessageDialog(null, "Already requested for graduation");
             } else {

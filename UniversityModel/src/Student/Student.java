@@ -19,17 +19,10 @@ import java.util.HashMap;
  */
 public class Student extends Person{
     private Transcript transcript;
-    private Boolean tuitionPaid = false;
+    private Boolean tuitionPaidForAllCO = false;
     private Boolean requested = false;
     private Platform platform;
-    
-    public Boolean getTuitionPaid() {
-        return tuitionPaid;
-    }
-    
-    public void setTuitionPaid(Boolean tuitionPaid) {
-        this.tuitionPaid = tuitionPaid;
-    }
+
 
     public Boolean getRequested() {
         return requested;
@@ -41,7 +34,7 @@ public class Student extends Person{
     
     public Student(){
         super();
-        this.transcript = new Transcript();
+        this.transcript = new Transcript(this);
     }
     
     public Transcript getTranscript() {
@@ -52,6 +45,42 @@ public class Student extends Person{
 
         return transcript.getCourseList();
 
+    }
+    
+    public int getTuitionPaidForCO(CourseOffer co){
+        int tuitionForCO = 0;
+        for (SeatAssignment sa: this.getCourseList()){
+            if (sa.getSeat().getCourseoffer() == co){
+                tuitionForCO += co.getCourse().getPrice();
+            }
+        }
+        return tuitionForCO;
+    }
+
+    public Boolean getTuitionPaidForAllCO() {
+        for (SeatAssignment sa: this.getCourseList()){
+            if (!sa.getPaid()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void setTuitionPaidForAllCO(Boolean tuitionPaidForAllCO) {
+        this.tuitionPaidForAllCO = tuitionPaidForAllCO;
+    }
+
+    public Platform getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(Platform platform) {
+        this.platform = platform;
+    }
+    
+    @Override
+    public String toString(){
+        return this.getPersonid();
     }
     
     

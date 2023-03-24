@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public
         class Degree {
     String title;
-    Student student;
+//    Student student;
     
     public Degree(String name){
         this.title = name;
@@ -24,7 +24,8 @@ public
     }
     
     public boolean isStudentReadyToGraduate(Student student) {
-        ArrayList<SeatAssignment> sas = student.getTranscript().getSeatAssignmentsAllTerms();//seatAssignments extracted from course loads
+        ArrayList<SeatAssignment> sas = student.getCourseList();//seatAssignments extracted from course loads
+        System.out.println("student course count" + sas.size());
         if (sas.size()<8){
             return false;
         }
@@ -33,6 +34,7 @@ public
                 return false;
             }
         }
+        System.out.println("inside Degree method, just done");
         return true;
         
     }

@@ -15,6 +15,7 @@ public class Certifier extends Person{
     
     public Certifier(){
         super();
+        
     }
 
     public
@@ -23,8 +24,8 @@ public class Certifier extends Person{
     }
 
     public Degree createDegree(String name) {
-        Degree d = new Degree(name);
-        return d;
+        this.degree = new Degree(name);
+        return degree;
     }
     
     

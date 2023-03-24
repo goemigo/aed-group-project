@@ -51,36 +51,14 @@ public class ProfessorAnalyticsJPanel extends javax.swing.JPanel {
     public void populateTable(){
         dataTableModel.setRowCount(0);
     if (!this.professor.getAllSchedules().entrySet().isEmpty()){
-        
-        //get data
-        for (Course course: this.professor.getCourseCatalog().getCourses()){
-            String courseName = course.getName();
-            int registedCountForCourse = course.getRegistedCountForCourse();
-            int passCountForCourse = course.getPassCountForCourse();
-            int revenueForCourse = course.getRevenueForCourse();
-            
-            for (Map.Entry<String,CourseSchedule> termSchedule: this.professor.getAllSchedules().entrySet()){
-                CourseSchedule cs = termSchedule.getValue();
-                ArrayList<CourseOffer> offers = cs.getSchedule();
-                
-                for (CourseOffer co: offers){
-                    if (co.getCourse().getName().equals(courseName)){
-                        registedCountForCourse += co.getEnrolledStudentList().size();
-                        revenueForCourse += co.getTotalCourseRevenues();
-                        passCountForCourse += co.getPassCount();
-                    }
-                }
-            }
-        }
-        
         //populate data into table
         for (Course c: this.professor.getCourseCatalog().getCourses()){
             Object[] row = new Object[4];
             
-            row[0] = c.getName();
-            row[1] = c.getRegistedCountForCourse();
-            row[2] = (c.getRegistedCountForCourse() ==0) ? 0:c.getPassCountForCourse()/c.getRegistedCountForCourse()*100 + "%";
-            row[3] = c.getRevenueForCourse();
+            row[0] = c;
+            row[1] = this.professor.getEnrolledCountForCourse(c);
+//            row[2] = (this.professor.getEnrolledCountForCourse(c) ==0) ? 0:this.professor.getPassCountForCourse(c)/this.professor.getEnrolledCountForCourse(c)*100 + "%";
+            row[2] = this.professor.getTuitionCollectedForCourse(c);
             
             dataTableModel.addRow(row);
         }
@@ -125,23 +103,23 @@ public class ProfessorAnalyticsJPanel extends javax.swing.JPanel {
 
         fieldRevenue.setEditable(false);
 
-        jLabel3.setText("Number of students");
+        jLabel3.setText("Registered Count");
 
         fieldStudents.setEditable(false);
 
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Course name", "Student count", "Pass rate", "Revenue"
+                "Course name", "Registered Count", "Revenue"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -174,7 +152,7 @@ public class ProfessorAnalyticsJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(320, 320, 320)
                         .addComponent(jLabel2)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -48,7 +48,7 @@ public
             if (s.getRequested()){
                 Object[] row = new Object[3];
             
-                row[0] = s.getPersonid();
+                row[0] = s;
                 row[1] = s.getName();
                 row[2] = s.getTranscript().getGraduationStatus();
                 
@@ -107,7 +107,7 @@ public
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -205,14 +205,18 @@ public
         
         int selectedRow = studentTable.getSelectedRow();
         Student s = (Student) studentTable.getValueAt(selectedRow, 0);
-        
+        System.out.println("got the student object");
                         //get the certifier object from the user account
             if (this.platform.getCertifier().getDegree().isStudentReadyToGraduate(s)){
+                System.out.println("below if");
                 s.getTranscript().setIsGraduated(true);
+                System.out.println("set to true");
             }else{
                 s.getTranscript().setIsGraduated(false) ;
-                        }
-                populateTable();     
+            }
+            System.out.println("start popu table");
+            populateTable();  
+            System.out.println("done");
     }//GEN-LAST:event_authenticateDegreeBtnActionPerformed
 
     private void studentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_studentTableMouseClicked

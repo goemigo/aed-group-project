@@ -24,8 +24,9 @@ public class Transcript {
     int courseCount;
     Boolean isGraduated = false;
 
-    public Transcript() {
+    public Transcript(Student s) {
         this.courseLoads = new HashMap<String, CourseLoad>();
+        this.student = s;
 
     }
 
@@ -67,20 +68,22 @@ public class Transcript {
     }
 
     public void registerCourse(String term, CourseOffer co) {
-        if (this.courseCount < 8) {
+        if (this.courseCount <= 8) {
             this.courseCount++;
             if (this.courseLoads.get(term) != null) {
-                System.out.println("\n adding term" + co.toString());
-                CourseLoad termCl = this.courseLoads.get(term);
-                SeatAssignment sa = co.assignEmptySeat(termCl);
+                System.out.println("\n adding to term" + co.toString());
+//                CourseLoad termCl = this.courseLoads.get(term);
+//                SeatAssignment sa = co.assignEmptySeat(termCl);
 //                termCl.newSeatAssignment(co);
             } else {
                 System.out.println("\n creating term" + co.toString());
-                CourseLoad cl = new CourseLoad(term, this.student);
-//                cl.newSeatAssignment(co);
-                SeatAssignment sa = co.assignEmptySeat(cl);
-                this.courseLoads.put(term, cl);  
+//                CourseLoad cl = new CourseLoad(term, this.student);
+                this.courseLoads.put(term, new CourseLoad(term,this.student));
+//                SeatAssignment sa = co.assignEmptySeat(cl);
+//                this.courseLoads.put(term, cl);  
             }
+            CourseLoad termCl = this.courseLoads.get(term);
+            SeatAssignment sa = co.assignEmptySeat(termCl, this.student);
         }
     }
 

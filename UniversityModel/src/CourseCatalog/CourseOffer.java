@@ -13,6 +13,8 @@ import java.util.ArrayList;
  * @author emi
  */
 public class CourseOffer {
+    private static int counter = 0;
+    private String coId;
     private Course course;
     private ArrayList<Seat> seatlist;
     private Professor professor;
@@ -20,10 +22,11 @@ public class CourseOffer {
     private int seatsAvailable;
     
     public CourseOffer(Course c,Professor professor) {
+        this.coId = "CO" + this.counter++;
         course = c;
         this.professor = professor;
         seatlist = new ArrayList<Seat>();
-        enrolledStudentList = new ArrayList<Student>();
+        
     }
     
     public void generatSeats(int numOfSeats) {
@@ -48,14 +51,15 @@ public class CourseOffer {
         return seatsAvailable;
     }
 
-    public SeatAssignment assignEmptySeat(CourseLoad cl) {
+    public SeatAssignment assignEmptySeat(CourseLoad cl,Student student) {
         Seat seat = getEmptySeat();
         if (seat == null) {
             return null;
         }
         this.seatsAvailable--;
-        SeatAssignment sa = seat.newSeatAssignment(cl); // link seat to courseload (belongs to a certain student)
+        SeatAssignment sa = seat.newSeatAssignment(cl); // already link seat(from co) to courseload (belongs to a certain student)
         cl.registerStudent(sa); // add the sa to student's course load's ArrayList<SeatAssignment>
+        cl.setStudent(student);
         return sa;
     }
     
@@ -73,7 +77,7 @@ public class CourseOffer {
     }
     
     public ArrayList<Student> getEnrolledStudentList(){
-        
+        enrolledStudentList = new ArrayList<Student>();
         for (Seat s : seatlist) {
             if (s.isOccupied()) {
                 this.enrolledStudentList.add(s.getSeatassignment().getCourseload().getStudent());
@@ -124,5 +128,9 @@ public class CourseOffer {
         this.professor = professor;
     }
     
+    @Override
+    public String toString(){
+        return this.coId;
+    }
     
 }

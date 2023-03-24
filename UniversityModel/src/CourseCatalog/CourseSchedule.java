@@ -22,7 +22,7 @@ public class CourseSchedule {
         this.term = t;
         this.courseCatalog = cc;
         schedule = new ArrayList<CourseOffer>();
-        enrolledListForTerm = new ArrayList<Student>();
+        
     }
     
     public CourseOffer newCourseOffer(String courseId,Professor p) {
@@ -47,6 +47,7 @@ public class CourseSchedule {
     }
     
     public ArrayList<Student> getEnrolledListForTerm(){
+        enrolledListForTerm = new ArrayList<Student>();
         for (CourseOffer co: schedule){
             for (Student s: co.getEnrolledStudentList()){
                 this.enrolledListForTerm.add(s);

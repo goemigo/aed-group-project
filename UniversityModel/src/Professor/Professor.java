@@ -8,6 +8,7 @@ import CourseCatalog.Course;
 import CourseCatalog.CourseCatalog;
 import CourseCatalog.CourseOffer;
 import CourseCatalog.CourseSchedule;
+import CourseCatalog.Seat;
 import CourseCatalog.SeatAssignment;
 import Personnel.Person;
 import Student.Student;
@@ -33,7 +34,7 @@ public class Professor extends Person {
         super();
         this.courseCatalog = new CourseCatalog(this);
         this.allSchedules = new HashMap<String, CourseSchedule>();  
-        this.enrolledListForAllTerm = new ArrayList<Student>();
+//        this.enrolledListForAllTerm = new ArrayList<Student>();
         
 //        insertTermsInAllSchedules();
     }
@@ -61,14 +62,67 @@ public class Professor extends Person {
     }
     
     public ArrayList<Student> getEnrolledListForAllTerm(){
+        this.enrolledListForAllTerm = new ArrayList<Student>();
         for (Map.Entry<String,CourseSchedule> termSchedule: this.allSchedules.entrySet()){
             CourseSchedule cs = (CourseSchedule) termSchedule.getValue();
-            System.out.println("here"+cs.toString()+ cs.getTerm()+ cs.getEnrolledListForTerm());
             for (Student s: cs.getEnrolledListForTerm()){
                 this.enrolledListForAllTerm.add(s);
             };
         }
         return this.enrolledListForAllTerm;
+    }
+    
+    public int getEnrolledCountForCourse(Course c){
+        int enrolledForCourse = 0;
+        for (Map.Entry<String,CourseSchedule> termSchedule: this.allSchedules.entrySet()){
+            CourseSchedule cs = (CourseSchedule) termSchedule.getValue();
+            for (CourseOffer co: cs.getSchedule()){
+                if (co.getCourse() == c){
+                    for (Seat s: co.getSeatlist()){
+                        if (s.getOccupied() ){
+                        enrolledForCourse += 1;
+                        }
+                    }
+                }      
+            }
+        }
+        return enrolledForCourse;
+    }
+    
+    public int getPassCountForCourse(Course c){
+        int passCountForCourse = 0;
+        for (Map.Entry<String,CourseSchedule> termSchedule: this.allSchedules.entrySet()){
+            CourseSchedule cs = (CourseSchedule) termSchedule.getValue();
+            for (CourseOffer co: cs.getSchedule()){
+                if (co.getCourse() == c){
+                    for (Seat s: co.getSeatlist()){
+                        if(s.getOccupied()){
+                            if (s.getSeatassignment().getGrade().equals("Pass")){
+                            passCountForCourse += 1;
+                            }
+                        }  
+                    }
+                }      
+            }
+        }
+        return passCountForCourse;
+    }
+    
+    public int getTuitionCollectedForCourse(Course c) {
+        int tuitionForCourse = 0;
+        for (Map.Entry<String,CourseSchedule> termSchedule: this.allSchedules.entrySet()){
+            CourseSchedule cs = (CourseSchedule) termSchedule.getValue();
+            for (CourseOffer co: cs.getSchedule()){
+                if (co.getCourse() == c){
+                    for (Seat s: co.getSeatlist()){
+                        if (s.getOccupied() && s.getSeatassignment().getPaid()){
+                        tuitionForCourse += co.getCourse().getPrice();
+                        }
+                    }
+                }      
+            }
+        }
+        return tuitionForCourse;
     }
     
     public void initiateAllSchedules(ArrayList<String> terms){
@@ -113,8 +167,24 @@ public class Professor extends Person {
     }
 
     public int getTuitionCollected() {
+        this.tuitionCollected = 0;
+        for (Map.Entry<String,CourseSchedule> termSchedule: this.allSchedules.entrySet()){
+            CourseSchedule cs = (CourseSchedule) termSchedule.getValue();
+            for (CourseOffer co: cs.getSchedule()){
+//                if (co.getSeatlist().size()>co.getSeatsAvailable()){
+                    for (Seat s: co.getSeatlist()){
+                        if (s.getOccupied() && s.getSeatassignment().getPaid()){
+                        this.tuitionCollected += co.getCourse().getPrice();
+                        }
+                    }
+//                }
+                
+            }
+        }
         return tuitionCollected;
     }
+    
+
 
     public void setTuitionCollected(int tuitionCollected) {
         this.tuitionCollected = tuitionCollected;

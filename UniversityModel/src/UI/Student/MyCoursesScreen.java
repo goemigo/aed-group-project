@@ -47,16 +47,15 @@ public class MyCoursesScreen extends javax.swing.JPanel {
             for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
 
                 Course c = sa.getSeat().getCourseoffer().getCourse();
-                Object[] row = new Object[8];
+                Object[] row = new Object[6];
 
-                row[0] = c;
+                row[0] = sa.getCourseload().getTerm();
                 row[1] = c.getName();
                 row[2] = c.getTopic();
-                row[3] = c.getRegion();
-                row[4] = c.getLanguage();
-                row[5] = c.getPrice();
-                row[6] = sa.getCourseload().getTerm();
-                row[7] = sa.getGrade();
+                row[3] = sa.getSeat().getCourseoffer().getProfessor().getName();
+                row[4] = c.getRegion();
+                row[5] = c.getLanguage();
+       
                 registeredTableModel.addRow(row);
                 totalPrice += c.getPrice();
             }
@@ -93,12 +92,12 @@ public class MyCoursesScreen extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Term", "Region", "Professor", "Language", "Term"
+                "Term", "Name", "Topic", "Professor", "Region", "Language"
             }
         ));
         jScrollPane2.setViewportView(registeredTable);
 
-        jLabel4.setText("Registered Courses table");
+        jLabel4.setText("My Courses");
 
         payCourses.setText("Pay for courses");
         payCourses.addActionListener(new java.awt.event.ActionListener() {
@@ -116,26 +115,26 @@ public class MyCoursesScreen extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(tuition))
+                    .addComponent(payCourses))
+                .addGap(307, 307, 307))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(tuition)))
-                .addContainerGap(125, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(payCourses)
-                .addGap(216, 216, 216))
+                        .addGap(333, 333, 333)
+                        .addComponent(jLabel4)))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,24 +144,29 @@ public class MyCoursesScreen extends javax.swing.JPanel {
                         .addGap(114, 114, 114)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(54, 54, 54)
                         .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(tuition))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(payCourses)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void payCoursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payCoursesActionPerformed
         // TODO add your handling code here:
-        if (!this.student.getTuitionPaid()) {
-            this.student.setTuitionPaid(true);
+        if (!this.student.getTuitionPaidForAllCO()) {
+            for (SeatAssignment sa: this.student.getCourseList()){
+                if (!sa.getPaid()){
+                    sa.setPaid(true);
+                }
+            }
+            this.student.setTuitionPaidForAllCO(true);
             JOptionPane.showMessageDialog(null, "Tuition Paid!");
         } else {
             JOptionPane.showMessageDialog(null, "Tuition Already Paid!");

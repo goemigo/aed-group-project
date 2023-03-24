@@ -104,9 +104,9 @@ public class Course {
         this.passCountForCourse = passCountForCourse;
     }
 
-    public int getRevenueForCourse() {
-        return revenueForCourse;
-    }
+//    public int getRevenueForCourse() {
+//        return revenueForCourse;
+//    }
 
     public void setRevenueForCourse(int revenueForCourse) {
         this.revenueForCourse = revenueForCourse;
