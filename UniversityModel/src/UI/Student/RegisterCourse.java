@@ -11,6 +11,7 @@ import CourseCatalog.SeatAssignment;
 import Platform.Platform;
 import Student.Student;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.lang.model.type.ErrorType;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,6 +30,7 @@ public class RegisterCourse extends javax.swing.JPanel {
     private String term;
     private DefaultTableModel courseTableModel;
     private DefaultTableModel registeredTableModel;
+    private DefaultTableModel transcriptTableModel;
 
     public RegisterCourse(Platform platform, Student s) {
         initComponents();
@@ -37,18 +39,28 @@ public class RegisterCourse extends javax.swing.JPanel {
         this.platform = platform;
         this.student = s;
         this.courseTableModel = (DefaultTableModel) courseTable.getModel();
+        this.transcriptTableModel = (DefaultTableModel) transcriptTable.getModel();
+
         populateTerms();
         populateCourse();
+        populateTranscript();
+        gradStatus.setText(this.student.getTranscript().getGraduationStatus());
+
+    }
+
+    public void clearTable() {
+        while (courseTableModel.getRowCount() > 0) {
+            courseTableModel.removeRow(0);
+        }
     }
 
     public void populateCourse() {
-        courseTableModel.setRowCount(0);
+        clearTable();
         String termSel = (String) termSelected.getSelectedItem();
-        try {
             for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
                 for (CourseOffer co : cs.getSchedule()) {
                     Course c = co.getCourse();
-                    Object[] row = new Object[9];
+                    Object[] row = new Object[8];
                     row[0] = co;
                     row[1] = c.getName();
                     row[2] = c.getTopic();
@@ -56,19 +68,17 @@ public class RegisterCourse extends javax.swing.JPanel {
                     row[4] = c.getLanguage();
                     row[5] = c.getPrice();
                     row[6] = co.getProfessor().getName();
-                    row[7] = co.getProfessor().calReputation();
-                    row[8] = co.getSeatsAvailable();
+                    row[7] = co.getSeatsAvailable();
                     courseTableModel.addRow(row);
                 }
             }
-        } catch (Throwable e) {
-
-        }
+        
     }
 
-    public void populateSearch(String text, String filter) {
-        courseTableModel.setRowCount(0);
+    public void populateSearch(String text) {
+        clearTable();
         String termSel = (String) termSelected.getSelectedItem();
+        String filter = (String) searchFilter.getSelectedItem();
         ArrayList<CourseOffer> filteredCourses = new ArrayList<CourseOffer>();
         try {
             for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
@@ -76,31 +86,31 @@ public class RegisterCourse extends javax.swing.JPanel {
                     Course c = co.getCourse();
                     switch (filter) {
                         case "language":
-                            if (c.getLanguage().equals(text)) {
+                            if (c.getLanguage().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
                             }
                         case "professor":
-                            if (c.getRegion().equals(text)) {
+                            if (co.getProfessor().getName().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
                             }
                         case "region":
-                            if (c.getRegion().equals(text)) {
+                            if (c.getRegion().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
                             }
                         case "topic":
-                            if (c.getTopic().equals(text)) {
+                            if (c.getTopic().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
                             }
                         case "course":
-                            if (c.getName().equals(text)) {
+                            if (c.getName().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
                             }
                         default:
-                            filteredCourses.add(co);
+                            String sss;
                     }
                 }
             }
-
+            
             for (CourseOffer co : filteredCourses) {
 
                 Course c = co.getCourse();
@@ -118,7 +128,24 @@ public class RegisterCourse extends javax.swing.JPanel {
                 courseTableModel.addRow(row);
             }
         } catch (Throwable e) {
+            
+        }
+    }
 
+    public void populateTranscript() {
+        transcriptTableModel.setRowCount(0);
+        for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
+            System.out.println("\n transcript"+sa.getCourseload().toString());
+            Course c = sa.getSeat().getCourseoffer().getCourse();
+            Object[] row = new Object[7];
+            row[0] = c;
+            row[1] = sa.getGrade();
+            row[2] = c.getName();
+            row[3] = c.getRegion();
+            row[4] = sa.getSeat().getCourseoffer().getProfessor().getName();
+            row[5] = c.getPrice();
+            row[6] = sa.getCourseload().getTerm();
+            transcriptTableModel.addRow(row);
         }
     }
 
@@ -142,6 +169,12 @@ public class RegisterCourse extends javax.swing.JPanel {
         searchFilter = new javax.swing.JComboBox<>();
         searchButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        transcriptTable = new javax.swing.JTable();
+        registerRequest = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        gradStatus = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 204, 51));
 
@@ -181,7 +214,7 @@ public class RegisterCourse extends javax.swing.JPanel {
             }
         });
 
-        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "language", "professor", "region", "course" }));
+        searchFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "language", "professor", "region", "course", "topic" }));
 
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -191,6 +224,32 @@ public class RegisterCourse extends javax.swing.JPanel {
         });
 
         jLabel5.setText("Term");
+
+        transcriptTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Term", "Course", "Professor", "Grade", "Title 5", "Title 6", "Title 7"
+            }
+        ));
+        jScrollPane2.setViewportView(transcriptTable);
+
+        registerRequest.setText("Request for graduation");
+        registerRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerRequestActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Graduation Status: ");
+
+        gradStatus.setText("ss");
+
+        jLabel6.setText("Transcript");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -221,8 +280,25 @@ public class RegisterCourse extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(272, 272, 272)
                                 .addComponent(registerCourse))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(registerRequest)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(gradStatus)
+                                .addGap(85, 85, 85))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(259, 259, 259))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,21 +307,33 @@ public class RegisterCourse extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(termSelected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(searchFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton)
-                    .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(registerCourse)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(searchFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchButton)
+                            .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(registerCourse))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(registerRequest)
+                            .addComponent(jLabel4)
+                            .addComponent(gradStatus))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -257,42 +345,65 @@ public class RegisterCourse extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = courseTable.getSelectedRow();
         CourseOffer co = (CourseOffer) courseTable.getValueAt(selectedRow, 0);
-        this.student.getTranscript().registerCourse(this.term, co);
+        String termSel = (String) termSelected.getSelectedItem();
+        this.student.getTranscript().registerCourse(termSel, co);
         JOptionPane.showMessageDialog(null, "Course Registered!");
         populateCourse();
+        populateTranscript();
     }//GEN-LAST:event_registerCourseActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        courseTableModel.setRowCount(0);
         String searchedText = searchText.getText();
-        String filter = (String) searchFilter.getSelectedItem();
-        populateSearch(searchedText, filter);
+        populateSearch(searchedText);
 
     }//GEN-LAST:event_searchButtonActionPerformed
-    private void populateTerms(){
-    termSelected.removeAllItems();
-       for (String term : this.platform.getTerms()) {
+    private void populateTerms() {
+        termSelected.removeAllItems();
+        for (String term : this.platform.getTerms()) {
             termSelected.addItem(term);
         }
-    
+
     }
     private void termSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_termSelectedActionPerformed
         // TODO add your handling code here:
+//        termSelected.getSelectedItem();
+        populateCourse();
+
     }//GEN-LAST:event_termSelectedActionPerformed
+
+    private void registerRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerRequestActionPerformed
+        // TODO add your handling code here:
+        if (this.student.getTuitionPaid()) {
+            if (this.student.getRequested()) {
+                JOptionPane.showMessageDialog(null, "Already requested for graduation");
+            } else {
+                this.student.setRequested(true);
+                JOptionPane.showMessageDialog(null, "Requested for graduation");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Pay Tuition fee first!");
+        }
+    }//GEN-LAST:event_registerRequestActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable courseTable;
+    private javax.swing.JLabel gradStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton registerCourse;
+    private javax.swing.JButton registerRequest;
     private javax.swing.JButton searchButton;
     private javax.swing.JComboBox<String> searchFilter;
     private javax.swing.JTextField searchText;
     private javax.swing.JComboBox<String> termSelected;
+    private javax.swing.JTable transcriptTable;
     // End of variables declaration//GEN-END:variables
 }

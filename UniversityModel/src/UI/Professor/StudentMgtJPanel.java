@@ -235,12 +235,11 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
             for (Map.Entry<String,CourseSchedule> termSchedule: this.professor.getAllSchedules().entrySet()){
                 CourseSchedule cs = termSchedule.getValue();
                 ArrayList<CourseOffer> offers = cs.getSchedule();
-            
                 for (CourseOffer co: offers){
 //                    ArrayList<Student> enrolledStudentList = co.getEnrolledStudentList();
                     for (Seat s: co.getSeatlist()){
-                        if (s.isOccupied() == true) {
-                            
+                        if (s.isOccupied()) {
+                            System.out.print(s);
                             Object[] row = new Object[3];
                             row[0] = s.getSeatassignment().getCourseload().getStudent();
 //                            row[0] = s.getSeatassignment().getCourseload().getStudent().getPersonid();

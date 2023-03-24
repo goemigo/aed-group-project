@@ -25,7 +25,9 @@ public class CourseLoad {
     public SeatAssignment newSeatAssignment(CourseOffer co){
         Seat seat = co.getEmptySeat();
         if (seat==null) return null;
+        System.out.println("\n Assiigned Seat in " + co.toString());
         SeatAssignment sa = seat.newSeatAssignment(this);
+        
         seatassignments.add(sa);  //add to students course 
         return sa;
     }

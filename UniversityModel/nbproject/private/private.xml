@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/UI/Student/RegisterCourse.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>260</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/AdminInterface/RegistrationJPanel.java</file>
-            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/Certifier/Certifier.java</file>
-            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/Professor/SubscriptionJPanel.java</file>
-            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UserAccount/UserAccountDirectory.java</file>
+            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/Student/RegisterCourse.java</file>
+            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/Student/MyCoursesScreen.java</file>
             <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/Student/TranscriptScreen.java</file>
-            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/Certifier/Degree.java</file>
-            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/Student/Student.java</file>
+            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/Roles/Role.java</file>
+            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/AdminInterface/UserManagementJPanel.java</file>
+            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/AdminInterface/AnalyticsJPanel.java</file>
+            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/Student/Transcript.java</file>
             <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/AdminInterface/loginJPanel.java</file>
-            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/Platform/Platform.java</file>
+            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/Student/StudentScreen.java</file>
             <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/UI/MainJFrame.java</file>
+            <file>file:/D:/College/5100/aed-group-project/UniversityModel/src/Roles/CertifierRole.java</file>
         </group>
     </open-files>
 </project-private>

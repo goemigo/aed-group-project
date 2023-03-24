@@ -64,7 +64,7 @@ public class CourseOffer {
         int sum = 0;
 
         for (Seat s : seatlist) {
-            if (s.isOccupied() == true) {
+            if (s.isOccupied()) {
                 sum = sum + course.getPrice();
             }
 
@@ -75,7 +75,7 @@ public class CourseOffer {
     public ArrayList<Student> getEnrolledStudentList(){
         
         for (Seat s : seatlist) {
-            if (s.isOccupied() == true) {
+            if (s.isOccupied()) {
                 this.enrolledStudentList.add(s.getSeatassignment().getCourseload().getStudent());
             }
 
