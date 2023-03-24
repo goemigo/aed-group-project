@@ -12,6 +12,9 @@ import CourseCatalog.Seat;
 import CourseCatalog.SeatAssignment;
 import Personnel.Person;
 import Student.Student;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -147,18 +150,22 @@ public class Professor extends Person {
     public float calReputation(){
         this.reputation = 0;
         int gradingCount = 0;
-        for (Student s: this.getEnrolledListForAllTerm()){
-            for (SeatAssignment sa: s.getTranscript().getSeatAssignmentsAllTerms()){
-                if(sa.getProfessorRepGrading()!=0){
-                    this.reputation += sa.getProfessorRepGrading();
-                    gradingCount += 1;
+        for (Map.Entry<String,CourseSchedule> termSchedule: this.allSchedules.entrySet()){
+            CourseSchedule cs = (CourseSchedule) termSchedule.getValue();
+            for (CourseOffer co: cs.getSchedule()){
+                for (Seat s: co.getSeatlist()){
+                    if (s.getOccupied() && s.getSeatassignment().getProfessorRepGrading()!=0){
+                        this.reputation += s.getSeatassignment().getProfessorRepGrading();
+                        gradingCount += 1;   
+                    }
                 }
             }
         }
         if (gradingCount==0){
             return 0;
         }else{
-            return this.reputation/gradingCount;
+            BigDecimal rep = new BigDecimal(this.reputation/gradingCount).setScale(2, RoundingMode.HALF_UP);
+            return (float) rep.doubleValue();
         }
     }
 

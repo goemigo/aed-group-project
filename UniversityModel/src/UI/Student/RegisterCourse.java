@@ -76,42 +76,50 @@ public class RegisterCourse extends javax.swing.JPanel {
         }catch (Throwable e) {}
     }
 
-    public void populateSearch(String text) {
+    public void populateSearch(String filter, String text) {
         clearTable();
         String termSel = (String) termSelected.getSelectedItem();
-        String filter = (String) searchFilter.getSelectedItem();
+//        String filter = (String) searchFilter.getSelectedItem();
         ArrayList<CourseOffer> filteredCourses = new ArrayList<CourseOffer>();
         try {
+//           if (this.platform.listCourseOffersByTerm(termSel).size()>0){
             for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
+                if (cs!=null){
                 for (CourseOffer co : cs.getSchedule()) {
                     Course c = co.getCourse();
+                   
                     switch (filter) {
                         case "language":
                             if (c.getLanguage().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
+                             
                             }
                         case "professor":
                             if (co.getProfessor().getName().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
+                             
                             }
                         case "region":
                             if (c.getRegion().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
+                            
                             }
                         case "topic":
                             if (c.getTopic().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
+                              
                             }
                         case "course":
                             if (c.getName().equals(text) && !filteredCourses.contains(co)) {
                                 filteredCourses.add(co);
+                            
                             }
-                        default:
-                            String sss;
+//                        default:
+//                            String sss;
                     }
                 }
+                }
             }
-            
             for (CourseOffer co : filteredCourses) {
 
                 Course c = co.getCourse();
@@ -129,7 +137,7 @@ public class RegisterCourse extends javax.swing.JPanel {
                 courseTableModel.addRow(row);
             }
         } catch (Throwable e) {
-            
+           
         }
     }
 
@@ -310,7 +318,7 @@ public class RegisterCourse extends javax.swing.JPanel {
         CourseOffer co = (CourseOffer) courseTable.getValueAt(selectedRow, 0);
         String termSel = (String) termSelected.getSelectedItem();
         this.student.getTranscript().registerCourse(termSel, co);
-        JOptionPane.showMessageDialog(null, "Course Registered!");
+        
         populateCourse();
         populateTranscript();
     }//GEN-LAST:event_registerCourseActionPerformed
@@ -318,7 +326,8 @@ public class RegisterCourse extends javax.swing.JPanel {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
         String searchedText = searchText.getText();
-        populateSearch(searchedText);
+        String filter = (String) searchFilter.getSelectedItem();
+        populateSearch(filter, searchedText);
 
     }//GEN-LAST:event_searchButtonActionPerformed
     private void populateTerms() {

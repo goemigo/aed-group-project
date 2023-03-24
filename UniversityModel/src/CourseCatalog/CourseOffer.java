@@ -7,6 +7,7 @@ package CourseCatalog;
 import Student.Student;
 import Professor.Professor;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -54,12 +55,14 @@ public class CourseOffer {
     public SeatAssignment assignEmptySeat(CourseLoad cl,Student student) {
         Seat seat = getEmptySeat();
         if (seat == null) {
+            JOptionPane.showMessageDialog(null, "No seat available");
             return null;
         }
         this.seatsAvailable--;
         SeatAssignment sa = seat.newSeatAssignment(cl); // already link seat(from co) to courseload (belongs to a certain student)
         cl.registerStudent(sa); // add the sa to student's course load's ArrayList<SeatAssignment>
         cl.setStudent(student);
+        JOptionPane.showMessageDialog(null, "Course Registered!");
         return sa;
     }
     

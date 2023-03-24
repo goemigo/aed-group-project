@@ -30,6 +30,7 @@ public class Platform {
 
     MasterCourseCatalog masterCourseCatalog;
     ArrayList<String> terms;
+    int subFee = 1000;
     int revenue;
     Certifier certifier;
     StudentDirectory sd;
@@ -90,9 +91,8 @@ public class Platform {
         return certifier;
     }
 
-    public void collectSubscriptionFee(String profId) {
-        this.revenue += 500;
-        this.pd.findProfessorById(profId).setAccountStatus(true);
+    public void collectSubscriptionFee() {
+        this.revenue += this.subFee;
     }
 
     public void setCertifier(Certifier certifier) {
@@ -152,5 +152,23 @@ public class Platform {
         this.revenue = revenue;
     }
     
+    public int getActiveProfessorCount(){
+        int activeProfessor = 0;
+        for (Professor p: this.pd.getProfessors()){
+            if (p.getAccountStatus()){
+                activeProfessor+=1;
+            }
+        }
+        return activeProfessor;
+    }
     
+    public int getDegreeAwarded(){
+        int degreeCount = 0;
+        for (Student s: this.sd.getStudent()){
+            if (s.getTranscript().getIsGraduated()){
+                degreeCount+=1;
+            }
+        }
+        return degreeCount;
+    }
 }

@@ -45,5 +45,9 @@ public class ProfessorDirectory {
         this.professors.add(p);
         return p;
     }
+    
+    public void sortProfessor(ArrayList<Professor> professors){
+        professors.sort((p1,p2) -> Float.valueOf(p2.calReputation()).compareTo(p1.calReputation()));
+    }
 
 }

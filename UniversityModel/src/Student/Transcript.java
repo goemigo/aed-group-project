@@ -11,6 +11,7 @@ import CourseCatalog.SeatAssignment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -71,19 +72,14 @@ public class Transcript {
         if (this.courseCount <= 8) {
             this.courseCount++;
             if (this.courseLoads.get(term) != null) {
-                System.out.println("\n adding to term" + co.toString());
-//                CourseLoad termCl = this.courseLoads.get(term);
-//                SeatAssignment sa = co.assignEmptySeat(termCl);
-//                termCl.newSeatAssignment(co);
             } else {
-                System.out.println("\n creating term" + co.toString());
-//                CourseLoad cl = new CourseLoad(term, this.student);
                 this.courseLoads.put(term, new CourseLoad(term,this.student));
-//                SeatAssignment sa = co.assignEmptySeat(cl);
-//                this.courseLoads.put(term, cl);  
             }
             CourseLoad termCl = this.courseLoads.get(term);
             SeatAssignment sa = co.assignEmptySeat(termCl, this.student);
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Reached registration maximum");
         }
     }
 
@@ -108,4 +104,10 @@ public class Transcript {
         return temp2;
 
     }
+
+    public Boolean getIsGraduated() {
+        return isGraduated;
+    }
+    
+    
 }
