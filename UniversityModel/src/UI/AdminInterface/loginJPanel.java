@@ -49,10 +49,9 @@ public
         jLabel3 = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        fieldpassword.setBackground(new java.awt.Color(204, 204, 204));
         fieldpassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldpasswordActionPerformed(evt);
@@ -60,10 +59,14 @@ public
         });
         jPanel1.add(fieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 235, 168, 42));
 
-        fieldusername.setBackground(new java.awt.Color(204, 204, 204));
+        fieldusername.addHierarchyListener(new java.awt.event.HierarchyListener() {
+            public void hierarchyChanged(java.awt.event.HierarchyEvent evt) {
+                fieldusernameHierarchyChanged(evt);
+            }
+        });
         jPanel1.add(fieldusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 162, 168, 42));
 
-        jLabel1.setFont(new java.awt.Font("Big Caslon", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("WELCOME");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 130, 40));
 
@@ -133,6 +136,10 @@ public
         }
 
     }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void fieldusernameHierarchyChanged(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_fieldusernameHierarchyChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldusernameHierarchyChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

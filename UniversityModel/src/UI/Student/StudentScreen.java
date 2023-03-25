@@ -51,6 +51,8 @@ public class StudentScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
+
         jButton1.setText("Registeration");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +107,7 @@ public class StudentScreen extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(34, 34, 34)
                 .addComponent(jButton3)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);

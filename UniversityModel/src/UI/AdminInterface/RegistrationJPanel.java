@@ -55,53 +55,56 @@ public
         jLabel6 = new javax.swing.JLabel();
         comboRole = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 204, 153));
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(fieldusername1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 120, 30));
-        jPanel1.add(fieldPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 120, 30));
-        jPanel1.add(fieldname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 120, 30));
+        jPanel1.add(fieldusername1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 120, 30));
+        jPanel1.add(fieldPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 120, 30));
+        jPanel1.add(fieldname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 120, 30));
 
-        registerBtn.setText("Register");
+        registerBtn.setText("REGISTER");
         registerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 420, -1, -1));
+        jPanel1.add(registerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, -1, -1));
 
-        jLabel5.setText("role");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, 20));
+        jLabel5.setText("ROLE:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, -1, 20));
 
-        jLabel2.setText("password");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, 20));
+        jLabel2.setText("PASSWORD:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, -1, 20));
 
-        jLabel6.setText("username");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, -1, 20));
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel6.setText("REGISTER");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, 20));
 
-        comboRole.setSelectedIndex(-1);
         comboRole.setToolTipText("");
-        jPanel1.add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 120, 30));
+        jPanel1.add(comboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 120, 30));
 
-        jLabel7.setText("name");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, 20));
+        jLabel7.setText("NAME:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, 20));
+
+        jLabel8.setText("USERNAME:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, -1, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -158,6 +161,7 @@ public
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton registerBtn;
     // End of variables declaration//GEN-END:variables

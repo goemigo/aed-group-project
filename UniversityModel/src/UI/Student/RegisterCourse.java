@@ -183,7 +183,7 @@ public class RegisterCourse extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         transcriptTable = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(255, 204, 51));
+        setBackground(new java.awt.Color(204, 255, 255));
 
         searchText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +206,7 @@ public class RegisterCourse extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(courseTable);
 
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("Courses table");
 
         registerCourse.setText("Register");
@@ -232,6 +233,7 @@ public class RegisterCourse extends javax.swing.JPanel {
 
         jLabel5.setText("Term");
 
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel6.setText("Course Selected");
 
         transcriptTable.setModel(new javax.swing.table.DefaultTableModel(

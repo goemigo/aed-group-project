@@ -67,7 +67,7 @@ public class TranscriptScreen extends javax.swing.JPanel {
         fieldRate = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 102));
+        setBackground(new java.awt.Color(204, 255, 255));
 
         transcriptTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,6 +82,7 @@ public class TranscriptScreen extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(transcriptTable);
 
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel1.setText("Transcript");
 
         registerRequest.setText("Request for graduation");
@@ -91,8 +92,10 @@ public class TranscriptScreen extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel2.setText("Graduation Status: ");
 
+        gradStatus.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         gradStatus.setText("ss");
 
         rateBtn.setText("Rate Professor");
@@ -133,10 +136,11 @@ public class TranscriptScreen extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(gradStatus))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(gradStatus)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()

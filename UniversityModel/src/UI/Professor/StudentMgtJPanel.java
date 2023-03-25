@@ -140,7 +140,7 @@ public class StudentMgtJPanel extends javax.swing.JPanel {
                 fieldCourseNameInputMethodTextChanged(evt);
             }
         });
-        add(fieldCourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 230, -1));
+        add(fieldCourseName, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 220, -1));
 
         passBtn.setText("Pass");
         passBtn.addActionListener(new java.awt.event.ActionListener() {

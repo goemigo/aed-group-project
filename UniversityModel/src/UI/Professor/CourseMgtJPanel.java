@@ -190,8 +190,9 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 460, 140));
 
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel6.setText("My Courses");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, -1, -1));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, -1, -1));
 
         jLabel7.setText("term");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, -1, -1));
@@ -240,6 +241,7 @@ public class CourseMgtJPanel extends javax.swing.JPanel {
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 460, 230));
 
+        jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel10.setText("My Course Schedule");
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, -1, -1));
 

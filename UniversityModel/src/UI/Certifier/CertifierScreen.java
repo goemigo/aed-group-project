@@ -79,6 +79,8 @@ public
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+
         authenticateDegreeBtn.setText("Authenticate Degree");
         authenticateDegreeBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +95,7 @@ public
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setText("CERTIFIER");
 
         studentTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -142,8 +145,10 @@ public
         });
         jScrollPane2.setViewportView(transTable);
 
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel2.setText("Transcript for this student:");
 
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("Request list:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

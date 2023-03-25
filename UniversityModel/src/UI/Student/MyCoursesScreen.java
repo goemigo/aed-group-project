@@ -82,7 +82,7 @@ public class MyCoursesScreen extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         tuition = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 204, 51));
+        setBackground(new java.awt.Color(204, 255, 255));
 
         registeredTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,7 +97,8 @@ public class MyCoursesScreen extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(registeredTable);
 
-        jLabel4.setText("My Courses");
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel4.setText("MY COURSES");
 
         payCourses.setText("Pay for courses");
         payCourses.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +121,7 @@ public class MyCoursesScreen extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tuition))
                     .addComponent(payCourses))
                 .addGap(307, 307, 307))
@@ -132,7 +133,7 @@ public class MyCoursesScreen extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(333, 333, 333)
+                        .addGap(335, 335, 335)
                         .addComponent(jLabel4)))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
@@ -144,9 +145,9 @@ public class MyCoursesScreen extends javax.swing.JPanel {
                         .addGap(114, 114, 114)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addGap(27, 27, 27)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(33, 33, 33)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -154,7 +155,7 @@ public class MyCoursesScreen extends javax.swing.JPanel {
                     .addComponent(tuition))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(payCourses)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

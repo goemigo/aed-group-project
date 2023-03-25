@@ -128,8 +128,8 @@ public class ProfessorAnalyticsJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(dataTable);
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
-        jLabel2.setText("My dashboard");
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel2.setText("MY DASHBOARD");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -167,7 +167,7 @@ public class ProfessorAnalyticsJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
