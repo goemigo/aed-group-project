@@ -21,15 +21,15 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
     private Platform platform;
     private UserAccount ua;
     private Professor professor;
-    
+
     public SubscriptionJPanel(Platform platform, UserAccount useraccount) {
         initComponents();
         this.setVisible(true);
         this.platform = platform;
         this.ua = useraccount;
-        
+
         this.professor = this.platform.getProfessorDirectory().findProfessorById(ua.getAccountId());
-        
+
         fieldProfID.setText(this.ua.getAccountId());
         fieldProfName.setText(this.professor.getName());
         fieldAccountStatus.setText(this.professor.getAccountStatusString());
@@ -156,15 +156,16 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
 
     private void SubscribeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubscribeBtnActionPerformed
         // TODO add your handling code here:
-      
-        professor.setAccountStatus(true); //set prof user account status to true
-        fieldAccountStatus.setText(this.professor.getAccountStatusString());
-        this.platform.collectSubscriptionFee(); //add revenue to platform
-        
-        //initiate all schedules for the professor once subscribed
-        this.professor.initiateAllSchedules(this.platform.getTerms());
-        
-        JOptionPane.showMessageDialog(null, "Successfully subscribed!");
+        if (!professor.getAccountStatus()) {
+            professor.setAccountStatus(true); //set prof user account status to true
+            fieldAccountStatus.setText(this.professor.getAccountStatusString());
+            this.platform.collectSubscriptionFee(); //add revenue to platform
+            //initiate all schedules for the professor once subscribed
+            this.professor.initiateAllSchedules(this.platform.getTerms());
+            JOptionPane.showMessageDialog(null, "Successfully subscribed!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Already subscribed!");
+        }
     }//GEN-LAST:event_SubscribeBtnActionPerformed
 
     private void fieldProfIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldProfIDActionPerformed
