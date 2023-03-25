@@ -107,7 +107,7 @@ public class Platform {
         return pd;
     }
 
-    public ArrayList<CourseSchedule> listCourseOffersByTerm(String term) {
+    public ArrayList<CourseSchedule> listCourseSchedulesByTerm(String term) {
         ArrayList<CourseSchedule> coList = new ArrayList<CourseSchedule>();
         for (Professor p : this.pd.getProfessors()) {
             coList.add(p.getCourseScheduleByTerm(term));

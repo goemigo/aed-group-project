@@ -163,6 +163,7 @@ public class SubscriptionJPanel extends javax.swing.JPanel {
         
         //initiate all schedules for the professor once subscribed
         this.professor.initiateAllSchedules(this.platform.getTerms());
+        
         JOptionPane.showMessageDialog(null, "Successfully subscribed!");
     }//GEN-LAST:event_SubscribeBtnActionPerformed
 
