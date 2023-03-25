@@ -23,7 +23,7 @@ public
     private UserAccount ua;
     private DefaultTableModel keyTableModel;
     private DefaultTableModel profTableModel;
-    private static int count = 1;
+    
     
     public
             AnalyticsJPanel(Platform platform, UserAccount ua) {
@@ -63,7 +63,7 @@ public
     public void populateProfessorRanking(){
         
         profTableModel.setRowCount(0);
-        
+        int count = 1;
         try{
             this.platform.getPd().sortProfessor(this.platform.getPd().getProfessors());
             for (Professor p: this.platform.getPd().getProfessors()){
