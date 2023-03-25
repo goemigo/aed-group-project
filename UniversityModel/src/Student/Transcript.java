@@ -38,13 +38,25 @@ public class Transcript {
     public ArrayList<SeatAssignment> getSeatAssignmentsAllTerms() {
         ArrayList<SeatAssignment> sas = new ArrayList<SeatAssignment>();
         for (Map.Entry<String, CourseLoad> mapElement : this.courseLoads.entrySet()) {
-                
+
             ArrayList<SeatAssignment> sat = mapElement.getValue().getSeatassignments();
             for (SeatAssignment sa : sat) {
                 sas.add(sa);
             }
 
         }
+        return sas;
+    }
+
+    public ArrayList<SeatAssignment> getSeatAssignmentsByTerm(String term) {
+        ArrayList<SeatAssignment> sas = new ArrayList<SeatAssignment>();
+        CourseLoad mapElement = this.courseLoads.get(term);
+
+        ArrayList<SeatAssignment> sat = mapElement.getSeatassignments();
+        for (SeatAssignment sa : sat) {
+            sas.add(sa);
+        }
+
         return sas;
     }
 
@@ -73,13 +85,26 @@ public class Transcript {
             this.courseCount++;
             if (this.courseLoads.get(term) != null) {
             } else {
-                this.courseLoads.put(term, new CourseLoad(term,this.student));
+                this.courseLoads.put(term, new CourseLoad(term, this.student));
             }
             CourseLoad termCl = this.courseLoads.get(term);
             SeatAssignment sa = co.assignEmptySeat(termCl, this.student);
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Reached registration maximum");
+        }
+    }
+
+    public Boolean checkCourseRegistered(String term, CourseOffer co) {
+        try {
+            for (SeatAssignment sa : this.getSeatAssignmentsByTerm(term)) {
+                if (sa.getSeat().getCourseoffer() == co) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Throwable e) {
+            return false;
         }
     }
 
@@ -108,6 +133,5 @@ public class Transcript {
     public Boolean getIsGraduated() {
         return isGraduated;
     }
-    
-    
+
 }

@@ -31,51 +31,56 @@ public class RegisterCourse extends javax.swing.JPanel {
     private DefaultTableModel courseTableModel;
     private DefaultTableModel registeredTableModel;
     private DefaultTableModel transcriptTableModel;
-
+    
     public RegisterCourse(Platform platform, Student s) {
         initComponents();
         this.setVisible(true);
-
+        
         this.platform = platform;
         this.student = s;
         this.courseTableModel = (DefaultTableModel) courseTable.getModel();
         this.transcriptTableModel = (DefaultTableModel) transcriptTable.getModel();
-
+        
         populateTerms();
         populateCourse();
         populateTranscript();
-
+        
     }
-
+    
     public void clearTable() {
         while (courseTableModel.getRowCount() > 0) {
             courseTableModel.removeRow(0);
         }
     }
-
+    
     public void populateCourse() {
         clearTable();
         String termSel = (String) termSelected.getSelectedItem();
         try {
-            for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
-                for (CourseOffer co : cs.getSchedule()) {
-                    Course c = co.getCourse();
-                    Object[] row = new Object[9];
-                    row[0] = co; 
-                    row[1] = c.getName();
-                    row[2] = c.getTopic();
-                    row[3] = c.getRegion();
-                    row[4] = c.getLanguage();
-                    row[5] = c.getPrice();
-                    row[6] = co.getProfessor().getName();
-                    row[7] = co.getProfessor().calReputation();
-                    row[8] = co.getSeatsAvailable();
-                    courseTableModel.addRow(row);
+            for (CourseSchedule cs : this.platform.listCourseSchedulesByTerm(termSel)) {
+                if (cs != null) {
+                    for (CourseOffer co : cs.getSchedule()) {
+                        System.out.println(co);
+                        Course c = co.getCourse();
+                        Object[] row = new Object[9];
+                        row[0] = co;
+                        row[1] = c.getName();
+                        row[2] = c.getTopic();
+                        row[3] = c.getRegion();
+                        row[4] = c.getLanguage();
+                        row[5] = c.getPrice();
+                        row[6] = co.getProfessor().getName();
+                        row[7] = co.getProfessor().calReputation();
+                        row[8] = co.getSeatsAvailable();
+                        courseTableModel.addRow(row);
+                    }
                 }
             }
-        }catch (Throwable e) {}
+        } catch (Throwable e) {
+            System.out.println(e);
+        }
     }
-
+    
     public void populateSearch(String filter, String text) {
         clearTable();
         String termSel = (String) termSelected.getSelectedItem();
@@ -83,48 +88,48 @@ public class RegisterCourse extends javax.swing.JPanel {
         ArrayList<CourseOffer> filteredCourses = new ArrayList<CourseOffer>();
         try {
 //           if (this.platform.listCourseOffersByTerm(termSel).size()>0){
-            for (CourseSchedule cs : this.platform.listCourseOffersByTerm(termSel)) {
-                if (cs!=null){
-                for (CourseOffer co : cs.getSchedule()) {
-                    Course c = co.getCourse();
-                   
-                    switch (filter) {
-                        case "language":
-                            if (c.getLanguage().equals(text) && !filteredCourses.contains(co)) {
-                                filteredCourses.add(co);
-                             
-                            }
-                        case "professor":
-                            if (co.getProfessor().getName().equals(text) && !filteredCourses.contains(co)) {
-                                filteredCourses.add(co);
-                             
-                            }
-                        case "region":
-                            if (c.getRegion().equals(text) && !filteredCourses.contains(co)) {
-                                filteredCourses.add(co);
-                            
-                            }
-                        case "topic":
-                            if (c.getTopic().equals(text) && !filteredCourses.contains(co)) {
-                                filteredCourses.add(co);
-                              
-                            }
-                        case "course":
-                            if (c.getName().equals(text) && !filteredCourses.contains(co)) {
-                                filteredCourses.add(co);
-                            
-                            }
+            for (CourseSchedule cs : this.platform.listCourseSchedulesByTerm(termSel)) {
+                if (cs != null) {
+                    for (CourseOffer co : cs.getSchedule()) {
+                        Course c = co.getCourse();
+                        
+                        switch (filter) {
+                            case "language":
+                                if (c.getLanguage().equals(text) && !filteredCourses.contains(co)) {
+                                    filteredCourses.add(co);
+                                    
+                                }
+                            case "professor":
+                                if (co.getProfessor().getName().equals(text) && !filteredCourses.contains(co)) {
+                                    filteredCourses.add(co);
+                                    
+                                }
+                            case "region":
+                                if (c.getRegion().equals(text) && !filteredCourses.contains(co)) {
+                                    filteredCourses.add(co);
+                                    
+                                }
+                            case "topic":
+                                if (c.getTopic().equals(text) && !filteredCourses.contains(co)) {
+                                    filteredCourses.add(co);
+                                    
+                                }
+                            case "course":
+                                if (c.getName().equals(text) && !filteredCourses.contains(co)) {
+                                    filteredCourses.add(co);
+                                    
+                                }
 //                        default:
 //                            String sss;
+                        }
                     }
-                }
                 }
             }
             for (CourseOffer co : filteredCourses) {
-
+                
                 Course c = co.getCourse();
                 Object[] row = new Object[9];
-
+                
                 row[0] = co;
                 row[1] = c.getName();
                 row[2] = c.getTopic();
@@ -137,10 +142,10 @@ public class RegisterCourse extends javax.swing.JPanel {
                 courseTableModel.addRow(row);
             }
         } catch (Throwable e) {
-           
+            
         }
     }
-
+    
     public void populateTranscript() {
         transcriptTableModel.setRowCount(0);
         for (SeatAssignment sa : this.student.getTranscript().getSeatAssignmentsAllTerms()) {
@@ -149,8 +154,7 @@ public class RegisterCourse extends javax.swing.JPanel {
             row[0] = sa.getCourseload().getTerm();
             row[1] = c;
             row[2] = sa.getSeat().getCourseoffer().getProfessor().getName();
-
-     
+            
             transcriptTableModel.addRow(row);
         }
     }
@@ -317,10 +321,13 @@ public class RegisterCourse extends javax.swing.JPanel {
         int selectedRow = courseTable.getSelectedRow();
         CourseOffer co = (CourseOffer) courseTable.getValueAt(selectedRow, 0);
         String termSel = (String) termSelected.getSelectedItem();
-        this.student.getTranscript().registerCourse(termSel, co);
-        
-        populateCourse();
-        populateTranscript();
+        if (!this.student.getTranscript().checkCourseRegistered(termSel, co)) {
+            this.student.getTranscript().registerCourse(termSel, co);
+            populateCourse();
+            populateTranscript();
+        } else {
+            JOptionPane.showMessageDialog(null, "Already registered to course in term!");
+        }
     }//GEN-LAST:event_registerCourseActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -335,7 +342,7 @@ public class RegisterCourse extends javax.swing.JPanel {
         for (String term : this.platform.getTerms()) {
             termSelected.addItem(term);
         }
-
+        
     }
     private void termSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_termSelectedActionPerformed
         // TODO add your handling code here:
